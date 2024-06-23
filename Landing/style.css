@@ -10,7 +10,7 @@
 
 html {
     scroll-behavior: smooth;
-    background: url(images/background.jpg);
+    background: url(Assets/background.jpg);
     background-size: cover;
 }
 
