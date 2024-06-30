@@ -3,12 +3,13 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } f
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBpV8oCWVYO3i1eUkfGtOvAvID7wqzUu9s",
-  authDomain: "authentication-42f50.firebaseapp.com",
-  projectId: "authentication-42f50",
-  storageBucket: "authentication-42f50.appspot.com",
-  messagingSenderId: "519979060522",
-  appId: "1:519979060522:web:5230bb5103ed0200156253"
+  apiKey: "AIzaSyCsbyDmM5DcQBMhV2Lh7_CpUbIFcuDC2IE",
+  authDomain: "sonoriq.firebaseapp.com",
+  projectId: "sonoriq",
+  storageBucket: "sonoriq.appspot.com",
+  messagingSenderId: "964785571210",
+  appId: "1:964785571210:web:4d2c6d80057a8941c77473",
+  measurementId: "G-2ZPHNXJL08"
 };
 
 // Initialize Firebase
