@@ -1,0 +1,90 @@
+/* frontend/src/styles/MusicRecommendations.css */
+
+.App {
+  font-family: 'Arial', sans-serif;
+  padding: 20px;
+  background-color: #121212;
+  color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  margin-bottom: 40px;
+}
+
+.music-recommendations {
+  width: 100%;
+  max-width: 1200px;
+}
+
+.inputs {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.inputs input {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 200px;
+}
+
+.track-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.track-card {
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+  width: 300px;
+  text-align: center;
+}
+
+.track-card:hover {
+  transform: translateY(-5px);
+}
+
+.track-image img {
+  width: 100%;
+  height: auto;
+}
+
+.track-info {
+  padding: 20px;
+}
+
+.track-info h3 {
+  margin: 0 0 10px;
+  font-size: 1.2em;
+}
+
+.track-info p {
+  margin: 0 0 20px;
+  font-size: 0.9em;
+  color: #bbbbbb;
+}
+
+.spotify-link {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #1db954;
+  color: #ffffff;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.spotify-link:hover {
+  background-color: #1ed760;
+}
