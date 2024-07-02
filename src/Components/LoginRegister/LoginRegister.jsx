@@ -4,6 +4,16 @@ import { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, db } 
 import { doc, setDoc, getDoc, query, where, collection, getDocs } from "firebase/firestore";
 import { useUserStore } from '../../userStore'; // Import the user store
 import upload from "../../upload"; // Import the upload function
+import { FaUser } from "react-icons/fa";
+import { FaLock } from "react-icons/fa";
+import { FaHashtag } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+
+import { IoMdPhotos } from "react-icons/io";
+
+import { FaInfoCircle } from "react-icons/fa";
+import { GiCompactDisc } from "react-icons/gi";
+
 
 const LoginRegister = () => {
     const [action, setAction] = useState('');
@@ -95,11 +105,11 @@ const LoginRegister = () => {
                     <h1>Login</h1>
                     <div className="input-box">
                         <input type="text" placeholder='Email or User ID' value={email} onChange={(e) => setEmail(e.target.value)} required />
-                        <span className='icon'>U</span>
+                        <FaUser className='icon'/>
                     </div>
                     <div className="input-box">
                         <input type="password" placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} required />
-                        <span className='icon'>L</span>
+                        <FaLock className='icon'/>
                     </div>
                     <div className="remember-forgot">
                         <label><input type="checkbox" />Remember me</label>
@@ -119,31 +129,31 @@ const LoginRegister = () => {
                     <h1>Registration</h1>
                     <div className="input-box">
                         <input type="text" placeholder='Username' value={username} onChange={(e) => setUsername(e.target.value)} required />
-                        <span className='icon'>U</span>
+                        <FaUser className='icon'/>
                     </div>
                     <div className="input-box">
                         <input type="text" placeholder='User ID' value={userid} onChange={(e) => setUserid(e.target.value)} required />
-                        <span className='icon'>I</span>
+                        <FaHashtag className='icon'/>
                     </div>
                     <div className="input-box">
                         <input type="email" placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} required />
-                        <span className='icon'>E</span>
+                        <MdEmail className='icon'/>
                     </div>
                     <div className="input-box">
                         <input type="password" placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} required />
-                        <span className='icon'>L</span>
+                        <FaLock className='icon'/>
                     </div>
                     <div className="input-box">
                         <input type="text" placeholder='Bio (max 30 chars)' value={bio} onChange={(e) => setBio(e.target.value)} maxLength="30" required />
-                        <span className='icon'>B</span>
+                        <FaInfoCircle className='icon'/>
                     </div>
                     <div className="input-box">
                         <input type="text" placeholder='Genres (comma separated, max 3)' value={genres} onChange={(e) => setGenres(e.target.value)} required />
-                        <span className='icon'>G</span>
+                        <GiCompactDisc className='icon'/>
                     </div>
                     <div className="input-box">
                         <input type="file" onChange={(e) => setImage(e.target.files[0])} />
-                        <span className='icon'>P</span>
+                        <IoMdPhotos className='icon'/>
                     </div>
                     <div className="remember-forgot">
                         <label><input type="checkbox" />I agree to the Terms & Conditions</label>
