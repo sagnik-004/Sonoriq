@@ -24,9 +24,9 @@ const MusicRecommendations = () => {
   return (
     <div className="music-recommendations">
       <div className="inputs">
-        <input type="text" placeholder="Seed Genres" value={seedGenres} onChange={handleGenreChange} />
-        <input type="text" placeholder="Seed Artists" value={seedArtists} onChange={handleArtistChange} />
-        <input type="text" placeholder="Seed Tracks" value={seedTracks} onChange={handleTrackChange} />
+        <input type="text" placeholder="Search by Genre" value={seedGenres} onChange={handleGenreChange} />
+        {/* <input type="text" placeholder="Seed Artists" value={seedArtists} onChange={handleArtistChange} />
+        <input type="text" placeholder="Seed Tracks" value={seedTracks} onChange={handleTrackChange} /> */}
       </div>
       <div className="track-list">
         {tracks.map((track) => (
@@ -38,7 +38,7 @@ const MusicRecommendations = () => {
               <h3>{track.name}</h3>
               <p>{track.artists.map(artist => artist.name).join(', ')}</p>
               <a href={track.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="spotify-link">
-                Listen on Spotify
+                Listen on &nbsp;<i class="fa-brands fa-spotify"></i>
               </a>
             </div>
           </div>
