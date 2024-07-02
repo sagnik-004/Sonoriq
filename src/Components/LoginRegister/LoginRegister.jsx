@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
 import './LoginRegister.css';
-import { FaUser, FaLock, FaEnvelope, FaGoogle } from "react-icons/fa";
-import { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithGoogle } from '../../firebase';
-import Modal from '../Modal';
+import { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, db } from "../../firebase";
+import { doc, setDoc, getDoc, query, where, collection, getDocs } from "firebase/firestore";
+import { useUserStore } from '../../userStore'; // Import the user store
+import upload from "../../upload"; // Import the upload function
 
-const LoginRegister = () => { 
+const LoginRegister = () => {
     const [action, setAction] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
-    const [showModal, setShowModal] = useState(false);
+    const [userid, setUserid] = useState('');
+    const [bio, setBio] = useState('');
+    const [genres, setGenres] = useState('');
+    const [image, setImage] = useState(null);
+
+    const setUser = useUserStore(state => state.setUser); // Get the setUser method from the store
 
     const registerLink = () => {
         setAction('active');
@@ -22,7 +28,35 @@ const LoginRegister = () => {
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
-            await createUserWithEmailAndPassword(auth, email, password);
+            // Check if the userid already exists
+            const q = query(collection(db, "users"), where("userid", "==", userid));
+            const querySnapshot = await getDocs(q);
+            if (!querySnapshot.empty) {
+                alert("User ID already exists!");
+                return;
+            }
+
+            const res = await createUserWithEmailAndPassword(auth, email, password);
+
+            let imageUrl = '';
+            if (image) {
+                imageUrl = await upload(image);
+            }
+
+            const userDoc = {
+                username,
+                email,
+                userid,
+                id: res.user.uid,
+                bio,
+                genres: genres.split(',').map(genre => genre.trim()),
+                blocked: [],
+                imageUrl
+            };
+            await setDoc(doc(db, "users", res.user.uid), userDoc);
+            await setDoc(doc(db, "userchats", res.user.uid), { chats: [] });
+
+            setUser(userDoc); // Set the current user in the store
             alert('Registration successful!');
         } catch (error) {
             alert(error.message);
@@ -32,25 +66,26 @@ const LoginRegister = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            await signInWithEmailAndPassword(auth, email, password);
+            let userCredential;
+            if (email.includes("@")) {
+                userCredential = await signInWithEmailAndPassword(auth, email, password);
+            } else {
+                const q = query(collection(db, "users"), where("userid", "==", email));
+                const querySnapshot = await getDocs(q);
+                if (querySnapshot.empty) {
+                    alert("User ID does not exist!");
+                    return;
+                }
+                const userDoc = querySnapshot.docs[0];
+                const userEmail = userDoc.data().email;
+                userCredential = await signInWithEmailAndPassword(auth, userEmail, password);
+            }
+            const userDoc = await getDoc(doc(db, "users", userCredential.user.uid));
+            setUser(userDoc.data()); // Set the current user in the store
             alert('Login successful!');
         } catch (error) {
             alert(error.message);
         }
-    };
-
-    const handleGoogleSignIn = async () => {
-        try {
-            await signInWithGoogle();
-            alert('Google sign-in successful!');
-        } catch (error) {
-            alert(error.message);
-        }
-    };
-
-    const handleTermsClick = (e) => {
-        e.preventDefault();
-        setShowModal(true);
     };
 
     return (
@@ -59,22 +94,18 @@ const LoginRegister = () => {
                 <form onSubmit={handleLogin}>
                     <h1>Login</h1>
                     <div className="input-box">
-                        <input type="email" placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} required />
-                        <FaUser className='icon'/>
+                        <input type="text" placeholder='Email or User ID' value={email} onChange={(e) => setEmail(e.target.value)} required />
+                        <span className='icon'>U</span>
                     </div>
                     <div className="input-box">
                         <input type="password" placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} required />
-                        <FaLock className='icon'/>
+                        <span className='icon'>L</span>
                     </div>
                     <div className="remember-forgot">
                         <label><input type="checkbox" />Remember me</label>
                         <a href="#">Forgot Password?</a>
                     </div>
                     <button type="submit">Login</button>
-                    <div className="google-signin" onClick={handleGoogleSignIn}>
-                        <FaGoogle className="icon" />
-                        <span>Sign in with Google</span>
-                    </div>
                     <div className="register-link">
                         <p>Don't have an account? 
                             <a href="#" onClick={registerLink}> Register</a>
@@ -88,21 +119,34 @@ const LoginRegister = () => {
                     <h1>Registration</h1>
                     <div className="input-box">
                         <input type="text" placeholder='Username' value={username} onChange={(e) => setUsername(e.target.value)} required />
-                        <FaUser className='icon'/>
+                        <span className='icon'>U</span>
+                    </div>
+                    <div className="input-box">
+                        <input type="text" placeholder='User ID' value={userid} onChange={(e) => setUserid(e.target.value)} required />
+                        <span className='icon'>I</span>
                     </div>
                     <div className="input-box">
                         <input type="email" placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} required />
-                        <FaEnvelope className='icon'/>
+                        <span className='icon'>E</span>
                     </div>
                     <div className="input-box">
                         <input type="password" placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} required />
-                        <FaLock className='icon'/>
+                        <span className='icon'>L</span>
+                    </div>
+                    <div className="input-box">
+                        <input type="text" placeholder='Bio (max 30 chars)' value={bio} onChange={(e) => setBio(e.target.value)} maxLength="30" required />
+                        <span className='icon'>B</span>
+                    </div>
+                    <div className="input-box">
+                        <input type="text" placeholder='Genres (comma separated, max 3)' value={genres} onChange={(e) => setGenres(e.target.value)} required />
+                        <span className='icon'>G</span>
+                    </div>
+                    <div className="input-box">
+                        <input type="file" onChange={(e) => setImage(e.target.files[0])} />
+                        <span className='icon'>P</span>
                     </div>
                     <div className="remember-forgot">
-                        <label>
-                            <input type="checkbox" />
-                            I agree to the <a href="#" onClick={handleTermsClick}>Terms & Conditions</a>
-                        </label>
+                        <label><input type="checkbox" />I agree to the Terms & Conditions</label>
                     </div>
                     <button type="submit">Register</button>
                     <div className="register-link">
@@ -112,15 +156,6 @@ const LoginRegister = () => {
                     </div>
                 </form>
             </div>
-            
-            <Modal show={showModal} onClose={() => setShowModal(false)}>
-                <h2>Terms and Conditions</h2>
-                <p>
-                    Welcome to Sonoriq! These terms and conditions outline the rules and regulations for the use of Sonoriq's services.
-                    By accessing this website we assume you accept these terms and conditions. Do not continue to use Sonoriq if you do not agree to all of the terms and conditions stated on this page.
-                    ...
-                </p>
-            </Modal>
         </div>
     );
 };
