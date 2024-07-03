@@ -1,18 +1,27 @@
 import React from "react";
 import "./detail.css";
+import { useChatStore } from "../../lib/chatStore";
 
 const Detail = () => {
+    const { selectedChat } = useChatStore();
+
+    if (!selectedChat) {
+        return <div className="empty">Select a user to see details</div>;
+    }
+
+    const { user } = selectedChat;
+
     return (
         <div className="detail">
             <div className="user">
-                <img src="./avatar.jpg" draggable="false" alt="user pfp" />
-                <h2 className="username">Swagat Mitra</h2>
-                <h3 className="userid">@swaga</h3>
-                <p className="bio"></p>
+                <img src={user.imageUrl || "./avatar.jpg"} draggable="false" alt="user pfp" />
+                <h2 className="username">{user.username}</h2>
+                <h3 className="userid">@{user.userid}</h3>
+                <p className="bio">{user.bio || "No bio available"}</p>
                 <div className="genres">
-                    <span className="genre">Pop</span>
-                    <span className="genre">Classical</span>
-                    <span className="genre">Indian</span>
+                    {user.genres && user.genres.map((genre, index) => (
+                        <span key={index} className="genre">{genre}</span>
+                    ))}
                 </div>
                 <button className="block-button">Block</button>
             </div>

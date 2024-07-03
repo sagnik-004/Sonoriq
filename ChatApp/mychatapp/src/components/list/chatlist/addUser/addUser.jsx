@@ -47,6 +47,19 @@ const AddUser = () => {
     const userChatsRef = collection(db, "userchats");
 
     try {
+      const userChatDocRef = doc(userChatsRef, currentUser.id);
+      const userChatDocSnap = await getDoc(userChatDocRef);
+
+      // Check if user already exists in the chat list
+      if (userChatDocSnap.exists()) {
+        const chats = userChatDocSnap.data().chats;
+        const chatExists = chats.some(chat => chat.receiverId === user.id);
+        if (chatExists) {
+          alert("User already exists in chat list");
+          return;
+        }
+      }
+
       const newChatRef = doc(chatRef);
 
       await setDoc(newChatRef, {

@@ -1,166 +1,78 @@
-/* ::-webkit-scrollbar 
-{
-    display: none;
+.chatList {
+  flex: 1;
+  overflow: scroll;
 }
 
-.chatlist
-{
-    flex: 1;
-    overflow: scroll;
+.search {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+}
 
-    .search
-    {
-        display: flex;
-        align-items: centre;
-        gap: 20px;
-        padding: 20px;
+.searchBar {
+  flex: 1;
+  background-color: rgba(17, 25, 40, 0.5);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-radius: 10px;
+  padding: 10px;
+}
 
-        .searchBar
-        {
-            flex: 1;
-            background-color: rgba(17, 25, 40, 0.5);
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            border-radius: 10px;
-            padding: 15px;
+.searchBar input {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  flex: 1;
+}
 
-            input
-            {
-                background-color: transparent;
-                border: none;
-                outline: none;
-                color: white;
-                flex: 1;
-            }
+.searchBar img {
+  width: 20px;
+  height: 20px;
+}
 
-            img
-            {
-                width: 20px;
-                height: 20px;
-            }
-        }
-        .add
-        {
-            width: 20px;
-            height: 20px;
-            background-color: rgb(38, 45, 59, 0.5);
-            padding: 10px;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-    }
+.add {
+  width: 36px;
+  height: 36px;
+  background-color: rgba(17, 25, 40, 0.5);
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
 
-    .item
-    {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        padding: 2opx;
-        cursor: pointer;
-        border-bottom: 1px solid #dddddd35;
+.item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  cursor: pointer;
+  border-bottom: 1px solid #dddddd35;
+}
 
-        img 
-        {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-left:10px;
-        }
+.item img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
 
-        .texts
-        {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            padding:8px;
-            margin-left:2px;
+.item .texts {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 
-            span
-            {
-                font-weight: 500;            
-            }
+.item .texts span {
+  font-weight: 500;
+}
 
-            p
-            {
-                font-size: 14px;
-                font-weight: 300;
-            }
-        }
-    }
-} */
+.item .texts p {
+  font-size: 14px;
+  font-weight: 300;
+}
 
-.chatList {
-    flex: 1;
-    overflow: scroll;
-    .search {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      padding: 20px;
-  
-      .searchBar {
-        flex: 1;
-        background-color: rgba(17, 25, 40, 0.5);
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        border-radius: 10px;
-        padding: 10px;
-  
-        input {
-          background-color: transparent;
-          border: none;
-          outline: none;
-          color: white;
-          flex: 1;
-        }
-  
-        img {
-          width: 20px;
-          height: 20px;
-        }
-      }
-  
-      .add {
-        width: 36px;
-        height: 36px;
-        background-color: rgba(17, 25, 40, 0.5);
-        padding: 10px;
-        border-radius: 10px;
-        cursor: pointer;
-      }
-    }
-  
-    .item {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      padding: 20px;
-      cursor: pointer;
-      border-bottom: 1px solid #dddddd35;
-  
-      img {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        object-fit: cover;
-      }
-  
-      .texts {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-  
-        span {
-          font-weight: 500;
-        }
-  
-        p {
-          font-size: 14px;
-          font-weight: 300;
-        }
-      }
-    }
-  }
+.item.selected .texts span {
+  color: red;
+}

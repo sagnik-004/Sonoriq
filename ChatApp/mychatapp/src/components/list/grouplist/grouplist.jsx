@@ -7,112 +7,14 @@ const Grouplist = () => {
     <div className="grouplist">
       <div className="search">
         <div className="searchBar">
-          <img src="./search.png" alt="search" />
+          <img src="./search.svg" alt="search" />
           <input type="text" placeholder="Search" />
         </div>
-        <img src={addMode ? "" : ""} className="add" onClick={() => setAddMode((prev) => !prev)} />
+        <img src={addMode ? "./plus.svg" : "./minus.svg"} className="add" onClick={() => setAddMode((prev) => !prev)} />
       </div>
       {/* Render list items */}
       <div className="item">
-        <img src="./avatar.png" alt="" />
-        <div className="texts">
-          <span>Random Group</span>
-          <p>Latest Chat</p>
-        </div>
-      </div>
-      <div className="item">
-        <img src="./avatar.png" alt="" />
-        <div className="texts">
-          <span>Random Group</span>
-          <p>Latest Chat</p>
-        </div>
-      </div>
-      <div className="item">
-        <img src="./avatar.png" alt="" />
-        <div className="texts">
-          <span>Random Group</span>
-          <p>Latest Chat</p>
-        </div>
-      </div>
-      <div className="item">
-        <img src="./avatar.png" alt="" />
-        <div className="texts">
-          <span>Random Group</span>
-          <p>Latest Chat</p>
-        </div>
-      </div>
-      <div className="item">
-        <img src="./avatar.png" alt="" />
-        <div className="texts">
-          <span>Random Group</span>
-          <p>Latest Chat</p>
-        </div>
-      </div>
-      <div className="item">
-        <img src="./avatar.png" alt="" />
-        <div className="texts">
-          <span>Random Group</span>
-          <p>Latest Chat</p>
-        </div>
-      </div>
-      <div className="item">
-        <img src="./avatar.png" alt="" />
-        <div className="texts">
-          <span>Random Group</span>
-          <p>Latest Chat</p>
-        </div>
-      </div>
-      <div className="item">
-        <img src="./avatar.png" alt="" />
-        <div className="texts">
-          <span>Random Group</span>
-          <p>Latest Chat</p>
-        </div>
-      </div>
-      <div className="item">
-        <img src="./avatar.png" alt="" />
-        <div className="texts">
-          <span>Random Group</span>
-          <p>Latest Chat</p>
-        </div>
-      </div>
-      <div className="item">
-        <img src="./avatar.png" alt="" />
-        <div className="texts">
-          <span>Random Group</span>
-          <p>Latest Chat</p>
-        </div>
-      </div>
-      <div className="item">
-        <img src="./avatar.png" alt="" />
-        <div className="texts">
-          <span>Random Group</span>
-          <p>Latest Chat</p>
-        </div>
-      </div>
-      <div className="item">
-        <img src="./avatar.png" alt="" />
-        <div className="texts">
-          <span>Random Group</span>
-          <p>Latest Chat</p>
-        </div>
-      </div>
-      <div className="item">
-        <img src="./avatar.png" alt="" />
-        <div className="texts">
-          <span>Random Group</span>
-          <p>Latest Chat</p>
-        </div>
-      </div>
-      <div className="item">
-        <img src="./avatar.png" alt="" />
-        <div className="texts">
-          <span>Random Group</span>
-          <p>Latest Chat</p>
-        </div>
-      </div>
-      <div className="item">
-        <img src="./avatar.png" alt="" />
+        <img src="./avatar.jpg" alt="" />
         <div className="texts">
           <span>Random Group</span>
           <p>Latest Chat</p>

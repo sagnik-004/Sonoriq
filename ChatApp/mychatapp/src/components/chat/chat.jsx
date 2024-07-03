@@ -3,7 +3,8 @@ import "./chat.css";
 import Detail from "../detail/detail";
 import Chatlist from "../list/chatlist/chatlist";
 import EmojiPicker from "emoji-picker-react";
-import { FaMicrophone } from "react-icons/fa";
+import { useChatStore } from "../../lib/chatStore";
+import { auth } from "../../lib/firebase";  // Add this import
 
 const Chat = () => {
     const [open, setOpen] = useState(false);
@@ -13,6 +14,13 @@ const Chat = () => {
     const [isChatsSelected, setIsChatsSelected] = useState(true);
     const emojiPickerRef = useRef(null);
     const detailRef = useRef(null);
+    const { selectedChat, messages, sendMessage, selectChat } = useChatStore();
+
+    useEffect(() => {
+        if (selectedChat) {
+            selectChat(selectedChat);
+        }
+    }, [selectedChat, selectChat]);
 
     const handleEmoji = (e) => {
         setText((prev) => prev + e.emoji);
@@ -46,6 +54,13 @@ const Chat = () => {
         setIsSidebarOpen((prev) => !prev);
     };
 
+    const handleSend = () => {
+        if (text.trim()) {
+            sendMessage(selectedChat.chatId, text);
+            setText("");
+        }
+    };
+
     return (
         <div className={`chat-container ${isDetailVisible ? "detail-visible" : ""}`}>
             {window.innerWidth < 1400 && (
@@ -59,34 +74,25 @@ const Chat = () => {
                 </div>
             )}
             <div className="chat">
-                <div className="top" onClick={toggleDetail}>
-                    <div className="user">
-                        <img src="./avatar.jpg" draggable="false" alt="Avatar" />
-                        <div className="texts">
-                            <span>Swagat Mitra</span>
+                {selectedChat && (
+                    <div className="top" onClick={toggleDetail}>
+                        <div className="user">
+                            <img src={selectedChat.user.imageUrl || "./avatar.jpg"} draggable="false" alt="Avatar" />
+                            <div className="texts">
+                                <span>{selectedChat.user.username}</span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                )}
                 <div className="center">
-                    <div className="message">
-                        <img src="./avatar.jpg" alt="Avatar" />
-                        <div className="texts">
-                            <p>
-                                How's the landing page of Sonoriq coming along? I'm excited to see it.
-
-                                
-                            </p>
-                            <span>1 min ago</span>
+                    {messages.map((msg) => (
+                        <div className={`message ${msg.senderId === auth.currentUser.uid ? "own" : ""}`} key={msg.id}>
+                            <div className="texts">
+                                <p>{msg.message}</p>
+                                <span>{new Date(msg.timestamp?.toDate()).toLocaleTimeString()}</span>
+                            </div>
                         </div>
-                    </div>
-                    <div className="message own">
-                        <div className="texts">
-                            <p>
-                            Almost done with it, over to the chat page. Let's discuss it over a video call this afternoon to go over the remaining details, address any final tweaks.
-                            </p>
-                            <span>1 min ago</span>
-                        </div>
-                    </div>
+                    ))}
                 </div>
                 <div className="bottom">
                     <div className="icons">
@@ -110,7 +116,7 @@ const Chat = () => {
                         value={text}
                         onChange={(e) => setText(e.target.value)}
                     />
-                    <button className="sendButton">Send</button>
+                    <button className="sendButton" onClick={handleSend}>Send</button>
                 </div>
             </div>
             {window.innerWidth < 1400 && isDetailVisible && (

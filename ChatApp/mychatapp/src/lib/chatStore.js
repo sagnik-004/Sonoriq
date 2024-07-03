@@ -1,10 +1,11 @@
 import { create } from "zustand";
 import { db, auth } from "./firebase";
-import { doc, getDoc, setDoc, updateDoc, arrayUnion, onSnapshot, serverTimestamp } from "firebase/firestore";
+import { doc, getDoc, setDoc, updateDoc, arrayUnion, onSnapshot, serverTimestamp, collection, query, orderBy, addDoc } from "firebase/firestore";
 
 export const useChatStore = create((set, get) => ({
     chats: [],
     selectedChat: null,
+    messages: [],
     fetchChats: async () => {
         const currentUser = auth.currentUser;
         if (!currentUser) return;
@@ -59,7 +60,16 @@ export const useChatStore = create((set, get) => ({
         const currentUser = auth.currentUser;
         if (!currentUser) return;
 
-        const chatDocRef = doc(db, "userchats", currentUser.uid);
+        const messageData = {
+            senderId: currentUser.uid,
+            message,
+            timestamp: serverTimestamp(),
+        };
+
+        const chatDocRef = doc(db, "chats", chatId);
+        await addDoc(collection(chatDocRef, "messages"), messageData);
+
+        const chatUserDocRef = doc(db, "userchats", currentUser.uid);
         const updatedChats = get().chats.map(chat => {
             if (chat.chatId === chatId) {
                 return {
@@ -73,11 +83,20 @@ export const useChatStore = create((set, get) => ({
 
         set({ chats: updatedChats.sort((a, b) => b.updatedAt - a.updatedAt) });
 
-        await updateDoc(chatDocRef, {
+        await updateDoc(chatUserDocRef, {
             chats: updatedChats,
         });
     },
-    selectChat: (chatId) => {
-        set({ selectedChat: chatId });
-    }
+    changeChat: (chatId, user) => {
+        set({ selectedChat: { chatId, user } });
+        get().selectChat(chatId);
+    },
+    selectChat: async (chatId) => {
+        const chatDocRef = doc(db, "chats", chatId);
+        const messagesQuery = query(collection(chatDocRef, "messages"), orderBy("timestamp", "asc"));
+        onSnapshot(messagesQuery, (snapshot) => {
+            const messages = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            set({ messages });
+        });
+    },
 }));

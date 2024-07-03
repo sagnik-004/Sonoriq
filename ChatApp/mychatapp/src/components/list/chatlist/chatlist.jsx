@@ -12,7 +12,7 @@ const ChatList = () => {
   const [input, setInput] = useState("");
 
   const { currentUser } = useUserStore();
-  const { chatId, changeChat } = useChatStore();
+  const { changeChat, selectedChat } = useChatStore();
 
   useEffect(() => {
     if (!currentUser) {
@@ -91,7 +91,7 @@ const ChatList = () => {
       </div>
       {filteredChats.map((chat) => (
         <div
-          className="item"
+          className={`item ${selectedChat?.chatId === chat.chatId ? "selected" : ""}`}
           key={chat.chatId}
           onClick={() => handleSelect(chat)}
           style={{
@@ -107,7 +107,7 @@ const ChatList = () => {
             alt=""
           />
           <div className="texts">
-            <span>
+            <span style={{ color: selectedChat?.chatId === chat.chatId ? 'red' : 'inherit' }}>
               {chat.user.blocked.includes(currentUser.id)
                 ? "User"
                 : chat.user.username}
