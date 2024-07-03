@@ -4,16 +4,10 @@ import { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, db } 
 import { doc, setDoc, getDoc, query, where, collection, getDocs } from "firebase/firestore";
 import { useUserStore } from '../../userStore'; // Import the user store
 import upload from "../../upload"; // Import the upload function
-import { FaUser } from "react-icons/fa";
-import { FaLock } from "react-icons/fa";
-import { FaHashtag } from "react-icons/fa";
+import { FaUser, FaLock, FaHashtag, FaInfoCircle } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
-
 import { IoMdPhotos } from "react-icons/io";
-
-import { FaInfoCircle } from "react-icons/fa";
 import { GiCompactDisc } from "react-icons/gi";
-
 
 const LoginRegister = () => {
     const [action, setAction] = useState('');
@@ -152,11 +146,14 @@ const LoginRegister = () => {
                         <GiCompactDisc className='icon'/>
                     </div>
                     <div className="input-box">
-                        <input type="file" onChange={(e) => setImage(e.target.files[0])} />
-                        <IoMdPhotos className='icon'/>
+                        <input type="file" id="file-input" onChange={(e) => setImage(e.target.files[0])} style={{ display: 'none' }} />
+                        <label htmlFor="file-input" className="custom-file-label">
+                            Choose your Avatar
+                            <IoMdPhotos className='icon' />
+                        </label>
                     </div>
                     <div className="remember-forgot">
-                        <label><input type="checkbox" />I agree to the Terms & Conditions</label>
+                        <label><input type="checkbox" />I agree to the <a href="#" id="t-nd-c">Terms & Conditions</a></label>
                     </div>
                     <button type="submit">Register</button>
                     <div className="register-link">
