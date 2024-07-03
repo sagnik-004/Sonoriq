@@ -1,0 +1,6 @@
+body{
+    background-image: url(../public/bg2.jpg);
+    background-size: cover;
+    backdrop-filter: blur(10px) saturate(90%);
+  -webkit-backdrop-filter: blur(3px);
+}

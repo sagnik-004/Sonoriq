@@ -1,0 +1,73 @@
+.addUser {
+    width: max-content;
+    height: max-content;
+    padding: 30px;
+    background-color: rgba(17, 25, 40, 0.781);
+    border-radius: 10px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: 9999; /* Added to ensure the search box is on top */
+  
+    form {
+      display: flex;
+      gap: 20px;
+  
+      input {
+        padding: 20px;
+        border-radius: 10px;
+        border: none;
+        outline: none;
+      }
+  
+      button {
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #1a73e8;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+    }
+  
+    .user {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 10px;
+      border-radius: 10px;
+  
+      .detail {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+  
+        img {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+  
+        span {
+          color: white;
+          font-size: 16px;
+        }
+      }
+  
+      button {
+        padding: 10px;
+        border-radius: 10px;
+        background-color: #1a73e8;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+    }
+  }
+  
