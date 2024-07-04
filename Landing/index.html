@@ -10,36 +10,154 @@
       rel="stylesheet"
       href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css"
     />
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper/swiper-bundle.min.css"
+    />
   </head>
   <body>
-
     <div class="video-wrapper">
       <video autoplay muted loop id="backgroundVideo">
-          <source src="assets/sonoriq.mp4" type="video/mp4">
+        <source src="assets/172-135788286_medium.mp4" type="video/mp4" />
       </video>
     </div>
 
     <div class="header">
       <div class="logo">
-        <img src="assets/My first design 1.png" alt="logo" />
+        <img src="assets/logo.png" alt="logo" />
       </div>
       <nav id="navbar">
         <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Features</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#features">Features</a></li>
           <li><a href="#">Login</a></li>
         </ul>
       </nav>
     </div>
 
-    <div class="hero">
+    <div class="hero" id="content">
       <h1 id="smaller">WELCOME</h1>
       <h1 id="smaller">TO</h1>
       <h1 id="larger">SONORIQ</h1>
       <p>community to discover, share and talk music</p>
     </div>
 
+    <div id="features">
+      <h1 >Why Sonoriq</h1>
+      <div class="slider">
+        <div class="item">
+          <div class="ft-img">
+            <img src="assets/community-icon.gif" alt="community" />
+          </div>
+          <h2 class="ft">Community</h2>
+          <p class="ft-content">Engage in convos about the music you love; share your passion, and explore diverse musical perspectives.</p>
+        </div>
+        <div class="item">
+          <div class="ft-img">
+            <img src="assets/trends-icon.gif" alt="community" />
+          </div>
+          <h2 class="ft">Trending Live Feed</h2>
+          <p class="ft-content">Catch the latest music buzz, read curated articles, and see what’s trending. Stay ahead with fresh updates and the hottest tracks.</p>
+        </div>
+        <div class="item">
+          <div class="ft-img">
+            <img src="assets/music-recs-icon.gif" alt="community" />
+          </div>
+          <h2 class="ft">Music Recommendations</h2>
+          <p class="ft-content">Explore personalized music recommendations based on your unique taste.We'll help find your next favorite track.</p>
+        </div>
+        <div class="item">
+          <div class="ft-img">
+            <img src="assets/playlist-icon.gif" alt="community" />
+          </div>
+          <h2 class="ft">Playlist Curation</h2>
+          <p class="ft-content">Create custom playlists seamlessly using our intuitive tool. Personalize your music journey for every mood and moment.</p>
+        </div>
+        <div class="item">
+          <div class="ft-img">
+            <img src="assets/collab-icon.gif" alt="community" />
+          </div>
+          <h2 class="ft">Collaboration</h2>
+          <p class="ft-content">Engage in collaborative music exploration within our interactive community. Connect, create, and expand musical horizons collectively.</p>
+        </div>
+        
+        <button id="next"><i class="fa-solid fa-chevron-right"></i></button>
+        <button id="prev"><i class="fa-solid fa-chevron-left"></i></button>
+      </div>
+    </div>
+
+    <div id="about">
+      <div class="about">
+        <h1>About Sonoriq</h1>
+        <p>
+          Welcome to Sonoriq – the ultimate music community for melophiles,
+          rappers, producers, vocalists, and music enthusiasts. Connect,
+          collaborate, and share your passion for music in a vibrant, supportive
+          environment.
+        </p>
+        <h1>Our Mission</h1>
+        <p>
+          Our mission is to create a dynamic, inclusive space where music lovers
+          can:
+        </p>
+        <ul>
+          <li>
+            <i class="fa-solid fa-music-note"></i>Connect Creators and Fans
+          </li>
+          <li><i class="fa-solid fa-music-note"></i>Encourage Collaboration</li>
+          <li>
+            <i class="fa-solid fa-music-note"></i>Foster Learning and Growth
+          </li>
+        </ul>
+
+        <p id="join-text">
+          Join us and elevate your musical journey with Sonoriq. Sign up today
+          and start harmonizing with our community!
+        </p>
+      </div>
+      <div class="logo-img">
+        <img src="assets/logo.png" alt="logo" />
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="footer-col">
+            <h4>company</h4>
+            <ul>
+              <li><a href="#">about us</a></li>
+              <li><a href="#">our services</a></li>
+              <li><a href="#">privacy policy</a></li>
+              <li><a href="#">affiliate program</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>get help</h4>
+            <ul>
+              <li><a href="#">FAQ</a></li>
+              <li><a href="#">shipping</a></li>
+              <li><a href="#">returns</a></li>
+              <li><a href="#">order status</a></li>
+              <li><a href="#">payment options</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-col">
+            <h4>follow us</h4>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+   </footer>
+ 
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
