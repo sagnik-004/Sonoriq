@@ -1,7 +1,6 @@
 import './App.css';
 import Chat from "./components/chat/chat";
 import List from "./components/list/list";
-import LoginRegister from "../src/components/LoginRegister/LoginRegister";
 import { useEffect, useState } from 'react';
 
 function App() {
@@ -21,7 +20,6 @@ function App() {
 
   return (
     <div className="container">
-      <LoginRegister/>
       {!isScreenSmall && <List />}
       <div className="chat-container">
         <Chat />
