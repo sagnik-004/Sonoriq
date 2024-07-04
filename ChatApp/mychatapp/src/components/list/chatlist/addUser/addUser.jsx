@@ -30,9 +30,14 @@ const AddUser = () => {
 
       if (!userSnapshot.empty) {
         const userDocSnap = userSnapshot.docs[0];
-        setUser({ ...userDocSnap.data(), id: userDocSnap.id });
+        setUser({
+          ...userDocSnap.data(),
+          id: userDocSnap.id,
+          imageUrl: userDocSnap.data().imageUrl, // Ensure this field exists and is correct
+          username: userDocSnap.data().username, // Ensure this field exists and is correct
+        });
       } else {
-        setUser(null); // Handle case where user does not exist
+        setUser(null);
         alert("User does not exist");
       }
     } catch (err) {
@@ -41,8 +46,6 @@ const AddUser = () => {
   };
 
   const handleAdd = async () => {
-    if (!user) return;
-
     const chatRef = collection(db, "chats");
     const userChatsRef = collection(db, "userchats");
 

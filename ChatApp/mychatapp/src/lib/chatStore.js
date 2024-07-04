@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { db, auth } from "./firebase";
-import { doc, getDoc, setDoc, updateDoc, arrayUnion, onSnapshot, serverTimestamp, collection, query, orderBy, addDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, updateDoc, onSnapshot, serverTimestamp, collection, query, orderBy, addDoc } from "firebase/firestore";
 
 export const useChatStore = create((set, get) => ({
     chats: [],
@@ -46,19 +46,13 @@ export const useChatStore = create((set, get) => ({
             alert("User ID not found!");
             return;
         }
-
-        await updateDoc(chatDocRef, {
-            chats: arrayUnion({
-                receiverId: userId,
-                lastMessage: "",
-                updatedAt: serverTimestamp(),
-                chatId: `${currentUser.uid}_${userId}`
-            })
-        });
     },
     sendMessage: async (chatId, message) => {
         const currentUser = auth.currentUser;
-        if (!currentUser) return;
+        if (!currentUser) {
+            console.error("No current user");
+            return;
+        }
 
         const messageData = {
             senderId: currentUser.uid,
@@ -75,7 +69,7 @@ export const useChatStore = create((set, get) => ({
                 return {
                     ...chat,
                     lastMessage: message,
-                    updatedAt: serverTimestamp(),
+                    updatedAt: Date.now(), // Use local timestamp for immediate state update
                 };
             }
             return chat;
@@ -92,7 +86,13 @@ export const useChatStore = create((set, get) => ({
         get().selectChat(chatId);
     },
     selectChat: async (chatId) => {
-        const chatDocRef = doc(db, "chats", chatId);
+        let chatDocRef;
+        try {
+            chatDocRef = doc(db, "chats", String(chatId)); // Attempt to convert to string
+        } catch (error) {
+            console.error("Invalid chatId format:", chatId);
+            return; // Exit the function early if chatId is not convertible to a string
+        }
         const messagesQuery = query(collection(chatDocRef, "messages"), orderBy("timestamp", "asc"));
         onSnapshot(messagesQuery, (snapshot) => {
             const messages = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));

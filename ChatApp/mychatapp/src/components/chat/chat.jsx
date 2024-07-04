@@ -4,7 +4,8 @@ import Detail from "../detail/detail";
 import Chatlist from "../list/chatlist/chatlist";
 import EmojiPicker from "emoji-picker-react";
 import { useChatStore } from "../../lib/chatStore";
-import { auth } from "../../lib/firebase";  // Add this import
+import { auth, db } from "../../lib/firebase";
+import { doc, updateDoc, arrayUnion, getDoc, onSnapshot } from "firebase/firestore";
 
 const Chat = () => {
     const [open, setOpen] = useState(false);
@@ -12,15 +13,30 @@ const Chat = () => {
     const [isDetailVisible, setIsDetailVisible] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [isChatsSelected, setIsChatsSelected] = useState(true);
+    const [chat, setChat] = useState(null);
+    const { selectedChat, selectChat, isCurrentUserBlocked, isReceiverBlocked } = useChatStore();
+    const currentUser = auth.currentUser;
     const emojiPickerRef = useRef(null);
     const detailRef = useRef(null);
-    const { selectedChat, messages, sendMessage, selectChat } = useChatStore();
+    const endRef = useRef(null);
 
     useEffect(() => {
         if (selectedChat) {
             selectChat(selectedChat);
+
+            const unSub = onSnapshot(doc(db, "chats", selectedChat.chatId), (res) => {
+                setChat(res.data());
+            });
+
+            return () => {
+                unSub();
+            };
         }
     }, [selectedChat, selectChat]);
+
+    useEffect(() => {
+        endRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, [chat?.messages]);
 
     const handleEmoji = (e) => {
         setText((prev) => prev + e.emoji);
@@ -54,9 +70,57 @@ const Chat = () => {
         setIsSidebarOpen((prev) => !prev);
     };
 
-    const handleSend = () => {
-        if (text.trim()) {
-            sendMessage(selectedChat.chatId, text);
+    const handleSend = async () => {
+        if (text.trim() === "") return;
+
+        try {
+            await updateDoc(doc(db, "chats", selectedChat.chatId), {
+                messages: arrayUnion({
+                    senderId: currentUser.uid,
+                    text,
+                    createdAt: new Date(),
+                }),
+            });
+
+            const userIDs = [currentUser.uid, selectedChat.user.id];
+
+            for (const id of userIDs) {
+                const userChatsRef = doc(db, "userchats", id);
+                const userChatsSnapshot = await getDoc(userChatsRef);
+
+                if (userChatsSnapshot.exists()) {
+                    const userChatsData = userChatsSnapshot.data();
+
+                    const chatIndex = userChatsData.chats.findIndex(
+                        (c) => c.chatId === selectedChat.chatId
+                    );
+
+                    if (chatIndex !== -1) {
+                        userChatsData.chats[chatIndex].lastMessage = text;
+                        userChatsData.chats[chatIndex].isSeen =
+                            id === currentUser.uid ? true : false;
+                        userChatsData.chats[chatIndex].updatedAt = Date.now();
+
+                        await updateDoc(userChatsRef, {
+                            chats: userChatsData.chats,
+                        });
+                    } else {
+                        // Handle case where the chat does not exist in the userChatsData
+                        userChatsData.chats.push({
+                            chatId: selectedChat.chatId,
+                            lastMessage: text,
+                            isSeen: id === currentUser.uid,
+                            updatedAt: Date.now(),
+                        });
+                        await updateDoc(userChatsRef, {
+                            chats: userChatsData.chats,
+                        });
+                    }
+                }
+            }
+        } catch (err) {
+            console.log(err);
+        } finally {
             setText("");
         }
     };
@@ -85,14 +149,15 @@ const Chat = () => {
                     </div>
                 )}
                 <div className="center">
-                    {messages.map((msg) => (
-                        <div className={`message ${msg.senderId === auth.currentUser.uid ? "own" : ""}`} key={msg.id}>
+                    {chat?.messages?.map((message) => (
+                        <div className={`message ${message.senderId === currentUser?.uid ? "own" : ""}`} key={message?.createdAt}>
                             <div className="texts">
-                                <p>{msg.message}</p>
-                                <span>{new Date(msg.timestamp?.toDate()).toLocaleTimeString()}</span>
+                                <p>{message.text}</p>
+                                <span>{new Date(message.createdAt.toDate()).toLocaleTimeString()}</span>
                             </div>
                         </div>
                     ))}
+                    <div ref={endRef}></div>
                 </div>
                 <div className="bottom">
                     <div className="icons">
@@ -112,11 +177,22 @@ const Chat = () => {
                     </div>
                     <input
                         type="text"
-                        placeholder="Type a message"
+                        placeholder={
+                            isCurrentUserBlocked || isReceiverBlocked
+                                ? "You cannot send a message"
+                                : "Type a message..."
+                        }
                         value={text}
                         onChange={(e) => setText(e.target.value)}
+                        disabled={isCurrentUserBlocked || isReceiverBlocked}
                     />
-                    <button className="sendButton" onClick={handleSend}>Send</button>
+                    <button
+                        className="sendButton"
+                        onClick={handleSend}
+                        disabled={isCurrentUserBlocked || isReceiverBlocked}
+                    >
+                        Send
+                    </button>
                 </div>
             </div>
             {window.innerWidth < 1400 && isDetailVisible && (

@@ -10,7 +10,7 @@
     left: 0;
     right: 0;
     margin: auto;
-    z-index: 9999; /* Added to ensure the search box is on top */
+    z-index: 5; /* Added to ensure the search box is on top */
   
     form {
       display: flex;
