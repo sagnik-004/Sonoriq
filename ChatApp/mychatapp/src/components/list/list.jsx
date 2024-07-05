@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ChatGroupButton from './list-miscellaneous/chat-groupbutton';
+// import ChatGroupButton from './list-miscellaneous/chat-groupbutton';
 import Chatlist from './chatlist/chatlist';
 import Grouplist from './grouplist/grouplist';
 import './list.css';
@@ -11,8 +11,10 @@ const List = () => {
   return (
     <div className="list">
         <Userinfo/>
-      <ChatGroupButton active={active} setActive={setActive} />
-      {active === 'chats' ? <Chatlist /> : <Grouplist />}
+      {/* <ChatGroupButton active={active} setActive={setActive} /> */}
+      {/* {active === 'chats' ? <Chatlist /> : <Grouplist />} */}
+
+      <Chatlist/>
     </div>
   );
 };
