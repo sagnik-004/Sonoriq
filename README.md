@@ -6,4 +6,4 @@ We are 5 homies building a community website where you can discover new music, d
 This also happens to be our project for Buildspace n&w s5.
 
 <img src="https://github.com/sagnik-004/Sonoriq/blob/main/Assets/recs2.jpg"></img>
-We getting there, one bux fix at a time :)
+We getting there, one bug fix at a time :)
