@@ -71,13 +71,14 @@ const Chat = () => {
     };
 
     const handleSend = async () => {
-        if (text.trim() === "") return;
+        const trimmedText = text.trim();
+        if (trimmedText === "") return;
 
         try {
             await updateDoc(doc(db, "chats", selectedChat.chatId), {
                 messages: arrayUnion({
                     senderId: currentUser.uid,
-                    text,
+                    text: trimmedText,
                     createdAt: new Date(),
                 }),
             });
@@ -153,7 +154,7 @@ const Chat = () => {
                         <div className={`message ${message.senderId === currentUser?.uid ? "own" : ""}`} key={message?.createdAt}>
                             <div className="texts">
                                 <p>{message.text}</p>
-                                <span>{new Date(message.createdAt.toDate()).toLocaleTimeString()}</span>
+                                <span>{new Date(message.createdAt.toDate()).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
                             </div>
                         </div>
                     ))}
@@ -161,14 +162,10 @@ const Chat = () => {
                 </div>
                 <div className="bottom">
                     <div className="icons">
-                        <img src="./mic.svg" alt="Microphone" />
+                    <i class="fa-light fa-microphone"></i>
                     </div>
                     <div className="emoji" ref={emojiPickerRef}>
-                        <img
-                            src="./emoji.svg"
-                            alt="Emoji"
-                            onClick={() => setOpen((prev) => !prev)}
-                        />
+                    <i class="fa-light fa-icons"></i>
                         {open && (
                             <div className="picker">
                                 <EmojiPicker onEmojiClick={handleEmoji} />
