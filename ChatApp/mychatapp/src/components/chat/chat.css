@@ -2,6 +2,7 @@
     display: flex;
     height: 100%;
     position: relative;
+    width:70vw;
 }
 
 .chat {
@@ -38,13 +39,15 @@
 }
 
 .top {
-    padding: 20px;
+    padding: 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid #b7205535;
     cursor: pointer;
-    background-color: rgba(0, 0, 0, 0.461);
+    background-color: rgba(0, 0, 0, 0.54);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     color: antiquewhite;
 }
 
@@ -56,8 +59,9 @@
 }
 
 .user img {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
+    border: 3px solid white;
     border-radius: 50%;
     object-fit: cover;
 }
@@ -65,8 +69,11 @@
 .texts {
     display: flex;
     flex-direction: column;
-    gap: 5px;
     overflow: scroll;
+}
+
+.texts p {
+    margin: 5px 0px;
 }
 
 .texts span {
@@ -80,15 +87,14 @@
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding-bottom: 80px;
-    
+    gap: 0px;
+    padding-bottom: 10px; 
 }
 
 .center .message {
     max-width: 70%;
     display: flex;
-    gap: 20px;
+    align-self: flex-start;
 }
 
 .center .message.own {
@@ -96,7 +102,7 @@
 }
 
 .center .message.own .texts p {
-    background-color: #2e6cd79d;
+    background-color: #1e0040;
 }
 
 .center .message img {
@@ -110,40 +116,44 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 5px;
 }
 
 .center .message .texts p {
-    padding: 20px;
-    background-color: rgba(33, 132, 127, 0.79);
-    border-radius: 10px;
+    padding: 10px 20px;
+    background-color: rgb(0, 93, 65);
+    border-radius: 20px;
     color:white;
 }
 
 .center .message .texts span {
-    font-size: 13px;
+    font-size: 10px;
     color: white;
+    font-weight: 300;
+    text-align: right;
 }
 
 .bottom {
-    padding: 20px;
+    padding: 10px;
     display: flex;
+    justify-content: space-evenly;
     align-items: center;
-    gap: 15px;
+    gap: 25px;
     border-top: 1px solid #dddddd8a;
     margin-top: auto;
-    background-color: #333333b6;
+    background-color: #0000005a;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 .bottom input {
     flex: 1;
-    background-color: rgba(17, 25, 40, 0.37);
-    padding: 15px 20px;
+    background-color: rgba(0, 0, 0, 0.508);
+    padding: 12px 20px;
     border: 2px solid transparent;
     outline: none;
     border-radius: 20px;
     color: white;
-    font-size: 16px;
+    font-size: 1.1rem;
     transition: border 0.2s ease;
 }
 
@@ -156,11 +166,12 @@
     gap: 15px;
 }
 
-.icons img {
-    width: 30px;
-    height: 30px;
+.icons i {
+    font-size: 1.8rem;
     cursor: pointer;
+    color: white;
     /* border-radius: 50%; */
+    
 }
 
 .emoji {
@@ -171,11 +182,10 @@
     z-index: 2;
 }
 
-.emoji img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
+.emoji i {
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: white;
 }
 
 .picker {
@@ -186,7 +196,7 @@
 }
 
 .sendButton {
-    background-color: #0095f6;
+    background-color: #00eaff;
     border: 1px solid white;
     color: rgb(0, 0, 0);
     font-weight: 700;
@@ -194,6 +204,7 @@
     border-radius: 20px;
     cursor: pointer;
     transition: background-color 0.2s ease;
+    font-size: 1.1rem;
 }
 
 .sendButton:hover {
