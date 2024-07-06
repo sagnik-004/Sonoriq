@@ -1,0 +1,70 @@
+.bottom {
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-top: 1px solid #dddddd35;
+    position: absolute; /* Changed to absolute */
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    background: #679de4; /* Added background to ensure visibility */
+}
+
+.bottom input {
+    flex: 1;
+    background-color: rgba(17, 25, 40, 0.5);
+    padding: 10px 15px;
+    border: 2px solid transparent;
+    outline: none;
+    border-radius: 20px;
+    color: white;
+    font-size: 14px;
+    transition: border 0.2s ease;
+}
+
+.bottom input:focus {
+    border: 2px solid #0095f6;
+}
+
+.icons {
+    display: flex;
+    gap: 10px;
+}
+
+.icons img {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.emoji {
+    position: relative;
+}
+
+.emoji img {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.picker {
+    position: absolute;
+    bottom: 60px;
+    right: 0;
+}
+
+.sendButton {
+    padding: 10px 15px;
+    border: none;
+    background-color: #0095f6;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.sendButton:hover {
+    background-color: #007acc;
+}
