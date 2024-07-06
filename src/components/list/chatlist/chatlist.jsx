@@ -5,6 +5,9 @@ import { useUserStore } from "../../LoginRegister/userStore";
 import { doc, getDoc, onSnapshot, updateDoc } from "firebase/firestore";
 import { db } from "../../LoginRegister/firebase";
 import { useChatStore } from "../../lib/chatStore";
+import { FaSearch } from "react-icons/fa";
+import { FaPlus } from "react-icons/fa";
+import { FaMinus } from "react-icons/fa";
 
 const truncateMessage = (message, maxLength) => {
   if (message.length <= maxLength) {
@@ -89,7 +92,7 @@ const ChatList = () => {
     <div className="chatList">
       <div className="search">
         <div className="searchBar">
-          <img src="./search.svg" alt="" />
+        <FaSearch />
           <input
             type="text"
             placeholder="Search"
@@ -98,7 +101,7 @@ const ChatList = () => {
           />
         </div>
         <img
-          src={addMode ? "./minus.svg" : "./plus.svg"}
+          src={addMode ? <FaPlus /> : <FaMinus />}
           alt=""
           className="add"
           onClick={() => setAddMode((prev) => !prev)}

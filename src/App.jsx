@@ -10,6 +10,7 @@ import "../src/index.css"; // Global styles, including landing page styles
 import Sidebar from "../src/components/sidebar/Sidebar";
 import List from "../src/components/list/list";
 import Chat from "../src/components/chat/Chat";
+// import "./App.css";
 
 const BackgroundVideo = () => (
   <div className="video-wrapper">
@@ -25,6 +26,12 @@ const AppContent = () => {
   React.useEffect(() => {
     if (location.pathname === "/login") {
       import("../src/components/LoginRegister/LoginRegister.css");
+    }
+  }, [location.pathname]);
+
+  React.useEffect(() => {
+    if (location.pathname === "/chat") {
+      import("./App.css");
     }
   }, [location.pathname]);
 

@@ -15,6 +15,7 @@
     background: url('../../assets/yannis-papanastasopoulos-yWF2LLan-_o-unsplash.jpg') no-repeat fixed;
     background-size: cover;
     background-position: center;
+    overflow: hidden;
 }
 
 
