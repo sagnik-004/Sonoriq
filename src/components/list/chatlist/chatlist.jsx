@@ -29,28 +29,35 @@ const ChatList = () => {
       return;
     }
 
-    const unSub = onSnapshot(doc(db, "userchats", currentUser.id), async (res) => {
-      const items = res.data().chats || [];
+    const unSub = onSnapshot(
+      doc(db, "userchats", currentUser.id),
+      async (res) => {
+        const items = res.data().chats || [];
 
-      const promises = items.map(async (item) => {
-        const userDocRef = doc(db, "users", item.receiverId);
-        const userDocSnap = await getDoc(userDocRef);
+        const promises = items.map(async (item) => {
+          const userDocRef = doc(db, "users", item.receiverId);
+          const userDocSnap = await getDoc(userDocRef);
 
-        const user = userDocSnap.data();
+          const user = userDocSnap.data();
 
-        return { ...item, user };
-      });
+          return { ...item, user };
+        });
 
-      // Assuming an average word length of 5 characters
-      const avgWordLength = 10;
-      const maxLength = avgWordLength * 4; // Change 4 to however many words you want to show
+        // Assuming an average word length of 5 characters
+        const avgWordLength = 10;
+        const maxLength = avgWordLength * 4; // Change 4 to however many words you want to show
 
-      const chatData = await Promise.all(promises);
-      setChats(chatData.map(chat => ({
-        ...chat,
-        lastMessage: truncateMessage(chat.lastMessage, maxLength)
-      })).sort((a, b) => b.updatedAt - a.updatedAt));
-    });
+        const chatData = await Promise.all(promises);
+        setChats(
+          chatData
+            .map((chat) => ({
+              ...chat,
+              lastMessage: truncateMessage(chat.lastMessage, maxLength),
+            }))
+            .sort((a, b) => b.updatedAt - a.updatedAt)
+        );
+      }
+    );
 
     return () => {
       unSub();
@@ -63,7 +70,9 @@ const ChatList = () => {
       return rest;
     });
 
-    const chatIndex = userChats.findIndex((item) => item.chatId === chat.chatId);
+    const chatIndex = userChats.findIndex(
+      (item) => item.chatId === chat.chatId
+    );
 
     userChats[chatIndex].isSeen = true;
 
@@ -83,16 +92,17 @@ const ChatList = () => {
     return <div>Loading...</div>;
   }
 
-  const filteredChats = chats.filter((c) =>
-    c.user.username.toLowerCase().includes(input.toLowerCase()) ||
-    c.lastMessage.toLowerCase().includes(input.toLowerCase())
+  const filteredChats = chats.filter(
+    (c) =>
+      c.user.username.toLowerCase().includes(input.toLowerCase()) ||
+      c.lastMessage.toLowerCase().includes(input.toLowerCase())
   );
 
   return (
     <div className="chatList">
       <div className="search">
         <div className="searchBar">
-        <FaSearch />
+          <FaSearch />
           <input
             type="text"
             placeholder="Search"
@@ -100,16 +110,16 @@ const ChatList = () => {
             onChange={(e) => setInput(e.target.value)}
           />
         </div>
-        <img
-          src={addMode ? <FaPlus /> : <FaMinus />}
-          alt=""
-          className="add"
-          onClick={() => setAddMode((prev) => !prev)}
-        />
+        <button className="add" onClick={() => setAddMode((prev) => !prev)}>
+          {addMode ? <FaMinus /> : <FaPlus />}{" "}
+          {/* Render the appropriate icon based on the state */}
+        </button>
       </div>
       {filteredChats.map((chat) => (
         <div
-          className={`customer ${selectedChat?.chatId === chat.chatId ? "selected" : ""}`}
+          className={`customer ${
+            selectedChat?.chatId === chat.chatId ? "selected" : ""
+          }`}
           key={chat.chatId}
           onClick={() => handleSelect(chat)}
         >
