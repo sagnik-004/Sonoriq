@@ -10,7 +10,10 @@ const RecentUpdates = () => {
     const fetchUpdates = async () => {
       try {
         const response = await axios.get(`https://newsapi.org/v2/everything?q=music&apiKey=${apiKey}`);
-        setUpdates(response.data.articles);
+        const filteredUpdates = response.data.articles.filter(update => 
+          !update.title.includes('[Removed]') && !update.description.includes('[Removed]')
+        );
+        setUpdates(filteredUpdates);
       } catch (error) {
         console.error('Error fetching updates:', error);
       }
@@ -32,4 +35,4 @@ const RecentUpdates = () => {
   );
 };
 
-export default RecentUpdates;
+export default RecentUpdates;
