@@ -1,0 +1,11 @@
+.container {
+    padding: 20px;
+  }
+  
+  .update-card {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+  

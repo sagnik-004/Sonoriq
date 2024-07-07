@@ -1,0 +1,44 @@
+.container {
+    padding: 20px;
+  }
+  
+  .track-card {
+    background-color: #1c1c1c;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .album-art {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .track-title {
+    margin: 10px 0;
+  }
+  
+  .artists {
+    color: #ccc;
+  }
+  
+  .listen-button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #1db954;
+    color: #fff;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .listen-button:hover {
+    background-color: #1ed760;
+  }
+  
