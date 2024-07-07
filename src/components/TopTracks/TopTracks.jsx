@@ -55,7 +55,7 @@ const TopTracks = () => {
           <h3 className="track-title">{track.track.name}</h3>
           <p className="artists">{track.track.artists.map(artist => artist.name).join(', ')}</p>
           <a className="listen-button" href={track.track.external_urls.spotify} target="_blank" rel="noopener noreferrer">
-            Listen on Spotify
+          Listen on &nbsp;<i className="fa-brands fa-spotify"></i>
           </a>
         </div>
       ))}
