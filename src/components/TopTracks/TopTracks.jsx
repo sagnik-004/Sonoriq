@@ -49,16 +49,18 @@ const TopTracks = () => {
   return (
     <div className="container">
       <h2>Top Tracks</h2>
-      {tracks.map((track, index) => (
-        <div className="track-card" key={index}>
-          <img className="album-art" src={track.track.album.images[0].url} alt={track.track.name} />
-          <h3 className="track-title">{track.track.name}</h3>
-          <p className="artists">{track.track.artists.map(artist => artist.name).join(', ')}</p>
-          <a className="listen-button" href={track.track.external_urls.spotify} target="_blank" rel="noopener noreferrer">
-          Listen on &nbsp;<i className="fa-brands fa-spotify"></i>
-          </a>
-        </div>
-      ))}
+      <div className="tracks-grid">
+        {tracks.map((track, index) => (
+          <div className="track-card" key={index}>
+            <img className="album-art" src={track.track.album.images[0].url} alt={track.track.name} />
+            <h3 className="track-title">{track.track.name}</h3>
+            <p className="artists">{track.track.artists.map(artist => artist.name).join(', ')}</p>
+            <a className="listen-button" href={track.track.external_urls.spotify} target="_blank" rel="noopener noreferrer">
+              Listen on &nbsp;<i className="fa-brands fa-spotify"></i>
+            </a>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
