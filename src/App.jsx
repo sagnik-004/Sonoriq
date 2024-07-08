@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
 import Header from "../src/components/LandingPage/Header";
 import Hero from "../src/components/LandingPage/Hero";
 import Features from "../src/components/LandingPage/Features";
@@ -12,6 +17,9 @@ import List from "../src/components/list/list";
 import Chat from "../src/components/chat/Chat";
 import MusicRecommendations from "./components/MusicRecommendations/MusicRecommendations";
 // import "./App.css";
+import styled from "styled-components";
+import MusicCharts from "./components/TopTracks/TopTracks";
+import RecentUpdates from "./components/RecentUpdates/RecentUpdates";
 
 const BackgroundVideo = () => (
   <div className="video-wrapper">
@@ -42,7 +50,6 @@ const AppContent = () => {
     }
   }, [location.pathname]);
 
-
   React.useEffect(() => {
     if (location.pathname === "/feed") {
       import("./AppStyles.css");
@@ -51,27 +58,54 @@ const AppContent = () => {
 
   return (
     <>
-      {location.pathname === '/' && <BackgroundVideo />}
+      {location.pathname === "/" && <BackgroundVideo />}
       <Routes>
-        <Route path="/" element={<>
-          <Header />
-          <Hero />
-          <Features />
-          <About />
-          {/* <Footer /> */}
-        </>} />
+        <Route
+          path="/"
+          element={
+            <>
+              <Header />
+              <Hero />
+              <Features />
+              <About />
+              {/* <Footer /> */}
+            </>
+          }
+        />
         <Route path="/login" element={<LoginRegister />} />
         <Route path="/music" element={<MusicRecommendations />} />
-        <Route path="/chat" element={<>
-          <div className="container">
-            <Sidebar />
-            {/* <LoginRegister/> */}
-            <List />
-            <div className="chat-container">
-              <Chat />
-            </div>
-          </div>
-        </>} />
+        <Route
+          path="/chat"
+          element={
+            <>
+              <div className="container">
+                <Sidebar />
+                {/* <LoginRegister/> */}
+                <List />
+                <div className="chat-container">
+                  <Chat />
+                </div>
+              </div>
+            </>
+          }
+        />
+
+        <Route
+          path="/feed"
+          element={
+            <>
+            <Sidebar/>
+              <div className="app">
+                <div className="left-panel">
+                  <RecentUpdates />
+                </div>
+                <div className="right-panel">
+                  <MusicCharts />
+                </div>
+              </div>
+            </>
+          }
+        />
       </Routes>
     </>
   );

@@ -4,7 +4,7 @@
   flex-direction: column;
   -webkit-user-select: none;
   overflow: scroll;
-  background-color: rgba(0, 0, 0, 0.826);
+  background-color: rgba(0, 0, 0, 0.826) !important;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   width: max-content;

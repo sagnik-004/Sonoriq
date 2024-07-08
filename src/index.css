@@ -227,6 +227,7 @@ body::before {
   animation-iteration-count: infinite;
   animation-fill-mode: forwards;
   font-family: "Raleway";
+  margin: 0;
 }
 
 #smaller {
@@ -293,7 +294,7 @@ body::before {
 }
 
 #features {
-    height: 650px;
+  height: 650px;
 }
 
 #about h1 {
@@ -312,10 +313,11 @@ body::before {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   padding: 16px 0;
+  margin: 0;
 }
 
 #features h1 {
-    font-family: "Raleway";
+  font-family: "Raleway";
   font-size: 3rem;
   font-weight: 800;
   width: 20vw;
@@ -324,6 +326,7 @@ body::before {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   padding: 16px 0;
+  margin: 0;
 }
 
 #about {
@@ -380,19 +383,19 @@ body::before {
   align-items: center;
 }
 .item {
-    position: absolute;
-    width: 400px;
-    height: 460px;
-    text-align: justify;
-    background-color: #d27fff53;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-radius: 25px;
-    padding: 20px;
-    transition: 0.5s;
-    left: 50%; /* Center horizontally */
-    transform: translateX(-50%); /* Center horizontally */
-    top: 10;
+  position: absolute;
+  width: 400px;
+  height: 460px;
+  text-align: justify;
+  background-color: #d27fff53;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 25px;
+  padding: 20px;
+  transition: 0.5s;
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%); /* Center horizontally */
+  top: 10;
 }
 #next,
 #prev {
@@ -425,8 +428,8 @@ body::before {
 }
 
 .ft-img img {
-    width: 170px;
-    height: auto;
+  width: 170px;
+  height: auto;
 }
 
 .ft-content {
@@ -440,7 +443,7 @@ body::before {
 }
 
 .row {
-    display: flex;
+  display: flex;
   justify-content: space-around;
 }
 
@@ -521,15 +524,14 @@ body::before {
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Space Grotesk',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Space Grotesk", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* background-image: url("../public/bg2.jpg"); */
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -542,7 +544,7 @@ code {
 .container {
   width: 100vw;
   height: 100vh;
-  display: flex; 
+  display: flex;
 }
 
 @media (max-width: 1400px) {
@@ -560,4 +562,3 @@ code {
   overflow: scroll;
   background-color: rgba(255, 255, 255, 0.37);
 }
-

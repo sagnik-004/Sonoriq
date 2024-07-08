@@ -28,6 +28,7 @@ const MusicRecommendations = () => {
     <div className="app-container">
       <Sidebar /> {/* Include Sidebar component */}
       <div className="music-recommendations">
+        <h1>Music Recommendations</h1>
         <div className="inputs">
           <input type="text" placeholder="Search by Genre" value={seedGenres} onChange={handleGenreChange} />
           {/* <input type="text" placeholder="Seed Artists" value={seedArtists} onChange={handleArtistChange} />

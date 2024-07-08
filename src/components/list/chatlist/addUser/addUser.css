@@ -2,7 +2,7 @@
   font-family: "Space Grotesk";
 }
 .addUser {
-  width: max-content;
+  width: 370px;
   height: max-content;
   padding: 20px;
   background-color: rgb(17, 25, 40);
@@ -10,8 +10,8 @@
   border-radius: 40px;
   position: absolute;
   top: 0;
-  bottom: 450px;
-  left: 80px;
+  bottom: 250px;
+  left: 70px;
   right: 0;
   margin: auto;
   z-index: 5; /* Added to ensure the search box is on top */
@@ -26,6 +26,7 @@
       border: none;
       outline: none;
       font-size: 1.2rem;
+      width: 300%;
     }
 
     button {

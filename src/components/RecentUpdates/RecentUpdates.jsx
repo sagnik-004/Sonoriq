@@ -6,33 +6,34 @@ const RecentUpdates = () => {
   const [updates, setUpdates] = useState([]);
 
   useEffect(() => {
-    const apiKey = 'a9e6497b8caa453fae744ea8a5070359'; // Replace with your actual NewsAPI key
-    const fetchUpdates = async () => {
+    const fetchRecentUpdates = async () => {
+      const apiKey = 'a9e6497b8caa453fae744ea8a5070359';
       try {
         const response = await axios.get(`https://newsapi.org/v2/everything?q=music&apiKey=${apiKey}`);
-        const filteredUpdates = response.data.articles.filter(update => 
-          !update.title.includes('[Removed]') && !update.description.includes('[Removed]')
-        );
+        // Filter out updates with the title '[Removed]'
+        const filteredUpdates = response.data.articles.filter(update => update.title !== '[Removed]');
         setUpdates(filteredUpdates);
       } catch (error) {
-        console.error('Error fetching updates:', error);
+        console.error('Error fetching recent updates:', error);
       }
     };
 
-    fetchUpdates();
+    fetchRecentUpdates();
   }, []);
 
   return (
-    <div className="container">
+    <div className="recent-updates">
       <h2>Recent Updates</h2>
-      {updates.map((update, index) => (
-        <div className="update-card" key={index}>
-          <h3>{update.title}</h3>
-          <p>{update.description}</p>
-        </div>
-      ))}
+      <ul>
+        {updates.map((update, index) => (
+          <li key={index}>
+            <h3>{update.title}</h3>
+            <p>{update.description}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
 
-export default RecentUpdates;
+export default RecentUpdates;

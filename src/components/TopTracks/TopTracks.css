@@ -1,55 +1,68 @@
-.container {
-  padding: 20px;
+/* MusicCharts.css */
+
+.music-charts {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  padding: 0;
 }
 
-.tracks-grid {
+.music-charts ul {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  padding: 0;
+  list-style: none;
+  
 }
 
-.track-card {
-  background-color: rgba(0, 0, 0, 0.395);
-  color: #fff;
+.music-charts li {
+  margin-bottom: 20px;
   padding: 20px;
   border-radius: 20px;
-  margin-bottom: 20px;
+  background-color: #0000005b; /* Slightly lighter background for contrast */
   text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  width: 48%;
+  font-size: 16px;
 }
 
-.album-art {
+.track-item {
+  width: 47%;
+}
+
+.track-item img {
   width: 100%;
   height: auto;
-  border-radius: 12px;
-  margin-bottom: 10px;
+  border-radius: 20px;
+}
+
+.track-info {
+  padding: 0;
 }
 
 .track-title {
-  margin: 10px 0;
-  font-size: 16px;
-}
-
-.artists {
-  color: #ccc;
-  font-size: 12px;
-}
-
-.listen-button {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 7px 15px;
-  background-color: #00ff5963;
-  color: #fff;
-  border-radius: 50px;
-  text-decoration: none;
+  display: block;
+  font-size: 1.2em;
   font-weight: bold;
-  font-size: 16px;
-  transition: background-color 0.3s;
+  margin-top: 10px;
 }
 
-.listen-button:hover {
+.track-artist {
+  display: block;
+  color: #aaa;
+}
+
+.listen-link {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #00ff5963;
+  color: white;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.listen-link:hover {
   background-color: #1ed760;
   color: black;
 }
