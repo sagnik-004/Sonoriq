@@ -1,0 +1,28 @@
+/* RecentUpdates.css */
+
+.recent-updates {
+  padding: 0;
+}
+
+.recent-updates ul {
+  list-style: none;
+}
+
+.recent-updates li {
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: #0000005b; /* Slightly lighter background for contrast */
+  text-align: justify;
+}
+
+.recent-updates h3 {
+  margin: 0;
+  font-size: 1.2em;
+  color: rgb(255, 128, 0);
+}
+
+.recent-updates p {
+  margin: 10px 0 0;
+  color: #ccc; /* Lighter text color for descriptions */
+}

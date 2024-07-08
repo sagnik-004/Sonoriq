@@ -1,0 +1,68 @@
+/* MusicCharts.css */
+
+.music-charts {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  padding: 0;
+}
+
+.music-charts ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0;
+  list-style: none;
+  
+}
+
+.music-charts li {
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: #0000005b; /* Slightly lighter background for contrast */
+  text-align: center;
+  font-size: 16px;
+}
+
+.track-item {
+  width: 47%;
+}
+
+.track-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+}
+
+.track-info {
+  padding: 0;
+}
+
+.track-title {
+  display: block;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.track-artist {
+  display: block;
+  color: #aaa;
+}
+
+.listen-link {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #00ff5963;
+  color: white;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.listen-link:hover {
+  background-color: #1ed760;
+  color: black;
+}

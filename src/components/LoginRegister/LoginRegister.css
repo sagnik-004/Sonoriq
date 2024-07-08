@@ -1,0 +1,241 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.login-register-page {
+    font-family: "Poppins", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: url('../../assets/yannis-papanastasopoulos-yWF2LLan-_o-unsplash.jpg') no-repeat fixed;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+}
+
+
+.wrapper{
+    position: relative;
+    width: 420px;
+    height: 450px;
+    background: transparent;
+    border: 2px solid rgba(255,255,255,.1);
+    backdrop-filter: blur(30px);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,.2);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    transition: height .2s ease;
+}
+
+.wrapper.active{
+    height: 730px;
+}
+
+.wrapper .form-box {
+    width: 100%;
+    padding: 40px;
+}
+
+.wrapper .form-box.login{
+    transition: translate .18s ease;
+    translate: 0;
+}
+
+.wrapper.active .form-box.login{
+    transition: none;
+    translate: -400px;
+}
+
+.wrapper .form-box.register{
+    position: absolute;
+    transition: none;
+    translate: 400px;
+
+}
+
+.wrapper.active .form-box.register{
+    transition: translate .18s ease;
+    translate: 0;
+}
+
+form h1{
+    font-size: 30px;
+    text-align: center;
+}
+
+form .input-box{
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 20px 0;
+}
+
+.input-box input{
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid rgba(255,255,255,.1);
+    border-radius: 40px;
+    font-size: 16px;
+    color:#fff;
+    padding: 1px 0px 0px 10px;
+}
+
+.input-box input::placeholder{
+    color: #ffffffc5;
+}
+
+.input-box .icon{
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    translate: 0 -50%;
+    font-size: 16px;
+}
+
+.custom-file-label {
+    display: inline-block;
+    padding: 12px 20px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border-radius: 40px;
+    font-size: 16px;
+    text-align: center;
+    width: 100%;
+}
+
+.custom-file-label:hover {
+    background-color: #0056b3;
+}
+
+form .remember-forgot{
+    display: flex;
+    justify-content: space-between;
+    font-size: 14.5px;
+    margin: -15px 0 15px;
+}
+
+.remember-forgot label input{
+    accent-color: #fff;
+    margin-right: 4px;
+}
+
+.remember-forgot a{
+    color: #fff;
+    text-decoration: none;
+}
+
+.remember-forgot a:hover{
+    text-decoration: underline;
+}
+
+#t-nd-c {
+    text-decoration: none;
+    color: white;
+}
+
+#t-nd-c:hover {
+    text-decoration: underline;
+}
+
+form button{
+    width:100%;
+    height: 45px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0,0,0,.1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 700;
+}
+
+form .register-link{
+    font-size: 14.5px;
+    text-align: center;
+    margin: 20px 0 15px;
+}
+
+.register-link p a{
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-link p a:hover{
+    text-decoration: underline;
+}
+
+.google-signin {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 45px;
+    background: #4285F4;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0,0,0,.1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #fff;
+    font-weight: 700;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.google-signin .icon {
+    margin-right: 10px;
+}
+
+.google-signin:hover {
+    background: #357ae8;
+}
+
+.register .remember-forgot a {
+    color: #4285F4;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.register .remember-forgot a:hover {
+    color: #357ae8;
+}
+
+
+.button-link {
+    width: 100%;
+    height: 45px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0,0,0,.1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.button-link:hover {
+    background-color: #f0f0f0; /* Slight color change on hover */
+}
+
