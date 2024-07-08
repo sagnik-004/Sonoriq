@@ -1,5 +1,6 @@
 import React from "react";
-import "./App.css";
+import "./AppStyles.css";
+import Sidebar from "../src/components/Sidebar/Sidebar"
 import styled from "styled-components";
 import RecentUpdates from "./components/RecentUpdates/RecentUpdates";
 import TopTracks from "./components/TopTracks/TopTracks";
@@ -9,6 +10,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: row;
   padding: 20px;
+  margin-left: 70px;
+  color: white;
 `;
 
 const LeftPane = styled.div`
@@ -24,7 +27,9 @@ const RightPane = styled.div`
 
 const App = () => {
   return (
+    
     <Container>
+      <Sidebar />
       <LeftPane>
         <RecentUpdates />
       </LeftPane>
