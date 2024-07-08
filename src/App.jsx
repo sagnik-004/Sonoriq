@@ -4,12 +4,13 @@ import Header from "../src/components/LandingPage/Header";
 import Hero from "../src/components/LandingPage/Hero";
 import Features from "../src/components/LandingPage/Features";
 import About from "../src/components/LandingPage/About";
-import Footer from "../src/components/LandingPage/Footer";
+// import Footer from "../src/components/LandingPage/Footer";
 import LoginRegister from "../src/components/LoginRegister/LoginRegister";
-import "../src/index.css"; // Global styles, including landing page styles
+// import "../src/index.css"; // Global styles, including landing page styles
 import Sidebar from "../src/components/sidebar/Sidebar";
 import List from "../src/components/list/list";
 import Chat from "../src/components/chat/Chat";
+import MusicRecommendations from "./components/MusicRecommendations/MusicRecommendations";
 // import "./App.css";
 
 const BackgroundVideo = () => (
@@ -35,6 +36,19 @@ const AppContent = () => {
     }
   }, [location.pathname]);
 
+  React.useEffect(() => {
+    if (location.pathname === "/music") {
+      import("../src/components/MusicRecommendations/MusicRecommendations.css");
+    }
+  }, [location.pathname]);
+
+
+  React.useEffect(() => {
+    if (location.pathname === "/feed") {
+      import("./AppStyles.css");
+    }
+  }, [location.pathname]);
+
   return (
     <>
       {location.pathname === '/' && <BackgroundVideo />}
@@ -44,9 +58,10 @@ const AppContent = () => {
           <Hero />
           <Features />
           <About />
-          <Footer />
+          {/* <Footer /> */}
         </>} />
         <Route path="/login" element={<LoginRegister />} />
+        <Route path="/music" element={<MusicRecommendations />} />
         <Route path="/chat" element={<>
           <div className="container">
             <Sidebar />
@@ -56,7 +71,6 @@ const AppContent = () => {
               <Chat />
             </div>
           </div>
-
         </>} />
       </Routes>
     </>

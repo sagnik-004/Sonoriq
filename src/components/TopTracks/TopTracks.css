@@ -1,0 +1,55 @@
+.container {
+  padding: 20px;
+}
+
+.tracks-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.track-card {
+  background-color: rgba(0, 0, 0, 0.395);
+  color: #fff;
+  padding: 20px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 48%;
+}
+
+.album-art {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+
+.track-title {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.artists {
+  color: #ccc;
+  font-size: 12px;
+}
+
+.listen-button {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 7px 15px;
+  background-color: #00ff5963;
+  color: #fff;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.listen-button:hover {
+  background-color: #1ed760;
+  color: black;
+}

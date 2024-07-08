@@ -1,0 +1,30 @@
+.container {
+  padding: 20px;
+}
+
+.container h2 {
+  font-family: 'Raleway', sans-serif;
+  font-size: 2rem;
+  text-align: center;
+  padding-bottom: 20px;
+  color: #fff;
+}
+
+.update-card {
+  margin-bottom: 15px;
+  background-color: rgba(0, 0, 0, 0.395);
+  border:none;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.update-card h3 {
+  font-size: 20px;
+  padding-bottom: 12px;
+  color: rgb(210, 130, 0);
+}
+
+.update-card p {
+  text-align: justify;
+  color: #fff;
+}
