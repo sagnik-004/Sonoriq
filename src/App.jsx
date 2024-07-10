@@ -24,7 +24,7 @@ import RecentUpdates from "./components/RecentUpdates/RecentUpdates";
 const BackgroundVideo = () => (
   <div className="video-wrapper">
     <video autoPlay muted loop id="backgroundVideo">
-      <source src="../src/assets/172-135788286_medium.mp4" type="video/mp4" />
+      <source src="/assets/172-135788286_medium.mp4" type="video/mp4" />
     </video>
   </div>
 );

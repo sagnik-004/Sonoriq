@@ -53,35 +53,35 @@ function Features() {
       <div className="slider">
         <div className="item">
           <div className="ft-img">
-            <img src="../src/assets/community-icon.gif" alt="community" />
+            <img src="/assets/community-icon.gif" alt="community" />
           </div>
           <h2 className="ft">Community</h2>
           <p className="ft-content">Engage in convos about the music you love; share your passion, and explore diverse musical perspectives.</p>
         </div>
         <div className="item">
           <div className="ft-img">
-            <img src="../src/assets/trends-icon.gif" alt="community" />
+            <img src="/assets/trends-icon.gif" alt="community" />
           </div>
           <h2 className="ft">Trending Live Feed</h2>
           <p className="ft-content">Catch the latest music buzz, read curated articles, and see what’s trending. Stay ahead with fresh updates and the hottest tracks.</p>
         </div>
         <div className="item">
           <div className="ft-img">
-            <img src="../src/assets/music-recs-icon.gif" alt="community" />
+            <img src="/assets/music-recs-icon.gif" alt="community" />
           </div>
           <h2 className="ft">Music Recommendations</h2>
           <p className="ft-content">Explore personalized music recommendations based on your unique taste. We'll help find your next favorite track.</p>
         </div>
         <div className="item">
           <div className="ft-img">
-            <img src="../src/assets/playlist-icon.gif" alt="community" />
+            <img src="/assets/playlist-icon.gif" alt="community" />
           </div>
           <h2 className="ft">Playlist Curation</h2>
           <p className="ft-content">Create custom playlists seamlessly using our intuitive tool. Personalize your music journey for every mood and moment.</p>
         </div>
         <div className="item">
           <div className="ft-img">
-            <img src="../src/assets/collab-icon.gif" alt="community" />
+            <img src="/assets/collab-icon.gif" alt="community" />
           </div>
           <h2 className="ft">Collaboration</h2>
           <p className="ft-content">Engage in collaborative music exploration within our interactive community. Connect, create, and expand musical horizons collectively.</p>
