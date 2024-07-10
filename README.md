@@ -1,12 +1,9 @@
-<<<<<<< HEAD
-Sonoriq
-=======
-# React + Vite
+<h1> Sonoriq <img  src="https://github.com/sagnik-004/Sonoriq/blob/main/Assets/logo.png" width="40" height=auto></h1>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<h3>Welcome to Sonoriq !</h3>
 
-Currently, two official plugins are available:
+We are 5 homies building a community website where you can discover new music, discuss trends and collaborate on projects with like-minded people. You will also get personalized multi-genre music and playlists.
+This also happens to be our project for Buildspace n&w s5.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
->>>>>>> origin/newmerge
+
+We getting there, one bug fix at a time :)
