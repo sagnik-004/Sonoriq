@@ -34,7 +34,7 @@ function About() {
         </p>
       </div>
       <div className="logo-img">
-        <img src="Sonoriq/src/assets/logo.png" alt="logo" />
+        <img src="../src/assets/logo.png" alt="logo" />
       </div>
     </div>
   );
