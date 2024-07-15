@@ -1,6 +1,5 @@
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { storage, db } from "./firebase"; // Assuming db is your Firestore instance
-import { doc, updateDoc } from "firebase/firestore";
+import { storage } from "./firebase";
 
 const upload = async (file, userId) => {
   const date = new Date();
@@ -12,17 +11,15 @@ const upload = async (file, userId) => {
     uploadTask.on(
       "state_changed",
       (snapshot) => {
-        const progress =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log("Upload is " + progress + "% done");
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       },
       (error) => {
-        reject("Something went wrong!" + error.code);
+        console.error("Upload failed: ", error);
+        reject("Something went wrong! " + error.code);
       },
       () => {
-        getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-          // Update user's image URL in Firestore
-          await updateDoc(doc(db, "users", userId), { imageUrl: downloadURL });
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          console.log("File available at: ", downloadURL);
           resolve(downloadURL);
         });
       }
