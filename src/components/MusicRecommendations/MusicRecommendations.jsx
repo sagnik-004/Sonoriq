@@ -4,6 +4,8 @@ import Sidebar from '../../components/sidebar/Sidebar'; // Import Sidebar compon
 import '../MusicRecommendations/MusicRecommendations.css'; // Import MusicRecommendations styles
 import '../../components/sidebar/Sidebar.css'; // Import Sidebar styles
 
+const baseURL = 'https://sonoriq-backend.onrender.com';
+
 const MusicRecommendations = () => {
   const [tracks, setTracks] = useState([]);
   const [seedGenres, setSeedGenres] = useState('pop');
@@ -12,7 +14,7 @@ const MusicRecommendations = () => {
 
   useEffect(() => {
     const fetchTracks = async () => {
-      const response = await fetch(`http://localhost:5000/api/recommendations?seed_genres=${seedGenres}&seed_artists=${seedArtists}&seed_tracks=${seedTracks}`);
+      const response = await fetch(`${baseURL}/api/recommendations?seed_genres=${seedGenres}&seed_artists=${seedArtists}&seed_tracks=${seedTracks}`);
       const data = await response.json();
       setTracks(data);
     };
