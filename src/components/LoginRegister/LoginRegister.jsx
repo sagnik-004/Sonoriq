@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import './LoginRegister.css';
-import { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, db } from "../../components/LoginRegister/firebase";
+import { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, db } from "./firebase";
 import { doc, setDoc, getDoc, query, where, collection, getDocs } from "firebase/firestore";
-import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
-import { useUserStore } from '../../components/LoginRegister/userStore';
-import upload from "../../components/LoginRegister/upload";
+import { useNavigate } from 'react-router-dom';
+import { useUserStore } from './userStore';
+import upload from "./upload";
 import { FaUser, FaLock, FaHashtag, FaInfoCircle } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { IoMdPhotos } from "react-icons/io";
 import { GiCompactDisc } from "react-icons/gi";
 
 const LoginRegister = () => {
-    const navigate = useNavigate(); // Get the navigate function from React Router DOM
+    const navigate = useNavigate();
 
     const setUser = useUserStore(state => state.setUser);
 
@@ -44,11 +44,6 @@ const LoginRegister = () => {
 
             const res = await createUserWithEmailAndPassword(auth, email, password);
 
-            let imageUrl = '';
-            if (image) {
-                imageUrl = await upload(image);
-            }
-
             const userDoc = {
                 username,
                 email,
@@ -57,14 +52,25 @@ const LoginRegister = () => {
                 bio,
                 genres: genres.split(',').map(genre => genre.trim()),
                 blocked: [],
-                imageUrl
+                imageUrl: ''
             };
+
             await setDoc(doc(db, "users", res.user.uid), userDoc);
+
             await setDoc(doc(db, "userchats", res.user.uid), { chats: [] });
 
-            setUser(userDoc); // Set the current user in the store
+            if (image) {
+                const imageUrl = await upload(image, res.user.uid);
+                await setDoc(doc(db, "users", res.user.uid), { ...userDoc, imageUrl });
+                setUser({ ...userDoc, imageUrl });
+            } else {
+                setUser(userDoc);
+            }
+
             alert('Registration successful!');
+            navigate('/chat'); // Navigate to chat page
         } catch (error) {
+            console.error("Error during registration: ", error);
             alert(error.message);
         }
     };
@@ -92,6 +98,7 @@ const LoginRegister = () => {
             // Redirect to the chat page upon successful login
             navigate('/chat');
         } catch (error) {
+            console.error("Error during login: ", error);
             alert(error.message);
         }
     };
