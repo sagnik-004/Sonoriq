@@ -26,3 +26,14 @@
   margin: 10px 0 0;
   color: #ccc; /* Lighter text color for descriptions */
 }
+
+a{
+  color: rgb(255, 166, 0);
+  text-decoration: none;
+  
+}
+
+A:hover {
+  text-decoration: underline;
+}
+
