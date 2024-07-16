@@ -1,42 +1,64 @@
-// Sidebar.js
-import React from 'react';
+// Sidebar.jsx
+import React, { useState, useEffect } from 'react';
 import './Sidebar.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Sidebar = () => {
+  const [active, setActive] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const handleCreatePlaylistClick = () => {
-    navigate('/music');
-  };
+  useEffect(() => {
+    // Set the active button based on the current path
+    const path = location.pathname.substring(1); // Remove the leading '/'
+    setActive(path);
+  }, [location]);
 
-  const handleChat = () => {
-    navigate('/chat');
-  };
-
-  const handleFeed = () => {
-    navigate('/feed');
+  const handleNavigation = (path, name) => {
+    setActive(name);
+    navigate(path);
   };
 
   return (
     <div className="sidebar">
-      <button className="sidebar-btn chat" data-tooltip="Chats" onClick={handleChat}>
+      <button 
+        className={`sidebar-btn chat ${active === 'chat' ? 'active' : ''}`} 
+        data-tooltip="Chats" 
+        onClick={() => handleNavigation('/chat', 'chat')}
+      >
         <i className="fa-solid fa-comments"></i>
       </button>
-      <button className="sidebar-btn feed" data-tooltip="Live Feed" onClick={handleFeed}>
+      <button 
+        className={`sidebar-btn feed ${active === 'feed' ? 'active' : ''}`} 
+        data-tooltip="Live Feed" 
+        onClick={() => handleNavigation('/feed', 'feed')}
+      >
         <i className="fa-solid fa-rss"></i>
       </button>
-      <button className="sidebar-btn playlist" data-tooltip="Create Playlists">
+      <button 
+        className={`sidebar-btn playlist ${active === 'playlist' ? 'active' : ''}`} 
+        data-tooltip="Create Playlists"
+      >
         <i className="fa-solid fa-list-music"></i>
       </button>
-      <button className="sidebar-btn playlist" data-tooltip="Music" onClick={handleCreatePlaylistClick}>
-        <i class="fa-solid fa-user-music"></i>
+      <button 
+        className={`sidebar-btn music ${active === 'music' ? 'active' : ''}`} 
+        data-tooltip="Music" 
+        onClick={() => handleNavigation('/music', 'music')}
+      >
+        <i className="fa-solid fa-user-music"></i>
       </button>
-      <button className="sidebar-btn groups" data-tooltip="Rooms">
-      <i class="fa-solid fa-people-group"></i>
+      <button 
+        className={`sidebar-btn groups ${active === 'groups' ? 'active' : ''}`} 
+        data-tooltip="Rooms"
+      >
+        <i className="fa-solid fa-people-group"></i>
       </button>
       <div className="spacer"></div>
-      <button className="sidebar-btn profile" data-tooltip="User Profile">
+      <button 
+        className={`sidebar-btn profile ${active === 'profile' ? 'active' : ''}`} 
+        data-tooltip="User Profile"
+      >
         <i className="fa-solid fa-user"></i>
       </button>
     </div>
