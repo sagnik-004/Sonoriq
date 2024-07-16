@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
 import './LoginRegister.css';
-import { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, db } from "./firebase";
-import { doc, setDoc, getDoc, query, where, collection, getDocs } from "firebase/firestore";
+import { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, db, doc, setDoc, getDoc, query, where, collection, getDocs } from "../../components/LoginRegister/firebase";
 import { useNavigate } from 'react-router-dom';
-import { useUserStore } from './userStore';
-import upload from "./upload";
-import { FaUser, FaLock, FaHashtag, FaInfoCircle } from "react-icons/fa";
+import { useUserStore } from '../../components/LoginRegister/userStore';
+import upload from "../../components/LoginRegister/upload";
+import { FaUser, FaLock, FaHashtag, FaInfoCircle, FaGoogle } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { IoMdPhotos } from "react-icons/io";
 import { GiCompactDisc } from "react-icons/gi";
 
+
 const LoginRegister = () => {
     const navigate = useNavigate();
-
     const setUser = useUserStore(state => state.setUser);
 
     const [action, setAction] = useState('');
@@ -44,6 +43,11 @@ const LoginRegister = () => {
 
             const res = await createUserWithEmailAndPassword(auth, email, password);
 
+            let imageUrl = '';
+            if (image) {
+                imageUrl = await upload(image);
+            }
+
             const userDoc = {
                 username,
                 email,
@@ -52,25 +56,14 @@ const LoginRegister = () => {
                 bio,
                 genres: genres.split(',').map(genre => genre.trim()),
                 blocked: [],
-                imageUrl: ''
+                imageUrl
             };
-
             await setDoc(doc(db, "users", res.user.uid), userDoc);
-
             await setDoc(doc(db, "userchats", res.user.uid), { chats: [] });
 
-            if (image) {
-                const imageUrl = await upload(image, res.user.uid);
-                await setDoc(doc(db, "users", res.user.uid), { ...userDoc, imageUrl });
-                setUser({ ...userDoc, imageUrl });
-            } else {
-                setUser(userDoc);
-            }
-
+            setUser(userDoc);
             alert('Registration successful!');
-            navigate('/chat'); // Navigate to chat page
         } catch (error) {
-            console.error("Error during registration: ", error);
             alert(error.message);
         }
     };
@@ -93,12 +86,38 @@ const LoginRegister = () => {
                 userCredential = await signInWithEmailAndPassword(auth, userEmail, password);
             }
             const userDoc = await getDoc(doc(db, "users", userCredential.user.uid));
-            setUser(userDoc.data()); // Set the current user in the store
-            
-            // Redirect to the chat page upon successful login
+            setUser(userDoc.data());
             navigate('/chat');
         } catch (error) {
-            console.error("Error during login: ", error);
+            alert(error.message);
+        }
+    };
+
+    const handleGoogleSignIn = async () => {
+        const provider = new GoogleAuthProvider();
+        try {
+            const result = await signInWithPopup(auth, provider);
+            const user = result.user;
+            const userDoc = await getDoc(doc(db, "users", user.uid));
+            if (!userDoc.exists()) {
+                const newUserDoc = {
+                    username: user.displayName,
+                    email: user.email,
+                    userid: user.uid,
+                    id: user.uid,
+                    bio: '',
+                    genres: [],
+                    blocked: [],
+                    imageUrl: user.photoURL
+                };
+                await setDoc(doc(db, "users", user.uid), newUserDoc);
+                await setDoc(doc(db, "userchats", user.uid), { chats: [] });
+                setUser(newUserDoc);
+            } else {
+                setUser(userDoc.data());
+            }
+            navigate('/chat');
+        } catch (error) {
             alert(error.message);
         }
     };
@@ -122,6 +141,9 @@ const LoginRegister = () => {
                             <a href="#">Forgot Password?</a>
                         </div>
                         <button type="submit">Login</button>
+                        <button type="button" className="google-signin" onClick={handleGoogleSignIn}>
+                            <FaGoogle />Sign in with Google
+                        </button>
                         <div className="register-link">
                             <p>Don't have an account? 
                                 <a href="#" onClick={registerLink}> Register</a>
