@@ -2,6 +2,7 @@
 
 .recent-updates {
   padding: 0;
+  user-select: text; /* Enable text selection for the entire component */
 }
 
 .recent-updates ul {
@@ -14,26 +15,28 @@
   border-radius: 20px;
   background-color: #0000005b; /* Slightly lighter background for contrast */
   text-align: justify;
+  user-select: text; /* Enable text selection for each list item */
 }
 
 .recent-updates h3 {
   margin: 0;
   font-size: 1.2em;
   color: rgb(255, 128, 0);
+  user-select: text; /* Enable text selection for headers */
 }
 
 .recent-updates p {
   margin: 10px 0 0;
   color: #ccc; /* Lighter text color for descriptions */
+  user-select: text; /* Enable text selection for paragraphs */
 }
 
-a{
+a {
   color: rgb(255, 166, 0);
   text-decoration: none;
-  
+  user-select: text; /* Enable text selection for links */
 }
 
-A:hover {
+a:hover {
   text-decoration: underline;
 }
-
