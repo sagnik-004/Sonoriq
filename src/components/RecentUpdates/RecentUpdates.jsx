@@ -9,7 +9,7 @@ const RecentUpdates = () => {
     const fetchRecentUpdates = async () => {
       const apiKey = '769bd979-bcdc-49ba-8d82-358f742d5bb2';
       try {
-        const response = await axios.get(`https://content.guardianapis.com/search?q=music&show-fields=bodyText&page-size=52&api-key=${apiKey}`);
+        const response = await axios.get(`https://content.guardianapis.com/search?q=music&show-fields=bodyText&page-size=50&api-key=${apiKey}`);
         const articles = response.data.response.results;
         setUpdates(articles);
       } catch (error) {
@@ -17,28 +17,22 @@ const RecentUpdates = () => {
       }
     };
 
+    // Fetch updates immediately
     fetchRecentUpdates();
+
+    // Set up interval to fetch updates periodically
+    const intervalId = setInterval(fetchRecentUpdates, 43200000); // Fetch updates every 12 hours
+
+    // Clean up the interval on component unmount
+    return () => clearInterval(intervalId);
   }, []);
 
-  const truncateText = (text, maxLines) => {
+  const truncateText = (text, maxWords) => {
     const words = text.split(' ');
-    const linesArray = [];
-    let currentLine = '';
-
-    for (let i = 0; i < words.length; i++) {
-      const word = words[i];
-      const testLine = currentLine + word + ' ';
-      const testLinesArray = (testLine.length / 100) * 100 > 600 ? [...linesArray, currentLine.trim()] : linesArray;
-      currentLine = (testLine.length / 100) * 100 > 600 ? word + ' ' : testLine;
-      if (testLinesArray.length >= maxLines) {
-        linesArray.push(currentLine.trim());
-        break;
-      } else if (i === words.length - 1) {
-        linesArray.push(currentLine.trim());
-      }
+    if (words.length > maxWords) {
+      return words.slice(0, maxWords).join(' ') + '...';
     }
-
-    return linesArray.slice(0, maxLines).join(' ') + (linesArray.length > maxLines ? '...' : '');
+    return text;
   };
 
   return (
@@ -48,7 +42,7 @@ const RecentUpdates = () => {
         {updates.map((update, index) => (
           <li key={index}>
             <h3>{update.webTitle}</h3>
-            <p>{truncateText(update.fields && update.fields.bodyText ? update.fields.bodyText : 'No summary available.', 10)}</p>
+            <p>{truncateText(update.fields && update.fields.bodyText ? update.fields.bodyText : 'No summary available.', 50)}</p>
             <a href={update.webUrl} target="_blank" rel="noopener noreferrer">Read more</a>
           </li>
         ))}
