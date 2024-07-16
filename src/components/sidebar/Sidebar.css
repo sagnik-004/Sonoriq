@@ -35,7 +35,6 @@
 .sidebar-btn:hover {
   color: #00ff22;
   background-color: #00300ab1;
-
 }
 
 .sidebar-btn::after {
@@ -57,6 +56,11 @@
 
 .sidebar-btn:hover::after {
   opacity: 1;
+}
+
+.sidebar-btn.active {
+  color: #00ff22;
+  background-color: #00300ab1;
 }
 
 .spacer {
