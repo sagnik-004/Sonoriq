@@ -2,8 +2,8 @@
 
 import fetch from 'node-fetch';
 
-const clientId = '69da7700f4a6486a8a3249a9f9790552';
-const clientSecret = '00508aeaae2249cc8eb828621b9c4f10';
+const clientId = '935aeccee2bc455c9326cfbded2540a2';
+const clientSecret = 'f1bed3d9afcc42bd9a2cd456f420f0db';
 
 async function getAccessToken() {
   const response = await fetch('https://accounts.spotify.com/api/token', {
