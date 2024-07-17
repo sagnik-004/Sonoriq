@@ -1,4 +1,4 @@
-/* MusicCharts.css */
+/* TopTracks.css */
 
 .music-charts {
   display: flex;
@@ -13,14 +13,13 @@
   justify-content: space-between;
   padding: 0;
   list-style: none;
-  
 }
 
 .music-charts li {
   margin-bottom: 20px;
   padding: 20px;
   border-radius: 20px;
-  background-color: #0000005b; /* Slightly lighter background for contrast */
+  background-color: #0000005b;
   text-align: center;
   font-size: 16px;
 }
@@ -65,4 +64,73 @@
 .listen-link:hover {
   background-color: #1ed760;
   color: black;
+}
+
+/* Switch Button Styles */
+.switch-button {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.switch-button button {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px 20px;
+  width: 150px;
+  margin: 0 5px;
+  transition: background-color 0.3s ease;
+}
+
+.switch-button button.active {
+  background-color: #1db954;
+  color: #fff;
+}
+
+.switch-button button:hover {
+  background-color: #1db954;
+  color: #fff;
+}
+
+/* Top Artists Styles */
+.artist-item {
+  display: flex;
+  align-items: center;
+  background-color: #0000005b;
+  padding: 10px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.artist-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.artist-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.artist-name {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+}
+
+.artist-name:hover {
+  text-decoration: underline;
+}
+
+.artist-genres, .artist-followers, .artist-popularity {
+  font-size: 0.9em;
+  color: #aaa;
+  margin-top: 5px;
 }
