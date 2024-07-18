@@ -19,6 +19,12 @@ const Sidebar = () => {
     navigate(path);
   };
 
+  const handleLogout = () => {
+    // Logic for logging out (e.g., clearing tokens, etc.)
+    setActive('');
+    navigate('/');
+  };
+
   return (
     <div className="sidebar">
       <button 
@@ -60,6 +66,13 @@ const Sidebar = () => {
         data-tooltip="User Profile"
       >
         <i className="fa-solid fa-user"></i>
+      </button>
+      <button 
+        className={`sidebar-btn logout ${active === '' ? 'active' : ''}`} 
+        data-tooltip="Logout" 
+        onClick={handleLogout}
+      >
+        <i className="fa-solid fa-sign-out-alt"></i>
       </button>
     </div>
   );
