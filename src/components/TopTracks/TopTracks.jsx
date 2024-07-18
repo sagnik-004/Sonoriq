@@ -38,7 +38,7 @@ const MusicCharts = () => {
       const apiKey = '869c9de70ac2788fe3c99e9c8e3c42d8';
 
       try {
-        const artistsResponse = await axios.get(`http://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=${apiKey}&format=json`);
+        const artistsResponse = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=${apiKey}&format=json`);
         const artists = artistsResponse.data.artists.artist;
         
         const spotifyTokenResponse = await axios.post('https://accounts.spotify.com/api/token', 'grant_type=client_credentials', {
@@ -50,7 +50,7 @@ const MusicCharts = () => {
         const spotifyToken = spotifyTokenResponse.data.access_token;
 
         const artistsWithDetails = await Promise.all(artists.map(async (artist) => {
-          const artistInfoResponse = await axios.get(`http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${artist.name}&api_key=${apiKey}&format=json`);
+          const artistInfoResponse = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${artist.name}&api_key=${apiKey}&format=json`);
           const artistInfo = artistInfoResponse.data.artist;
 
           const artistSearchResponse = await axios.get(`https://api.spotify.com/v1/search`, {
