@@ -142,7 +142,7 @@ const LoginRegister = () => {
                         </div>
                         <button type="submit">Login</button>
                         <button type="button" className="google-signin" onClick={handleGoogleSignIn}>
-                            <FaGoogle />Sign in with Google
+                            Sign in with Google &nbsp;<FaGoogle />
                         </button>
                         <div className="register-link">
                             <p>Don't have an account? 
