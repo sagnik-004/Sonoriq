@@ -5,17 +5,15 @@ import './TopTracks.css';
 const MusicCharts = () => {
   const [topTracks, setTopTracks] = useState([]);
   const [topArtists, setTopArtists] = useState([]);
-  const [showTopTracks, setShowTopTracks] = useState(true); // State to toggle between top tracks and top artists
+  const [showTopTracks, setShowTopTracks] = useState(true);
 
   useEffect(() => {
     const fetchSpotifyData = async () => {
       const clientId = 'd91a526fac8d4ce59f314782764bca69';
       const clientSecret = '8c16b55a114047e98523196eb625fc71';
-      const playlistId = '37i9dQZF1DXcBWIGoYBM5M'; // Replace with your playlist ID
-      const artistIds = '1Xyo4u8uXC1ZmMpatF05PJ,5K4W6rqBFWDnAN6FQUkS6x,7dGJo4pcD2V6oG8kP0tJRR,66CXWjxzNUsdJxJ2JdwvnR,6eUKZXaKkcviH0Ku9w2n3V'; // Replace with your artist IDs
+      const playlistId = '37i9dQZF1DXcBWIGoYBM5M';
 
       try {
-        // Get Spotify access token
         const tokenResponse = await axios.post('https://accounts.spotify.com/api/token', 'grant_type=client_credentials', {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -24,7 +22,6 @@ const MusicCharts = () => {
         });
         const token = tokenResponse.data.access_token;
 
-        // Fetch top tracks
         const tracksResponse = await axios.get(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
           headers: {
             'Authorization': `Bearer ${token}`
@@ -32,20 +29,61 @@ const MusicCharts = () => {
         });
         setTopTracks(tracksResponse.data.items);
 
-        // Fetch top artists
-        const artistsResponse = await axios.get(`https://api.spotify.com/v1/artists?ids=${artistIds}`, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-        setTopArtists(artistsResponse.data.artists);
-
       } catch (error) {
         console.error('Error fetching Spotify data:', error);
       }
     };
 
+    const fetchLastFmData = async () => {
+      const apiKey = '869c9de70ac2788fe3c99e9c8e3c42d8';
+
+      try {
+        const artistsResponse = await axios.get(`http://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=${apiKey}&format=json`);
+        const artists = artistsResponse.data.artists.artist;
+        
+        const spotifyTokenResponse = await axios.post('https://accounts.spotify.com/api/token', 'grant_type=client_credentials', {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': `Basic ${btoa(`d91a526fac8d4ce59f314782764bca69:8c16b55a114047e98523196eb625fc71`)}`
+          }
+        });
+        const spotifyToken = spotifyTokenResponse.data.access_token;
+
+        const artistsWithDetails = await Promise.all(artists.map(async (artist) => {
+          const artistInfoResponse = await axios.get(`http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${artist.name}&api_key=${apiKey}&format=json`);
+          const artistInfo = artistInfoResponse.data.artist;
+
+          const artistSearchResponse = await axios.get(`https://api.spotify.com/v1/search`, {
+            headers: {
+              'Authorization': `Bearer ${spotifyToken}`
+            },
+            params: {
+              q: artist.name,
+              type: 'artist',
+              limit: 1
+            }
+          });
+
+          const spotifyArtist = artistSearchResponse.data.artists.items[0];
+          return {
+            name: artistInfo.name,
+            url: artistInfo.url,
+            imageUrl: spotifyArtist ? spotifyArtist.images[0].url : 'default-image-url',
+            listeners: artist.listeners,
+            playcount: artistInfo.stats.playcount,
+            tags: artistInfo.tags.tag.map(tag => tag.name).join(', '),
+            // bio: artistInfo.bio.summary
+          };
+        }));
+
+        setTopArtists(artistsWithDetails);
+      } catch (error) {
+        console.error('Error fetching Last.fm data:', error);
+      }
+    };
+
     fetchSpotifyData();
+    fetchLastFmData();
   }, []);
 
   return (
@@ -78,14 +116,15 @@ const MusicCharts = () => {
           <ul className="top-artists">
             {topArtists.map((artist, index) => (
               <li key={index} className="artist-item">
-                <img src={artist.images[0].url} alt={artist.name} className="artist-img" />
+                <img src={artist.imageUrl} alt={artist.name} className="artist-img" />
                 <div className="artist-info">
-                  <a href={artist.external_urls.spotify} className="artist-name" target="_blank" rel="noopener noreferrer">
+                  <a href={artist.url} className="artist-name" target="_blank" rel="noopener noreferrer">
                     {artist.name}
                   </a>
-                  <span className="artist-genres">Genres: {artist.genres.join(', ')}</span>
-                  <span className="artist-followers">Followers: {artist.followers.total.toLocaleString()}</span>
-                  <span className="artist-popularity">Popularity: {artist.popularity}</span>
+                  <span className="artist-followers">Listeners: {parseInt(artist.listeners).toLocaleString()}</span>
+                  <span className="artist-playcount">Playcount: {parseInt(artist.playcount).toLocaleString()}</span>
+                  <span className="artist-tags">Tags: {artist.tags}</span>
+                  <span className="artist-bio" dangerouslySetInnerHTML={{ __html: artist.bio }}></span>
                 </div>
               </li>
             ))}
