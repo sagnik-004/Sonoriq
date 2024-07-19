@@ -1,0 +1,104 @@
+.detail {
+  padding: 0px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.181);
+  height: 100%;
+  -webkit-user-select: none; /* text selection off */
+}
+
+.detail .user {
+  padding: 20px 0px 20px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.detail .user img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border: 3px solid white;
+  border-radius: 50%;
+}
+
+.detail .user h2 {
+  font-size: 24px;
+  font-weight: 800;
+  color:white;
+}
+
+.detail .user h3 {
+  font-size: 18px;
+  color: rgb(255, 219, 147);
+}
+
+.detail .user p {
+  font-size: 14px;
+  text-align: center;
+  color: #666;
+}
+
+.detail .genres,
+.detail .tags {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.detail .genre {
+  background-color: #355db2;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 16px;
+}
+
+.detail .block-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #b83b3b;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 20px;
+  cursor: pointer;
+  font-weight: 800;
+  transition: background-color 0.3s;
+}
+
+.detail .block-button:hover {
+  background-color: #ff0000;
+}
+/* detail.css */
+.detail .blocked-message {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.detail .block-button {
+  color: white;
+  padding: 10px 20px;  
+  cursor: pointer;
+}
+
+.detail .block-button:hover {
+  background-color: #ff1a1a; /* Darker red on hover */
+}
+
+.detail .unblock-button {
+  background-color: #4caf50; /* Green color for unblocking */
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.detail .unblock-button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
