@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -20,6 +20,9 @@ import MusicRecommendations from "./components/MusicRecommendations/MusicRecomme
 import styled from "styled-components";
 import MusicCharts from "./components/TopTracks/TopTracks";
 import RecentUpdates from "./components/RecentUpdates/RecentUpdates";
+import GroupList from "./components/GroupList/GroupList";
+import GroupChat from "./components/GroupChat/GroupChat";
+import GroupDetails from "./components/GroupDetails/GroupDetails";
 
 const BackgroundVideo = () => (
   <div className="video-wrapper">
@@ -31,6 +34,7 @@ const BackgroundVideo = () => (
 
 const AppContent = () => {
   const location = useLocation();
+  const [selectedGroup, setSelectedGroup] = useState(null);
 
   React.useEffect(() => {
     if (location.pathname === "/login") {
@@ -52,6 +56,12 @@ const AppContent = () => {
 
   React.useEffect(() => {
     if (location.pathname === "/feed") {
+      import("./AppStyles.css");
+    }
+  }, [location.pathname]);
+
+  React.useEffect(() => {
+    if (location.pathname === "/group") {
       import("./AppStyles.css");
     }
   }, [location.pathname]);
@@ -91,10 +101,24 @@ const AppContent = () => {
         />
 
         <Route
+          path="/group"
+          element={
+            <>
+              <Sidebar />
+              <div className="groupContainer">
+                <GroupList onGroupSelect={setSelectedGroup} />
+                <GroupChat selectedGroup={selectedGroup} />
+                <GroupDetails selectedGroup={selectedGroup} />
+              </div>
+            </>
+          }
+        />
+
+        <Route
           path="/feed"
           element={
             <>
-            <Sidebar/>
+              <Sidebar />
               <div className="app">
                 <div className="left-panel">
                   <RecentUpdates />
