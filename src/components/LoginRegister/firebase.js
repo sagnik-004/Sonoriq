@@ -1,5 +1,6 @@
+// Import the necessary functions from Firebase SDKs
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { getFirestore, doc, setDoc, getDoc, query, where, collection, getDocs } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
@@ -17,8 +18,30 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+// Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
+
+// Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
+
+// Initialize Cloud Storage and get a reference to the service
 const storage = getStorage(app);
 
-export { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, db, storage, doc, getDoc, query, where, collection, getDocs, setDoc };
+// Export the initialized services and necessary methods for use in other parts of your app
+export {
+  auth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+  sendPasswordResetEmail,
+  db,
+  storage,
+  doc,
+  getDoc,
+  query,
+  where,
+  collection,
+  getDocs,
+  setDoc
+};
