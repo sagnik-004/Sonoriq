@@ -1,7 +1,7 @@
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { getDownloadURL, ref, uploadBytesResumable, getStorage, uploadBytes } from "firebase/storage";
 import { storage } from "./firebase";
 
-const upload = async (file, userId) => {
+export const upload = async (file, userId) => {
   const date = new Date();
   const storageRef = ref(storage, `images/${date.getTime()}_${file.name}`);
 
@@ -12,6 +12,7 @@ const upload = async (file, userId) => {
       "state_changed",
       (snapshot) => {
         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log(`Upload is ${progress}% done`);
       },
       (error) => {
         console.error("Upload failed: ", error);
@@ -25,6 +26,14 @@ const upload = async (file, userId) => {
       }
     );
   });
+};
+
+export const uploadImage = async (file, path) => {
+  const storage = getStorage();
+  const storageRef = ref(storage, path);
+  await uploadBytes(storageRef, file);
+  const downloadURL = await getDownloadURL(storageRef);
+  return downloadURL;
 };
 
 export default upload;
