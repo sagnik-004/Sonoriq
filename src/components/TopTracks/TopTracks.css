@@ -25,6 +25,9 @@
 }
 
 .track-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 47%;
 }
 
@@ -54,44 +57,48 @@
   display: inline-block;
   margin-top: 15px;
   padding: 10px 20px;
-  background-color: #00ff5963;
-  color: white;
+  background-color: #1db954;
+  color: black;
   border-radius: 20px;
   text-decoration: none;
   font-weight: 500;
 }
 
 .listen-link:hover {
-  background-color: #1ed760;
-  color: black;
+  background-color: #00ff5963;
+  color: white;
+  text-decoration: none;
 }
 
 /* Switch Button Styles */
 .switch-button {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   margin-bottom: 20px;
+
 }
 
 .switch-button button {
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 10px;
+  background-color: #ffffff8b;
+  border: none;
+  border-radius: 20px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 20px;
+  font-weight: 600;
+  color: white;
   padding: 10px 20px;
-  width: 150px;
+  width: 170px;
   margin: 0 5px;
   transition: background-color 0.3s ease;
 }
 
 .switch-button button.active {
-  background-color: #1db954;
+  background-color: #7b00bd;
   color: #fff;
 }
 
 .switch-button button:hover {
-  background-color: #1db954;
+  background-color: #a600ff;
   color: #fff;
 }
 
@@ -104,24 +111,26 @@
   border-radius: 20px;
   margin-bottom: 10px;
   width: 100%;
+  justify-content: flex-start;
 }
 
 .artist-img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  border-radius:15%;
   margin-right: 20px;
 }
 
 .artist-info {
   display: flex;
   flex-direction: column;
+  text-align: right;
 }
 
 .artist-name {
-  font-size: 1.2em;
+  font-size: 1.5em;
   font-weight: bold;
-  color: white;
+  color: rgb(204, 172, 43);
   text-decoration: none;
 }
 
@@ -129,7 +138,7 @@
   text-decoration: underline;
 }
 
-.artist-genres, .artist-followers, .artist-popularity {
+.artist-tags, .artist-followers, .artist-playcount {
   font-size: 0.9em;
   color: #aaa;
   margin-top: 5px;
