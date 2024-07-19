@@ -56,7 +56,8 @@ const Sidebar = () => {
       </button>
       <button 
         className={`sidebar-btn groups ${active === 'groups' ? 'active' : ''}`} 
-        data-tooltip="Rooms"
+        data-tooltip="Group"
+        onClick={() => handleNavigation('/group', 'group')}
       >
         <i className="fa-solid fa-people-group"></i>
       </button>
