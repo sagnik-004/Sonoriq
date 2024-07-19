@@ -1,0 +1,115 @@
+.GroupChat {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(24, 122, 129);
+    flex: 1;
+}
+
+/* Group Header */
+.groupHeader {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #024d52;
+    border-bottom: 1px solid #ddd;
+}
+
+.groupAvatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.groupName {
+    flex: 1;
+    color: white;
+    font-weight: bold;
+}
+
+.searchInput {
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    margin-right: 10px;
+}
+
+.someButton {
+    padding: 5px 10px;
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Chat Messages */
+.chatMessages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.chatMessage {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.chatMessage.user .message {
+    margin-left: auto;
+    background-color: #017374;
+    color: white;
+}
+
+.chatMessage.other .message {
+    margin-right: auto;
+    background-color: #f0f0f0;
+    color: black;
+}
+
+.chatAvatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.message {
+    max-width: 60%;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+/* Chat Input Section */
+.chatInputSection {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #024d52;
+    border-top: 1px solid #ddd;
+}
+
+.emojiIcon {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.chatInput {
+    flex: 1;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+}
+
+.sendButton {
+    padding: 10px 20px;
+    background-color: #017374;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    margin-left: 10px;
+    cursor: pointer;
+}
