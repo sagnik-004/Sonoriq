@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './LoginRegister.css';
-import { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, db, doc, setDoc, getDoc, query, where, collection, getDocs } from "../../components/LoginRegister/firebase";
+import { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, sendPasswordResetEmail, db, doc, setDoc, getDoc, query, where, collection, getDocs } from "../../components/LoginRegister/firebase";
 import { useNavigate } from 'react-router-dom';
 import { useUserStore } from '../../components/LoginRegister/userStore';
 import upload from "../../components/LoginRegister/upload";
@@ -8,7 +8,6 @@ import { FaUser, FaLock, FaHashtag, FaInfoCircle, FaGoogle } from "react-icons/f
 import { MdEmail } from "react-icons/md";
 import { IoMdPhotos } from "react-icons/io";
 import { GiCompactDisc } from "react-icons/gi";
-
 
 const LoginRegister = () => {
     const navigate = useNavigate();
@@ -22,6 +21,17 @@ const LoginRegister = () => {
     const [bio, setBio] = useState('');
     const [genres, setGenres] = useState('');
     const [image, setImage] = useState(null);
+    const [rememberMe, setRememberMe] = useState(false);
+
+    useEffect(() => {
+        const savedEmail = localStorage.getItem('email');
+        const savedPassword = localStorage.getItem('password');
+        if (savedEmail && savedPassword) {
+            setEmail(savedEmail);
+            setPassword(savedPassword);
+            setRememberMe(true);
+        }
+    }, []);
 
     const registerLink = () => {
         setAction('active');
@@ -87,6 +97,15 @@ const LoginRegister = () => {
             }
             const userDoc = await getDoc(doc(db, "users", userCredential.user.uid));
             setUser(userDoc.data());
+
+            if (rememberMe) {
+                localStorage.setItem('email', email);
+                localStorage.setItem('password', password);
+            } else {
+                localStorage.removeItem('email');
+                localStorage.removeItem('password');
+            }
+
             navigate('/chat');
         } catch (error) {
             alert(error.message);
@@ -122,6 +141,19 @@ const LoginRegister = () => {
         }
     };
 
+    const handleForgotPassword = async () => {
+        if (!email) {
+            alert("Please enter your email address.");
+            return;
+        }
+        try {
+            await sendPasswordResetEmail(auth, email);
+            alert("Password reset email sent!");
+        } catch (error) {
+            alert(error.message);
+        }
+    };
+
     return (
         <div className="login-register-page">
             <div className={`wrapper ${action}`}>
@@ -137,8 +169,11 @@ const LoginRegister = () => {
                             <FaLock className='icon'/>
                         </div>
                         <div className="remember-forgot">
-                            <label><input type="checkbox" />Remember me</label>
-                            <a href="#">Forgot Password?</a>
+                            <label>
+                                <input type="checkbox" checked={rememberMe} onChange={() => setRememberMe(!rememberMe)} />
+                                Remember me
+                            </label>
+                            <a href='#' onClick={handleForgotPassword}>Forgot Password?</a>
                         </div>
                         <button type="submit">Login</button>
                         <button type="button" className="google-signin" onClick={handleGoogleSignIn}>
@@ -146,7 +181,7 @@ const LoginRegister = () => {
                         </button>
                         <div className="register-link">
                             <p>Don't have an account? 
-                                <a href="#" onClick={registerLink}> Register</a>
+                                <a href='#' onClick={registerLink}> Register</a>
                             </p>
                         </div>
                     </form>
@@ -159,10 +194,10 @@ const LoginRegister = () => {
                             <input type="text" placeholder='Username' value={username} onChange={(e) => setUsername(e.target.value)} required />
                             <FaUser className='icon'/>
                         </div>
-                        <div className="input-box">
+                        {/* <div className="input-box">
                             <input type="text" placeholder='User ID' value={userid} onChange={(e) => setUserid(e.target.value)} required />
                             <FaHashtag className='icon'/>
-                        </div>
+                        </div> */}
                         <div className="input-box">
                             <input type="email" placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} required />
                             <MdEmail className='icon'/>
@@ -171,7 +206,7 @@ const LoginRegister = () => {
                             <input type="password" placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} required />
                             <FaLock className='icon'/>
                         </div>
-                        <div className="input-box">
+                        {/* <div className="input-box">
                             <input type="text" placeholder='Bio (max 30 chars)' value={bio} onChange={(e) => setBio(e.target.value)} maxLength="30" required />
                             <FaInfoCircle className='icon'/>
                         </div>
@@ -185,14 +220,14 @@ const LoginRegister = () => {
                                 Choose your Avatar
                                 <IoMdPhotos className='icon' />
                             </label>
-                        </div>
+                        </div> */}
                         <div className="remember-forgot">
                             <label><input type="checkbox" />I agree to the <a href="#" id="t-nd-c">Terms & Conditions</a></label>
                         </div>
                         <button type="submit">Register</button>
                         <div className="register-link">
                             <p>Already have an account?
-                                <a href="#" onClick={loginLink}> Login</a>
+                                <a href='#' onClick={loginLink}> Login</a>
                             </p>
                         </div>
                     </form>
