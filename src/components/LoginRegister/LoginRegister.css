@@ -1,0 +1,186 @@
+/* Wrapper Styles */
+.wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    transition: height 0.2s ease;
+    background-image: url(/assets/yannis-papanastasopoulos-yWF2LLan-_o-unsplash.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+/* Form Box Styles */
+.form-box {
+    background-color: transparent;
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: bllur(30px);
+    padding: 30px;
+    border: 2px solid #99999937;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    position: absolute;
+    transition: transform 0.3s ease-in-out;
+}
+
+.form-box.login {
+    transform: translateX(0);
+}
+
+.form-box.user-id-avatar, .form-box.bio-genres {
+    transform: translateX(0%);
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.input-box textarea {
+    width: 100%;
+    border-radius: 20px;
+    padding: 10px 15px;
+    font-size: 16px;
+}
+
+/* Custom File Input Label */
+.custom-file-label {
+    display: inline-block;
+    cursor: pointer;
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 20px;
+    text-align: center;
+    width: 100%;
+}
+
+.custom-file-label:hover {
+    background-color: #ffffffe4;
+}
+
+/* Form Title */
+form h1 {
+    margin-bottom: 20px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #ffffff;
+    text-align: center;
+}
+
+/* Input Box Styles */
+.input-box {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 10px 10px 10px 15px;
+    background-color: transparent;
+    border: 1px solid #ffffff42;
+    border-radius: 20px;
+    outline: none;
+    font-size: 16px;
+    color: white;
+}
+
+.input-box input::placeholder {
+    color: #ffffffa0;
+}
+
+.input-box .icon {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    translate: 0 -50%;
+    color: #ffffff;
+}
+
+.input-box input:focus + .icon {
+    color: #333;
+}
+
+/* Button Styles */
+button[type="submit"], .google-sign-in {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin: 5px 0;
+}
+
+button[type="submit"]:hover, .google-sign-in:hover {
+    background-color: #dbdbdb;
+}
+
+.google-sign-in {
+    background-color: rgb(10, 126, 221);
+    color: white;
+}
+
+/* Remember Me and Forgot Password */
+.remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.remember-forgot label {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #ffffff;
+}
+
+.remember-forgot a {
+    font-size: 14px;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.remember-forgot a:hover {
+    text-decoration: underline;
+}
+
+.google-sign-in .google-icon {
+    margin-right: 10px;
+}
+
+/* Register and Login Links */
+.register-link {
+    text-align: center;
+    margin-top: 10px;
+    color: white;
+}
+
+.register-link a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+.avatar-preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.avatar-preview img {
+    border: 5px solid rgba(255, 255, 255, 0.633);
+    border-radius: 50%;
+    width: 200px; /* Adjust size as needed */
+    height: 200px; /* Adjust size as needed */
+    object-fit: cover;
+}
