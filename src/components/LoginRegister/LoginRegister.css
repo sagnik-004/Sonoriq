@@ -6,7 +6,7 @@
     align-items: center;
     height: 100vh;
     transition: height 0.2s ease;
-    background-image: url(assets/yannis-papanastasopoulos-yWF2LLan-_o-unsplash.jpg);
+    background-image: url(/assets/yannis-papanastasopoulos-yWF2LLan-_o-unsplash.jpg);
     background-size: cover;
     background-position: center;
 }
