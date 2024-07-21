@@ -65,6 +65,7 @@ const Sidebar = () => {
       <button 
         className={`sw-sidebar-btn sw-profile ${active === 'profile' ? 'active' : ''}`} 
         title="User Profile"
+        onClick={() => handleNavigation('/profile-settings', 'profile-settings')}
       >
         <i className="fa-solid fa-user"></i>
       </button>

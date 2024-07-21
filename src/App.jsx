@@ -23,6 +23,7 @@ import RecentUpdates from "./components/RecentUpdates/RecentUpdates";
 import GroupList from "./components/GroupList/GroupList";
 import GroupChat from "./components/GroupChat/GroupChat";
 import GroupDetails from "./components/GroupDetails/GroupDetails";
+import ProfileSettings from './components/ProfileSettings/ProfileSettings';
 
 const BackgroundVideo = () => (
   <div className="video-wrapper">
@@ -90,7 +91,7 @@ const AppContent = () => {
             <>
               <div className="container">
                 <Sidebar />
-                {/* <LoginRegister/> */}
+                
                 <List />
                 <div className="chat-container">
                   <Chat />
@@ -99,7 +100,6 @@ const AppContent = () => {
             </>
           }
         />
-
         <Route
           path="/group"
           element={
@@ -113,7 +113,6 @@ const AppContent = () => {
             </>
           }
         />
-
         <Route
           path="/feed"
           element={
@@ -127,6 +126,15 @@ const AppContent = () => {
                   <MusicCharts />
                 </div>
               </div>
+            </>
+          }
+        />
+        <Route
+          path="/profile-settings"
+          element={
+            <>
+              <Sidebar />
+              <ProfileSettings />
             </>
           }
         />
