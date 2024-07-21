@@ -109,11 +109,12 @@ const GroupList = ({ onGroupSelect }) => {
   };
 
   const filteredGroups = useMemo(() => {
-    return sortedGroups.filter(
-      (group) =>
-        group.groupName.toLowerCase().includes(searchInput.toLowerCase()) ||
-        group.groupId.toLowerCase().includes(searchInput.toLowerCase())
-    );
+    return sortedGroups.filter((group) => {
+      const groupName = group.groupName || "";
+      const groupId = group.groupId || "";
+      return groupName.toLowerCase().includes(searchInput.toLowerCase()) ||
+             groupId.toLowerCase().includes(searchInput.toLowerCase());
+    });
   }, [sortedGroups, searchInput]);
 
   if (loading) {
