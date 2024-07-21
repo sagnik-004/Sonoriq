@@ -99,7 +99,7 @@ const ProfileSettings = () => {
 
   return (
     <div className="profile-page">
-      <h1>User Profile</h1>
+      <h1 className='user-profile'>User Profile</h1>
       <div className="profile-content">
         <div className="profile-field">
           <img src={formData.avatar} alt="Avatar" className="avatar" />
