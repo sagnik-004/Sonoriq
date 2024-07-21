@@ -1,4 +1,3 @@
-// Sidebar.jsx
 import React, { useState, useEffect } from 'react';
 import './Sidebar.css';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -20,9 +19,16 @@ const Sidebar = () => {
   };
 
   const handleLogout = () => {
-    // Logic for logging out (e.g., clearing tokens, etc.)
+    // Clear authentication tokens and session data
+    localStorage.removeItem('authToken'); // Example token name
+    sessionStorage.removeItem('authToken'); // Example session token name
+
+    // Navigate to the home page
     setActive('');
-    navigate('/');
+    navigate('/', { replace: true });
+
+    // Reload the page to clear the browser history stack
+    window.location.href = '/login';
   };
 
   return (

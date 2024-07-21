@@ -40,14 +40,16 @@ const MusicCharts = () => {
       }
     };
 
-    const fetchLastFmData = async () => {
-      const apiKey = "869c9de70ac2788fe3c99e9c8e3c42d8";
+    const fetchLastFmAndSpotifyData = async () => {
+      const lastFmApiKey = "869c9de70ac2788fe3c99e9c8e3c42d8";
+      const spotifyClientId = "d91a526fac8d4ce59f314782764bca69";
+      const spotifyClientSecret = "8c16b55a114047e98523196eb625fc71";
 
       try {
-        const artistsResponse = await axios.get(
-          `https://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=${apiKey}&format=json`
+        const lastFmResponse = await axios.get(
+          `https://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=${lastFmApiKey}&format=json`
         );
-        const artists = artistsResponse.data.artists.artist;
+        const artists = lastFmResponse.data.artists.artist;
 
         const spotifyTokenResponse = await axios.post(
           "https://accounts.spotify.com/api/token",
@@ -55,9 +57,7 @@ const MusicCharts = () => {
           {
             headers: {
               "Content-Type": "application/x-www-form-urlencoded",
-              Authorization: `Basic ${btoa(
-                `d91a526fac8d4ce59f314782764bca69:8c16b55a114047e98523196eb625fc71`
-              )}`,
+              Authorization: `Basic ${btoa(`${spotifyClientId}:${spotifyClientSecret}`)}`,
             },
           }
         );
@@ -65,12 +65,7 @@ const MusicCharts = () => {
 
         const artistsWithDetails = await Promise.all(
           artists.map(async (artist) => {
-            const artistInfoResponse = await axios.get(
-              `https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${artist.name}&api_key=${apiKey}&format=json`
-            );
-            const artistInfo = artistInfoResponse.data.artist;
-
-            const artistSearchResponse = await axios.get(
+            const spotifyArtistResponse = await axios.get(
               `https://api.spotify.com/v1/search`,
               {
                 headers: {
@@ -83,31 +78,31 @@ const MusicCharts = () => {
                 },
               }
             );
+            const spotifyArtist = spotifyArtistResponse.data.artists.items[0];
 
-            const spotifyArtist = artistSearchResponse.data.artists.items[0];
-            return {
-              name: artistInfo.name,
-              url: artistInfo.url,
-              imageUrl: spotifyArtist
-                ? spotifyArtist.images[0].url
-                : "default-image-url",
-              listeners: artist.listeners,
-              playcount: artistInfo.stats.playcount,
-              tags: artistInfo.tags.tag.map((tag) => tag.name).join(", "),
-              spotifyUrl: spotifyArtist ? spotifyArtist.external_urls.spotify : null,
-              // bio: artistInfo.bio.summary
-            };
+            if (spotifyArtist) {
+              return {
+                name: artist.name,
+                url: spotifyArtist.external_urls.spotify,
+                imageUrl: spotifyArtist.images[0]?.url || "default-image-url",
+                listeners: spotifyArtist.followers.total.toLocaleString(),
+                // playcount: spotifyArtist.popularity.toLocaleString(),
+                tags: spotifyArtist.genres.join(", "),
+              };
+            } else {
+              return null;
+            }
           })
         );
 
-        setTopArtists(artistsWithDetails);
+        setTopArtists(artistsWithDetails.filter((artist) => artist !== null));
       } catch (error) {
-        console.error("Error fetching Last.fm data:", error);
+        console.error("Error fetching Last.fm and Spotify data:", error);
       }
     };
 
     fetchSpotifyData();
-    fetchLastFmData();
+    fetchLastFmAndSpotifyData();
   }, []);
 
   return (
@@ -128,7 +123,6 @@ const MusicCharts = () => {
       </div>
       {showTopTracks ? (
         <div>
-          {/* <h2>Top Tracks</h2> */}
           <ul className="top-tracks">
             {topTracks.map((track, index) => (
               <li key={index} className="track-item">
@@ -156,12 +150,11 @@ const MusicCharts = () => {
         </div>
       ) : (
         <div>
-          {/* <h2>Top Artists</h2> */}
           <ul className="top-artists">
             {topArtists.map((artist, index) => (
               <li key={index} className="artist-item">
                 <a
-                  href={artist.spotifyUrl}
+                  href={artist.url}
                   className="artist-link"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -174,16 +167,12 @@ const MusicCharts = () => {
                   <div className="artist-info">
                     <span className="artist-name">{artist.name}</span>
                     <span className="artist-followers">
-                      Listeners: {parseInt(artist.listeners).toLocaleString()}
+                      Listeners: {artist.listeners}
                     </span>
-                    <span className="artist-playcount">
-                      Playcount: {parseInt(artist.playcount).toLocaleString()}
-                    </span>
+                    {/* <span className="artist-playcount">
+                      Playcount: {artist.playcount}
+                    </span> */}
                     <span className="artist-tags">Tags: {artist.tags}</span>
-                    <span
-                      className="artist-bio"
-                      dangerouslySetInnerHTML={{ __html: artist.bio }}
-                    ></span>
                   </div>
                 </a>
               </li>
