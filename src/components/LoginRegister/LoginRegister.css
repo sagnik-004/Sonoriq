@@ -116,13 +116,19 @@ button[type="submit"], .google-sign-in {
     margin: 5px 0;
 }
 
-button[type="submit"]:hover, .google-sign-in:hover {
+button[type="submit"]:hover {
     background-color: #dbdbdb;
+    transition: 0.2s;
 }
 
 .google-sign-in {
     background-color: rgb(10, 126, 221);
     color: white;
+}
+
+.google-sign-in:hover {
+    background-color: rgb(0, 102, 204);
+    transition: 0.2s;
 }
 
 /* Remember Me and Forgot Password */
