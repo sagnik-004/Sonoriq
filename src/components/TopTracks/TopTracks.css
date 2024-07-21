@@ -1,0 +1,158 @@
+/* TopTracks.css */
+
+.music-charts {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  padding: 0;
+}
+
+.music-charts ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0;
+  list-style: none;
+}
+
+.music-charts li {
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: #0000005b;
+  text-align: center;
+  font-size: 16px;
+}
+
+.track-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 47%;
+}
+
+.track-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+}
+
+.track-info {
+  padding: 0;
+}
+
+.track-title {
+  display: block;
+  font-size: 1.2em;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.track-artist {
+  display: block;
+  color: #aaa;
+}
+
+.listen-link {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #1db954;
+  color: black;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.listen-link:hover {
+  background-color: #00ff5963;
+  color: white;
+  text-decoration: none;
+}
+
+/* Switch Button Styles */
+.switch-button {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+
+}
+
+.switch-button button {
+  background-color: #ffffff8b;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 600;
+  color: white;
+  padding: 10px 20px;
+  width: 170px;
+  margin: 0 5px;
+  transition: background-color 0.3s ease;
+}
+
+.switch-button button.active {
+  background-color: #24007a;
+  color: #fff;
+}
+
+.switch-button button:hover {
+  background-color: #2d0096;
+  color: #fff;
+}
+
+/* Top Artists Styles */
+.artist-item {
+  display: flex;
+  align-items: center;
+  background-color: #0000005b;
+  padding: 10px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.artist-link {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.artist-link:hover{
+  text-decoration: none;
+}
+
+.artist-img {
+  width: 118px;
+  height: 118px;
+  border-radius:15%;
+  margin-right: 20px;
+}
+
+.artist-info {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  width: 65%;
+}
+
+.artist-name {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: rgb(108, 238, 255);
+  text-decoration: none;
+}
+
+.artist-name:hover {
+  text-decoration: underline;
+}
+
+.artist-tags, .artist-followers, .artist-playcount {
+  font-size: 0.9em;
+  color: #aaa;
+  margin-top: 5px;
+  font-weight: 400;
+}

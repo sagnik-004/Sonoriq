@@ -1,0 +1,35 @@
+.userinfo {
+  margin-top: 20px;
+  padding: 0px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 40px;
+  .user {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    img {
+      width: 50px;
+      height: 50px;
+      border: 3px solid rgb(72, 248, 254);
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    h2 {
+      color: rgb(255, 255, 255);
+/*       margin-top: 20px; */
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+  }
+
+  .icons {
+    display: flex;
+    gap: 20px;
+    img {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}

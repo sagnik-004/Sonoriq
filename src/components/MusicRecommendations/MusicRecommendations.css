@@ -1,0 +1,131 @@
+/* frontend/src/styles/MusicRecommendations.css */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@300..700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* .App {
+  font-family: 'Space Grotesk', sans-serif;
+  padding: 20px;
+  background: linear-gradient(to right, #461717, #170017);
+  color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+} */
+
+h1 {
+  font-family: "Raleway";
+  font-size: 50px;
+  margin: 5px 0 30px 0;
+  color: white;
+}
+
+.music-recommendations {
+  background:linear-gradient(to left, #12637a, #08001b);
+  width: 100%;
+  /* max-width: 1200px; */
+  padding: 20px 64px;
+  margin-left: 40px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.inputs {
+  margin-bottom: 40px;
+  display: flex;
+  gap: 10px;
+}
+
+.inputs input {
+  padding: 10px 20px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  border: 0px solid #ffffff;
+  width: 300px;
+  font-family: "Space Grotesk";
+  font-size: 20px;
+  color: white;
+  font-weight: 900;
+  
+}
+
+.track-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: space-between;
+}
+
+.track-card {
+  background-color: #0000007f;
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+  width: 200px;
+  text-align: center;
+  height: 340px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.track-card:hover {
+  transform: translateY(-10px);
+}
+
+.track-image img {
+  margin-top: 20px;
+  width: 80%;
+  height: auto;
+  border-radius: 15px;
+}
+
+.track-info {
+  padding: 20px;
+}
+
+.track-info h3 {
+  margin: 10px 0 10px 0;
+  font-size: 1.1rem;
+  color: white;
+  padding: 0 10px;
+}
+
+.track-info p {
+  margin: 0 0 10px;
+  font-size: 0.9rem;
+  color: #bbbbbb;
+  padding: 0 10px;
+}
+
+.spotify-link {
+  display: block;
+  padding: 5px 12px;
+  background-color: #1ed760;
+  color: black;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s;
+  font-size: 1.0em;
+  width: max-content;
+  
+  margin: 0 0px 20px 0px;
+}
+
+.spotify-link:hover {
+  background-color: #00ff5963;
+  color: white;
+  text-decoration: none;
+}
+
