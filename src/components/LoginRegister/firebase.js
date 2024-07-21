@@ -5,7 +5,8 @@ import {
   signInWithEmailAndPassword, 
   signInWithPopup, 
   GoogleAuthProvider, 
-  sendPasswordResetEmail 
+  sendPasswordResetEmail, 
+  deleteUser 
 } from "firebase/auth";
 import { 
   getFirestore, 
@@ -16,7 +17,8 @@ import {
   where, 
   collection, 
   getDocs, 
-  updateDoc 
+  updateDoc, 
+  deleteDoc 
 } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
@@ -39,6 +41,27 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const storage = getStorage(app);
 
+// Function to delete user account and associated Firestore data
+const deleteAccount = async (userId) => {
+  const user = auth.currentUser;
+  if (user) {
+    try {
+      // Delete user data from Firestore
+      const userDocRef = doc(db, "users", userId);
+      await deleteDoc(userDocRef);
+      console.log('User data deleted from Firestore');
+
+      // Delete user authentication
+      await deleteUser(user);
+      console.log('User deleted from Firebase Auth');
+    } catch (error) {
+      console.error('Error deleting account:', error);
+    }
+  } else {
+    console.error('No user is currently signed in.');
+  }
+};
+
 // Export Firebase services and methods
 export {
   auth,
@@ -56,5 +79,6 @@ export {
   collection,
   getDocs,
   setDoc,
-  updateDoc
+  updateDoc,
+  deleteAccount // Export the deleteAccount function
 };

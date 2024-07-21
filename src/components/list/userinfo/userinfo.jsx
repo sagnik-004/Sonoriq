@@ -9,21 +9,22 @@ function Userinfo() {
     const [imageUrl, setImageUrl] = useState('./avatar.png');
 
     useEffect(() => {
-        if (currentUser) {
-            const fetchImage = async () => {
+        const fetchImage = async () => {
+            if (currentUser) {
                 const userDoc = await getDoc(doc(db, "users", currentUser.id));
                 if (userDoc.exists()) {
                     const userData = userDoc.data();
-                    setImageUrl(userData.imageUrl || './avatar.png');
+                    setImageUrl(userData.avatar || './avatar.png');
                 }
-            };
-            fetchImage();
-        }
+            }
+        };
+
+        fetchImage();
     }, [currentUser]);
 
     return (
-        <div className="userinfo">
-            <div className="user">
+        <div className="ch-userinfo">
+            <div className="ch-user">
                 <img src={imageUrl} draggable="false" alt="User Image" />
                 <h2>{currentUser ? currentUser.username : "Your Name"}</h2>
             </div>
@@ -31,7 +32,7 @@ function Userinfo() {
                 {/* Add your icons here */}
             </div>
         </div>
-    )
+    );
 }
 
 export default Userinfo;
