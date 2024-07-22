@@ -1,7 +1,7 @@
 .gc-GroupChat {
     display: flex;
     flex-direction: column;
-    background-color: rgb(24, 122, 129);
+    background-color: transparent;
     flex: 1;
 }
 
@@ -10,13 +10,14 @@
     display: flex;
     align-items: center;
     padding: 10px;
-    background-color: #024d52;
-    border-bottom: 1px solid #ddd;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-bottom: 1px solid #dddddd84;
 }
 
 .gc-groupAvatar {
     width: 40px;
     height: 40px;
+    border: 2px solid white;
     border-radius: 50%;
     margin-right: 10px;
 }
@@ -59,20 +60,21 @@
 
 .gc-chatMessage.user .gc-message {
     align-self: flex-end;
-    background-color: #017374;
+    background-color: #ffffff3d;
     color: white;
 }
 
 .gc-chatMessage.other .gc-message {
     align-self: flex-start;
-    background-color: #0da221;
-    color: black;
+    background-color: rgba(0, 0, 0, 0.403);
+    color: rgb(255, 255, 255);
 }
 
 .gc-chatAvatar {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
+    border: 2px solid white;
 }
 
 .gc-otherUserInfo {
@@ -83,18 +85,20 @@
 
 .gc-otherUsername {
     margin-left: 10px;
-    font-weight: bold;
+    font-weight: 600;
     color: white;
+    font-size: 12px;
 }
 
 .gc-message {
     max-width: 60%;
-    padding: 10px;
-    border-radius: 10px;
+    padding: 10px 15px;
+    border-radius: 20px;
 }
 
 .gc-messageContent {
     margin-bottom: 5px;
+    font-size: 15px;
 }
 
 .gc-timestamp {
@@ -108,15 +112,15 @@
     display: flex;
     align-items: center;
     padding: 10px;
-    background-color: #024d52;
+    background-color: rgba(0, 0, 0, 0.6);
     border-top: 1px solid #ddd;
 }
 
 .gc-emojiIcon {
-    width: 30px;
-    height: 30px;
     margin-right: 10px;
     cursor: pointer;
+    color: white;
+    font-size: 24px;
 }
 
 .gc-chatInput {
@@ -125,6 +129,7 @@
     border-radius: 20px;
     border: none;
     outline: none;
+    font-size: 15px;
 }
 
 .gc-sendButton {
@@ -135,4 +140,6 @@
     border-radius: 20px;
     margin-left: 10px;
     cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
 }

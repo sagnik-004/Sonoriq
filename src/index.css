@@ -560,7 +560,7 @@ code {
   }
 }
 
-.list {
+/* .list {
   flex: 1;
   width: 25%;
   display: flex;
@@ -569,4 +569,4 @@ code {
   -webkit-user-select:none;
   overflow: scroll;
   background-color: rgba(255, 255, 255, 0.37);
-}
+} */

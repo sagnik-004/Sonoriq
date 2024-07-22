@@ -54,7 +54,7 @@ const GroupChat = ({ selectedGroup }) => {
                     <>
                         <img src={selectedGroup.avatarUrl} alt="Group Avatar" className="gc-groupAvatar" />
                         <span className="gc-groupName">{selectedGroup.groupName}</span>
-                        <input type="text" placeholder="Search in group" className="gc-searchInput" />
+                        {/* <input type="text" placeholder="Search in group" className="gc-searchInput" /> */}
                     </>
                 )}
             </div>
@@ -78,7 +78,7 @@ const GroupChat = ({ selectedGroup }) => {
                 <div ref={chatEndRef} />
             </div>
             <div className="gc-chatInputSection">
-                <img src="./emoji.svg" alt="Emoji" className="gc-emojiIcon" />
+            <i class="fa-light fa-icons gc-emojiIcon"></i>
                 <input
                     type="text"
                     placeholder="Type a message"

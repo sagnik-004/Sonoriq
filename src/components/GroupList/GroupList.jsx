@@ -3,6 +3,8 @@ import { fetchUserGroups, joinGroup, getUserGroups } from "../LoginRegister/user
 import { auth } from "../LoginRegister/firebase"; 
 import AddGroup from "./AddGroup/AddGroup";
 import "./GroupList.css";
+import { FaPlus } from "react-icons/fa";
+import { FaMinus } from "react-icons/fa";
 
 const GroupList = ({ onGroupSelect }) => {
   const [addMode, setAddMode] = useState(false);
@@ -125,7 +127,7 @@ const GroupList = ({ onGroupSelect }) => {
     <div className="grouplist">
       <div className="gc-search" ref={searchBoxRef}>
         <div className="gc-searchBar">
-          <img src="./search.svg" alt="search" />
+        <i class="fa-solid fa-magnifying-glass grp-search-icon"></i>
           <input
             type="text"
             placeholder="Search by name or ID"
@@ -133,11 +135,9 @@ const GroupList = ({ onGroupSelect }) => {
             onChange={handleSearchInput}
           />
         </div>
-        <img
-          src={addMode ? "./minus.svg" : "./plus.svg"}
-          className="gc-add"
-          onClick={() => setAddMode((prev) => !prev)}
-        />
+        <button className="add grp-add-btn" onClick={() => setAddMode((prev) => !prev)}>
+          {addMode ? <FaMinus /> : <FaPlus />}{" "}
+        </button>
       </div>
       {searchInput && filteredGroups.length > 0 && (
         <div className="gc-searchResults">
@@ -168,7 +168,8 @@ const GroupList = ({ onGroupSelect }) => {
       )}
       {addMode && <AddGroup onClose={() => setAddMode(false)} />}
       <div className="joinedGroups">
-        <h2>Joined Groups ({joinedGroups.length})</h2>
+        {/* <h2>Joined Groups [{joinedGroups.length}]</h2> */}
+        {/* <h2>Groups</h2> */}
         {joinedGroups.length === 0 ? (
           <p>You haven't joined any groups yet.</p>
         ) : (
