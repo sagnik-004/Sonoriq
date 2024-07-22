@@ -15,6 +15,12 @@ const GroupDetails = () => {
         </div>
       </div>
       <div className="gc-member">
+        <img src="/assets/gc5.jpg" alt="" />
+        <div className="texts">
+          <span>Sagnik Raha</span>
+        </div>
+      </div>
+      <div className="gc-member">
         <img src="/assets/gc3.jpg" alt="" />
         <div className="texts">
           <span>Sayandeep Biswas</span>
@@ -26,19 +32,8 @@ const GroupDetails = () => {
           <span>Swagat Mitra</span>
         </div>
       </div>
-      <div className="gc-member">
-        <img src="/assets/gc5.jpg" alt="" />
-        <div className="texts">
-          <span>Sagnik Raha</span>
-        </div>
-      </div>
-      <div className="gc-member">
-       <img src="/assets/gc6.jpg" alt="" />
-        <div className="texts">
-          <span>Samanyu Deghuria</span>
-        </div>
-      </div>
-    </div>
+
+      
   );
 };
 
