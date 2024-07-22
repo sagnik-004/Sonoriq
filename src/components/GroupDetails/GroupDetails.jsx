@@ -33,7 +33,7 @@ const GroupDetails = () => {
           <span>Swagat Mitra</span>
         </div>
       </div>
-
+    </div>
       
   );
 };
