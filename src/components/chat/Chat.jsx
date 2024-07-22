@@ -21,6 +21,7 @@ const Chat = () => {
   const [isChatsSelected, setIsChatsSelected] = useState(true);
   const [chat, setChat] = useState(null);
   const [isScrolledToBottom, setIsScrolledToBottom] = useState(true);
+  const [hoveredMessageId, setHoveredMessageId] = useState(null);
   const { selectedChat, selectChat, isCurrentUserBlocked, isReceiverBlocked } =
     useChatStore();
   const currentUser = auth.currentUser;
@@ -28,6 +29,8 @@ const Chat = () => {
   const detailRef = useRef(null);
   const endRef = useRef(null);
   const centerRef = useRef(null);
+  const [isRecording, setIsRecording] = useState(false);
+  const recognitionRef = useRef(null);
 
   useEffect(() => {
     if (selectedChat) {
@@ -71,6 +74,35 @@ const Chat = () => {
       document.querySelector(".scrollButton").classList.remove("visible");
     }
   }, [isScrolledToBottom]);
+
+  useEffect(() => {
+    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+      alert('Speech recognition is not supported in this browser. Please use Chrome.');
+    } else {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const recognition = new SpeechRecognition();
+      recognition.continuous = true;
+      recognition.interimResults = true;
+
+      recognition.onresult = (event) => {
+        const transcript = Array.from(event.results)
+          .map(result => result[0])
+          .map(result => result.transcript)
+          .join('');
+        setText(transcript);
+      };
+
+      recognition.onend = () => {
+        if (isRecording) {
+          recognition.start(); // Restarting the recognition if it stops unexpectedly
+        } else {
+          handleSend();
+        }
+      };
+
+      recognitionRef.current = recognition;
+    }
+  }, []);
 
   const handleEmoji = (e) => {
     setText((prev) => prev + e.emoji);
@@ -193,6 +225,60 @@ const Chat = () => {
     }
   };
 
+  const handleCopy = (text) => {
+    navigator.clipboard.writeText(text).then(
+      () => {
+        console.log("Text copied to clipboard");
+      },
+      (err) => {
+        console.error("Failed to copy text: ", err);
+      }
+    );
+  };
+
+  const handleDelete = async (message) => {
+    try {
+      await updateDoc(doc(db, "chats", selectedChat.chatId), {
+        messages: chat.messages.filter((msg) => msg !== message),
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleForward = (message) => {
+    // Implement the forward functionality here
+    console.log("Forward message: ", message.text);
+  };
+
+  const handleMessageMouseEnter = (message) => {
+    setHoveredMessageId(message.createdAt);
+    handleReadMessage(message);
+  };
+
+  const toggleRecording = () => {
+    if (isRecording) {
+      stopRecording();
+    } else {
+      startRecording();
+    }
+  };
+
+  const startRecording = () => {
+    if (recognitionRef.current) {
+      recognitionRef.current.start();
+      setIsRecording(true);
+    }
+  };
+
+  const stopRecording = () => {
+    if (recognitionRef.current) {
+      recognitionRef.current.stop();
+      setIsRecording(false);
+      handleSend();
+    }
+  };
+
   return (
     <div
       className={`chat-container ${isDetailVisible ? "detail-visible" : ""}`}
@@ -233,7 +319,8 @@ const Chat = () => {
                   : ""
               }`}
               key={message?.createdAt}
-              onMouseEnter={() => handleReadMessage(message)}
+              onMouseEnter={() => handleMessageMouseEnter(message)}
+              onMouseLeave={() => setHoveredMessageId(null)}
             >
               <div className="texts">
                 <p>
@@ -246,13 +333,34 @@ const Chat = () => {
                   </span>
                 </p>
               </div>
+              {hoveredMessageId === message.createdAt && (
+                <div className="message-options">
+                  <div className="options">
+                    <div
+                      className="option"
+                      onClick={() => handleCopy(message.text)}
+                    >
+                      <i className="fa-regular fa-copy"></i>
+                    </div>
+                    <div
+                      className="option"
+                      onClick={() => handleDelete(message)}
+                    >
+                      <i className="fa-regular fa-trash"></i>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           ))}
           <div ref={endRef}></div>
         </div>
         <div className="bottom">
           <div className="icons">
-            <i className="fa-light fa-microphone"></i>
+            <i
+              className={`fa ${isRecording ? "fa-stop" : "fa-microphone"}`}
+              onClick={toggleRecording}
+            ></i>
           </div>
           <div className="emoji" ref={emojiPickerRef}>
             <i
