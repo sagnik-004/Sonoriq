@@ -2,3 +2,42 @@
     background-color: #801313;
     flex: 1;
 }
+
+.gc-member
+{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 2px;
+    cursor: pointer;
+    border-bottom: 1px solid #dddddd35;
+
+    img 
+    {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-left: 10px;
+    }
+
+    .texts
+    {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 8px;
+        margin-left:2px;
+
+        span
+        {
+            font-weight: 500;            
+        }
+
+        p
+        {
+            font-size: 14px;
+            font-weight: 300;
+        }
+    }
+}
