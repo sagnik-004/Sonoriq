@@ -249,3 +249,23 @@
     opacity: 1;
     visibility: visible;
 }
+
+
+.fa-ellipsis-v {
+    float: right;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: white;
+}
+
+.option{
+    color: white;
+    padding: 5px 10px;
+    margin-left: 5px;
+    font-size: 16px;
+}
+
+.option:hover{
+    background-color: #0000005a;
+    border-radius: 15px;
+}
