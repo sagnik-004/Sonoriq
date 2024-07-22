@@ -35,12 +35,12 @@ const AddGroup = ({ onClose }) => {
     <div className="add-group-overlay" onClick={onClose}>
       <div className="add-group-form" onClick={(e) => e.stopPropagation()}>
         <form onSubmit={handleSubmit}>
-          <label>
-            Group Avatar:
+          <label className="file-upload-btn">
+             Upload Group Avatar
             <input type="file" onChange={(e) => setAvatar(e.target.files[0])} required />
           </label>
-          <label>
-            Group Banner:
+          <label className="file-upload-btn">
+            Upload Group Banner
             <input type="file" onChange={(e) => setBanner(e.target.files[0])} required />
           </label>
           <label>

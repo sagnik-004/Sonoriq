@@ -186,7 +186,7 @@ const GroupList = ({ onGroupSelect }) => {
                 <img src={group.avatarUrl} alt={group.groupName} />
                 <div className="texts">
                   <span>{group.groupName}</span>
-                  <p>{group.latestMessage?.text || "No messages yet"}</p>
+                  {/* <p>{group.latestMessage?.text || "No messages yet"}</p> */}
                   <span className="timestamp">
                     {group.latestMessage?.timestamp
                       ? new Date(group.latestMessage.timestamp).toLocaleString()

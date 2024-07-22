@@ -2,6 +2,7 @@ import "./GroupDetails.css";
 const GroupDetails = () => {
   return (
     <div className="GroupDetails">
+      <h2>Group Members</h2>
       <div className="gc-member">
         <img src="/assets/gc1.jpg" alt="" />
         <div className="texts">
