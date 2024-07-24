@@ -3,8 +3,7 @@ import { fetchUserGroups, joinGroup, getUserGroups } from "../LoginRegister/user
 import { auth } from "../LoginRegister/firebase"; 
 import AddGroup from "./AddGroup/AddGroup";
 import "./GroupList.css";
-import { FaPlus } from "react-icons/fa";
-import { FaMinus } from "react-icons/fa";
+import { FaPlus, FaMinus } from "react-icons/fa";
 
 const GroupList = ({ onGroupSelect }) => {
   const [addMode, setAddMode] = useState(false);
@@ -127,7 +126,7 @@ const GroupList = ({ onGroupSelect }) => {
     <div className="grouplist">
       <div className="gc-search" ref={searchBoxRef}>
         <div className="gc-searchBar">
-        <i class="fa-solid fa-magnifying-glass grp-search-icon"></i>
+          <i className="fa-solid fa-magnifying-glass grp-search-icon"></i>
           <input
             type="text"
             placeholder="Search by name or ID"
@@ -168,8 +167,6 @@ const GroupList = ({ onGroupSelect }) => {
       )}
       {addMode && <AddGroup onClose={() => setAddMode(false)} />}
       <div className="joinedGroups">
-        {/* <h2>Joined Groups [{joinedGroups.length}]</h2> */}
-        {/* <h2>Groups</h2> */}
         {joinedGroups.length === 0 ? (
           <p>You haven't joined any groups yet.</p>
         ) : (
@@ -186,7 +183,6 @@ const GroupList = ({ onGroupSelect }) => {
                 <img src={group.avatarUrl} alt={group.groupName} />
                 <div className="texts">
                   <span>{group.groupName}</span>
-                  {/* <p>{group.latestMessage?.text || "No messages yet"}</p> */}
                   <span className="timestamp">
                     {group.latestMessage?.timestamp
                       ? new Date(group.latestMessage.timestamp).toLocaleString()
