@@ -23,7 +23,7 @@ import RecentUpdates from "./components/RecentUpdates/RecentUpdates";
 import GroupList from "./components/GroupList/GroupList";
 import GroupChat from "./components/GroupChat/GroupChat";
 import GroupDetails from "./components/GroupDetails/GroupDetails";
-import ProfileSettings from './components/ProfileSettings/ProfileSettings';
+import ProfileSettings from "./components/ProfileSettings/ProfileSettings";
 
 const BackgroundVideo = () => (
   <div className="video-wrapper">
@@ -91,7 +91,7 @@ const AppContent = () => {
             <>
               <div className="container">
                 <Sidebar />
-                
+
                 <List />
                 <div className="chat-container">
                   <Chat />
@@ -107,8 +107,8 @@ const AppContent = () => {
               <Sidebar />
               <div className="groupContainer">
                 <GroupList onGroupSelect={setSelectedGroup} />
-                <GroupChat selectedGroup={selectedGroup} />
-                <GroupDetails selectedGroup={selectedGroup} />
+                <GroupChat selectedGroup={selectedGroup}/>
+                {selectedGroup && <GroupDetails group={selectedGroup} />}
               </div>
             </>
           }
