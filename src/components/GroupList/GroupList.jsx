@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { fetchUserGroups, joinGroup, getUserGroups } from "../LoginRegister/userStore";
-import { auth } from "../LoginRegister/firebase"; 
+import { auth } from "../LoginRegister/firebase";
 import AddGroup from "./AddGroup/AddGroup";
 import "./GroupList.css";
 import { FaPlus, FaMinus } from "react-icons/fa";
@@ -12,6 +12,7 @@ const GroupList = ({ onGroupSelect }) => {
   const [selectedGroup, setSelectedGroup] = useState(null);
   const [searchInput, setSearchInput] = useState("");
   const searchBoxRef = useRef(null);
+  const searchResultsRef = useRef(null);
 
   const [userId, setUserId] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -82,7 +83,12 @@ const GroupList = ({ onGroupSelect }) => {
   };
 
   const handleClickOutside = (e) => {
-    if (searchBoxRef.current && !searchBoxRef.current.contains(e.target)) {
+    if (
+      searchBoxRef.current &&
+      !searchBoxRef.current.contains(e.target) &&
+      searchResultsRef.current &&
+      !searchResultsRef.current.contains(e.target)
+    ) {
       setSearchInput("");
     }
   };
@@ -139,14 +145,18 @@ const GroupList = ({ onGroupSelect }) => {
         </button>
       </div>
       {searchInput && filteredGroups.length > 0 && (
-        <div className="gc-searchResults">
+        <div className="gc-searchResults" ref={searchResultsRef}>
           {filteredGroups.map((group) => (
             <div
               key={group.groupId}
               className={`community ${
                 selectedGroup?.groupId === group.groupId ? "selected" : ""
               }`}
-              onClick={() => handleGroupSelect(group)}
+              onClick={(e) => {
+                if (e.target.tagName !== 'BUTTON') {
+                  handleGroupSelect(group);
+                }
+              }}
             >
               <img src={group.avatarUrl} alt={group.groupName} />
               <div className="texts">
