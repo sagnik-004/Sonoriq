@@ -1,0 +1,140 @@
+::-webkit-scrollbar
+{
+    display: none;
+}
+
+.grouplist {
+    position: relative;
+    width: 27% !important;
+    /* flex: 1; */
+    /* background-color: #ffffff; */
+    margin-left: 40px;
+    background: rgba(0, 0, 0, 0.6);
+    border-right: 1px solid rgba(255, 255, 255, 0.422);
+}
+
+.gc-search {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.gc-searchBar {
+    flex: 1;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 20px;
+    padding: 10px;
+    margin: 20px;
+}
+
+.gc-searchBar .grp-search-icon {
+    margin-right: 8px;
+    color: #000000;
+}
+.grp-add-btn {
+    margin-right: 20px;
+}
+
+.gc-searchBar input {
+    background: none;
+    border: none;
+    color: #000000;
+    outline: none;
+    width: 100%;
+}
+
+.gc-add {
+    cursor: pointer;
+    margin-left: 16px;
+}
+
+.gc-searchResults {
+    position: absolute;
+    top: 50px;
+    width: calc(100% - 40px); /* Ensure same width as the search bar */
+    max-height: 300px;
+    overflow-y: auto;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+    padding: 8px;
+    z-index: 10;
+}
+
+.community {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background 0.3s;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.community:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.community.selected {
+    background: rgba(0, 0, 0);
+}
+
+.community img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.texts {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Ensure texts take up available space */
+    margin-left: 10px;
+}
+
+.texts span {
+    color: #fff;
+    font-weight: bold;
+}
+
+.texts p {
+    color: #bbb;
+    margin: 0;
+}
+
+mark {
+    background-color: yellow;
+    color: black;
+}
+
+.noResults {
+    color: #bbb;
+    text-align: center;
+    padding: 16px;
+}
+
+.join-btn {
+    background-color: #1a73e8;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #135ab3;
+}
+
+.joinedGroups {
+    margin-top: 20px;
+    
+}
+
+.joinedGroups h2 {
+    color: #fff;
+    margin-bottom: 30px;
+}

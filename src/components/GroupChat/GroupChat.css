@@ -1,0 +1,146 @@
+.gc-GroupChat {
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    flex: 1;
+}
+
+/* Group Header */
+.gc-groupHeader {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-bottom: 1px solid #dddddd84;
+}
+
+.gc-groupAvatar {
+    width: 40px;
+    height: 40px;
+    border: 2px solid white;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.gc-groupName {
+    flex: 1;
+    color: white;
+    font-weight: bold;
+}
+
+.gc-searchInput {
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    margin-right: 10px;
+}
+
+.gc-someButton {
+    padding: 5px 10px;
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Chat Messages */
+.gc-chatMessages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.gc-chatMessage {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    flex-direction: column;
+}
+
+.gc-chatMessage.user .gc-message {
+    align-self: flex-end;
+    background-color: #ffffff3d;
+    color: white;
+}
+
+.gc-chatMessage.other .gc-message {
+    align-self: flex-start;
+    background-color: rgba(0, 0, 0, 0.403);
+    color: rgb(255, 255, 255);
+}
+
+.gc-chatAvatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid white;
+}
+
+.gc-otherUserInfo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.gc-otherUsername {
+    margin-left: 10px;
+    font-weight: 600;
+    color: white;
+    font-size: 12px;
+}
+
+.gc-message {
+    max-width: 60%;
+    padding: 10px 15px;
+    border-radius: 20px;
+    margin-top: 5px;
+}
+
+.gc-messageContent {
+    margin-bottom: 5px;
+    font-size: 15px;
+}
+
+.gc-timestamp {
+    text-align: right;
+    font-size: 0.8em;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Chat Input Section */
+.gc-chatInputSection {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-top: 1px solid #ddd;
+}
+
+.gc-emojiIcon {
+    margin-right: 10px;
+    cursor: pointer;
+    color: white;
+    font-size: 24px;
+}
+
+.gc-chatInput {
+    flex: 1;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    font-size: 15px;
+}
+
+.gc-sendButton {
+    padding: 10px 20px;
+    background-color: #017374;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    margin-left: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+}

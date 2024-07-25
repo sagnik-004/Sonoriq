@@ -1,0 +1,150 @@
+/* PlaylistPage.css */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.playlist-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+}
+
+.param-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.param-container label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1 1 45%;
+    min-width: 140px;
+}
+
+.generate-button {
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: #1DB954;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.generate-button:hover {
+    background-color: #1ed760;
+}
+
+.playlist-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+}
+
+.playlist-cover {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+.playlist-name-input {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.track-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    width: 100%;
+}
+
+.track-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 150px;
+    text-align: center;
+    background-color: #f9f9f9;
+}
+
+.track-card img {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.track-card a {
+    color: #1DB954;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.track-card a:hover {
+    text-decoration: underline;
+}
+
+.add-to-spotify-button {
+    background-color: #1DB954;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.add-to-spotify-button:hover {
+    background-color: #1ed760;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .param-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .param-container label {
+        flex: 1 1 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .playlist-cover {
+        width: 80px;
+        height: 80px;
+    }
+
+    .playlist-name-input {
+        width: 90%;
+    }
+
+    .generate-button,
+    .add-to-spotify-button {
+        width: 90%;
+    }
+}

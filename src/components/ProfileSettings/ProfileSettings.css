@@ -1,0 +1,112 @@
+/* ProfileSettings.css */
+
+.profile-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  color: #ffffff;
+  margin-left:40px;
+}
+
+.user-profile {
+  margin-bottom: 20px;
+  font-size: 36px;
+  text-align: center;
+  width: 100%;
+}
+
+.profile-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+}
+
+.profile-field {
+  display: inline-block;
+  /* justify-content: center; */
+  align-items: center;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.profile-field img.avatar {
+  width: 200px;
+  height: 200px;
+  border: 5px solid rgb(108, 238, 255);
+  border-radius: 50%;
+  margin: 20px;
+  object-fit: cover;
+}
+
+.profile-field label {
+  margin-right: 10px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.profile-field input {
+  border: none;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.125);
+  color: rgb(255, 255, 255);
+  padding: 5px 15px;
+  font-size: 18px;
+  width: 60%;
+}
+
+.profile-field button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  background-color: #00000000;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  float: right;
+}
+
+.profile-field button:hover {
+  background-color: #00000047;
+  border-radius: 50%;
+}
+
+button.delete-account {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #b20101;
+  color: #ffffff;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+button.delete-account:hover {
+  background-color: #cc0000;
+  transition: 0.2s;
+}
+
+.edit-save-btn {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #1db853;
+  color: black;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.edit-save-btn:hover{
+  background-color: #40ff86;
+  transition: 0.2s;
+}
+
+input[type="file"] {
+  display: none;
+}

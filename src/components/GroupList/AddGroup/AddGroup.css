@@ -1,0 +1,64 @@
+.add-group-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .add-group-form {
+    background: rgb(255, 255, 255);
+    padding: 20px;
+    border-radius: 20px;
+    width: 400px;
+  }
+  
+  .add-group-form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .file-upload-btn {
+    background-color: #00aaff;
+    text-align: center;
+    padding: 5px;
+    border-radius: 20px;
+    color: white;
+    font-weight: 600;
+  }
+  .file-upload-btn:hover {
+    background-color: #0091d9;
+    transition: 0.2s;
+    cursor: pointer;
+  }
+  
+  .add-group-form input,
+  .add-group-form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    color: black;
+    border-radius: 10px;
+    border: 1px solid;
+  }
+  
+  .add-group-form button {
+    width: 100%;
+    padding: 8px;
+    background: #009c3c;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+
+  .add-group-form button:hover {
+    background: #008031;
+  }
+  
