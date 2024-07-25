@@ -107,13 +107,13 @@ function PlaylistPage() {
   });
 
   return (
-    <div className="playlist-page">
+    <div className="pl-playlist-page">
       <h1>Playlist Generator</h1>
       {!isLoggedIn ? (
         <button onClick={handleLogin}>Login with Spotify</button>
       ) : (
-        <div className="form-container">
-          <div className="param-container">
+        <div className="pl-form-container">
+          <div className="pl-param-container">
             <label>
               Language:
               <input type="text" name="language" value={params.language} onChange={handleParamChange} />
@@ -162,8 +162,8 @@ function PlaylistPage() {
               <span>{params.tempo} BPM</span>
             </label>
           </div>
-          <button className="generate-button" onClick={handleGenerateTracks}>Generate</button>
-          <div className="playlist-container">
+          <button className="pl-generate-button" onClick={handleGenerateTracks}>Generate</button>
+          <div className="pl-playlist-container">
             <input type="file" accept="image/*" onChange={handleCoverChange} />
             {/* {playlistCover && (
               <img src={URL.createObjectURL(playlistCover)} alt="Playlist Cover" className="playlist-cover" />
@@ -173,20 +173,20 @@ function PlaylistPage() {
               placeholder="Playlist Name" 
               value={playlistName} 
               onChange={(e) => setPlaylistName(e.target.value)} 
-              className="playlist-name-input"
+              className="pl-playlist-name-input"
             />
-            <div className="track-list">
+            <div className="pl-track-list">
               {tracks.map((track, index) => (
-                <div key={index} className="track-card">
-                  <img src={track.album.images[0].url} alt={track.name} className="track-image" />
-                  <div className="track-info">
+                <div key={index} className="pl-track-card">
+                  <img src={track.album.images[0].url} alt={track.name} className="pl-track-image" />
+                  <div className="pl-track-info">
                     <a href={track.external_urls.spotify} target="_blank" rel="noopener noreferrer">{track.name}</a>
                     <p>{track.artists.map(artist => artist.name).join(', ')}</p>
                   </div>
                 </div>
               ))}
             </div>
-            <button className="add-to-spotify-button" onClick={handleCreatePlaylist}>Add to Spotify</button>
+            <button className="pl-add-to-spotify-button" onClick={handleCreatePlaylist}>Add to Spotify</button>
           </div>
         </div>
       )}
