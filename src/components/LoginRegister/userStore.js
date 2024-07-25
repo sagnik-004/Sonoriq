@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { doc, getDoc, updateDoc, arrayUnion, setDoc, getDocs, collection } from "firebase/firestore";
+import { doc, getDoc, updateDoc, arrayUnion, getDocs, collection, query, where } from "firebase/firestore";
 import { db } from "./firebase";
 
 // Zustand stores
@@ -51,12 +51,26 @@ export const getUserGroups = async (userId) => {
 
 export const joinGroup = async (userId, groupId) => {
   const userDoc = doc(db, "users", userId);
+  const userSnapshot = await getDoc(userDoc);
+  const userData = userSnapshot.data();
+  const uniqueUserId = userData.userid;
+
+  // Add the groupId to the user's groups array
   await updateDoc(userDoc, {
     groups: arrayUnion(groupId)
   });
 
-  const groupDoc = doc(db, "groups", groupId);
-  await updateDoc(groupDoc, {
-    members: arrayUnion(userId)
-  });
+  // Fetch the group document based on the groupId field
+  const q = query(collection(db, "groups"), where("groupId", "==", groupId));
+  const groupSnapshot = await getDocs(q);
+
+  if (!groupSnapshot.empty) {
+    const groupDoc = groupSnapshot.docs[0]; // Assuming groupId is unique
+    const groupData = groupDoc.data();
+
+
+    await updateDoc(groupDoc.ref, {
+      members: arrayUnion(uniqueUserId)
+    });
+  }
 };
