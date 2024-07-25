@@ -17,8 +17,12 @@
     "react-dom": "^18.3.1",
     "react-icons": "^5.2.1",
     "react-modal": "^3.16.1",
+<<<<<<< HEAD
     "react-router-dom": "^6.25.1",
     "spotify-web-api-js": "^1.5.2",
+=======
+    "react-router-dom": "^6.24.1",
+>>>>>>> 84e0b49b0dd072ff623b45e29c25d02aa6b4c14a
     "styled-components": "^6.1.11",
     "swiper": "^11.1.4",
     "zustand": "^4.5.4"
