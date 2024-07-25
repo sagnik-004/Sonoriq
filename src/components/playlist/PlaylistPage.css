@@ -1,17 +1,17 @@
 /* PlaylistPage.css */
-body {
+body{
     margin: 0;
     font-family: Arial, sans-serif;
 }
 
-.playlist-page {
+.pl-playlist-page {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
 }
 
-.form-container {
+.pl-form-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -19,7 +19,7 @@ body {
     max-width: 600px;
 }
 
-.param-container {
+.pl-param-container {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
@@ -28,7 +28,7 @@ body {
     justify-content: space-between;
 }
 
-.param-container label {
+.pl-param-container label {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -36,7 +36,7 @@ body {
     min-width: 140px;
 }
 
-.generate-button {
+.pl-generate-button {
     margin-bottom: 20px;
     padding: 10px 20px;
     background-color: #1DB954;
@@ -46,11 +46,11 @@ body {
     border-radius: 5px;
 }
 
-.generate-button:hover {
+.pl-generate-button:hover {
     background-color: #1ed760;
 }
 
-.playlist-container {
+.pl-playlist-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -58,13 +58,13 @@ body {
     max-width: 600px;
 }
 
-.playlist-cover {
+.pl-playlist-cover {
     width: 100px;
     height: 100px;
     margin-bottom: 10px;
 }
 
-.playlist-name-input {
+.pl-playlist-name-input {
     width: 80%;
     padding: 10px;
     margin-bottom: 10px;
@@ -72,43 +72,46 @@ body {
     border-radius: 5px;
 }
 
-.track-list {
+.pl-track-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 30px;
     justify-content: center;
-    width: 100%;
 }
-
-.track-card {
+  
+.pl-track-card {
+    background-color: #0000007f;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+    width: 200px;
+    text-align: center;
+    height: 340px;
+  
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    width: 150px;
-    text-align: center;
-    background-color: #f9f9f9;
 }
 
-.track-card img {
+.pl-track-card img {
     width: 100%;
     border-radius: 5px;
     margin-bottom: 10px;
 }
 
-.track-card a {
+.pl-track-card a {
     color: #1DB954;
     text-decoration: none;
     font-weight: bold;
 }
 
-.track-card a:hover {
-    text-decoration: underline;
-}
+.pl-track-card:hover {
+    transform: translateY(-10px);
+  }
 
-.add-to-spotify-button {
+.pl-add-to-spotify-button {
     background-color: #1DB954;
     color: white;
     border: none;
@@ -117,34 +120,34 @@ body {
     border-radius: 5px;
 }
 
-.add-to-spotify-button:hover {
+.pl-add-to-spotify-button:hover {
     background-color: #1ed760;
 }
 
 /* Media Queries */
 @media (max-width: 768px) {
-    .param-container {
+    .pl-param-container {
         flex-direction: column;
         align-items: stretch;
     }
 
-    .param-container label {
+    .pl-param-container label {
         flex: 1 1 100%;
     }
 }
 
 @media (max-width: 480px) {
-    .playlist-cover {
+    .pl-playlist-cover {
         width: 80px;
         height: 80px;
     }
 
-    .playlist-name-input {
+    .pl-playlist-name-input {
         width: 90%;
     }
 
-    .generate-button,
-    .add-to-spotify-button {
+    .pl-generate-button,
+    .pl-add-to-spotify-button {
         width: 90%;
     }
 }
