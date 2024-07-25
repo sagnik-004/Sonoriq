@@ -50,10 +50,8 @@ const Sidebar = () => {
       <button 
         className={`sw-sidebar-btn sw-playlist ${active === 'playlist' ? 'active' : ''}`} 
         title="Create Playlists"
-<<<<<<< HEAD
+
         onClick={() => handleNavigation('/playlist', 'playlist')}
-=======
->>>>>>> 84e0b49b0dd072ff623b45e29c25d02aa6b4c14a
       >
         <i className="fa-solid fa-list-music"></i>
       </button>
