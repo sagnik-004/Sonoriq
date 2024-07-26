@@ -3,6 +3,14 @@
     flex-direction: column;
     background-color: transparent;
     flex: 1;
+    color: white;
+}
+
+#not-joined {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Group Header */

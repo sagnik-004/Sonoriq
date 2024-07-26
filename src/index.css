@@ -347,14 +347,14 @@ body::before {
 }
 
 #about p {
-  font-size: 1.5rem;
+  font-size: 20px;
   text-align: justify;
   line-height: 2.2rem;
 }
 
 #about ul {
   list-style: none;
-  font-size: 1.5rem;
+  font-size: 20px;
   line-height: 2.2rem;
 }
 
@@ -445,16 +445,18 @@ body::before {
 }
 
 .creds {
+  /* background-color: #000000; */
   text-align: center;
   color: rgba(255, 255, 255, 0.719);
-  bottom: 100;
+  bottom: 0;
   width: 100%;
   padding-top: 10px;
   padding-bottom: 10px;
   position:absolute;
 }
 .footer {
-  background-color: #24262b;
+  background-color: #000000ae;
+  backdrop-filter: blur(20px);
   padding: 70px 0;
 }
 

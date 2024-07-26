@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import SpotifyWebApi from 'spotify-web-api-js';
 import { useNavigate } from 'react-router-dom';
-import './PlaylistPage.css'; // Import the CSS file
+import './PlaylistPage.css';
 
 const spotifyApi = new SpotifyWebApi();
 
@@ -38,7 +38,7 @@ function PlaylistPage() {
 
   const handleLogin = () => {
     const clientId = '716c5b12ede9446396806d5c38108034';
-    const redirectUri = 'https://sonoriq.vercel.app/callback';
+    const redirectUri = 'http://localhost:5173/playlist';
     const scope = 'playlist-modify-public playlist-modify-private user-read-private';
 
     const url = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${scope}&response_type=token&show_dialog=true`;

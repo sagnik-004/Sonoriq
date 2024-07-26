@@ -1,14 +1,29 @@
 /* PlaylistPage.css */
-body{
+/* body{
     margin: 0;
     font-family: Arial, sans-serif;
-}
+} */
 
 .pl-playlist-page {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    margin-left: 40px;
+
+    button {
+        padding: 10px 20px;
+        background-color: #1DB954;
+        border: none;
+        border-radius: 20px;
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    button:hover{
+        background-color: #1ed760;
+        transition: 0.2s;
+    }
 }
 
 .pl-form-container {

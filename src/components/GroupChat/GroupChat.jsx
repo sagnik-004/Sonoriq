@@ -122,7 +122,7 @@ const GroupChat = ({ selectedGroup }) => {
     };
 
     if (!selectedGroup) {
-        return <div className="gc-GroupChat">Please select a group to start chatting.</div>;
+        return <div className="gc-GroupChat" id="not-joined">Please select a group to start chatting.</div>;
     }
 
     const isGroupJoined = joinedGroups.includes(selectedGroup.groupId);
