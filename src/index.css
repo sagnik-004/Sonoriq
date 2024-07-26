@@ -444,6 +444,15 @@ body::before {
   font-size: 1.2rem;
 }
 
+.creds {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.719);
+  bottom: 100;
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  position:absolute;
+}
 .footer {
   background-color: #24262b;
   padding: 70px 0;
@@ -471,7 +480,7 @@ body::before {
   position: absolute;
   left: 0;
   bottom: -10px;
-  background-color: #e91e63;
+  background-color: #c41ee9;
   height: 2px;
   box-sizing: border-box;
   width: 50px;
