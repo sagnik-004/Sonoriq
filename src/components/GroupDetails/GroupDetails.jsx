@@ -59,7 +59,6 @@ const GroupDetails = ({ group }) => {
         members: arrayRemove(userIdToRemove)
       });
 
-
       // 3. Fetch the user document
       const userQuery = query(collection(db, "users"), where("userid", "==", userIdToRemove));
       const userSnapshot = await getDocs(userQuery);
@@ -78,6 +77,9 @@ const GroupDetails = ({ group }) => {
 
       // 5. Update the local state
       setMembers(members.filter(member => member.userid !== userIdToRemove));
+
+      // 6. Dispatch custom event to notify other components
+      window.dispatchEvent(new CustomEvent('groupLeft', { detail: { groupId: groupIdToRemove, userId: userIdToRemove } }));
 
     } catch (error) {
       console.error("Error leaving group:", error);
