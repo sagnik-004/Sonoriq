@@ -42,6 +42,34 @@ const GroupChat = ({ selectedGroup }) => {
     }, [userId]);
 
     useEffect(() => {
+        const handleGroupJoined = (event) => {
+            const joinedGroupId = event.detail;
+            setJoinedGroups(prev => [...prev, joinedGroupId]);
+        };
+
+        window.addEventListener('groupJoined', handleGroupJoined);
+
+        return () => {
+            window.removeEventListener('groupJoined', handleGroupJoined);
+        };
+    }, []);
+
+    useEffect(() => {
+        const handleGroupLeft = (event) => {
+            const { groupId, userId } = event.detail;
+            if (selectedGroup && selectedGroup.groupId === groupId && currentUser && currentUser.userid === userId) {
+                setJoinedGroups(prev => prev.filter(id => id !== groupId));
+            }
+        };
+
+        window.addEventListener('groupLeft', handleGroupLeft);
+
+        return () => {
+            window.removeEventListener('groupLeft', handleGroupLeft);
+        };
+    }, [selectedGroup, currentUser]);
+
+    useEffect(() => {
         if (selectedGroup) {
             const unsubscribe = subscribeToMessages(selectedGroup.groupId, setMessages);
             return () => unsubscribe();
