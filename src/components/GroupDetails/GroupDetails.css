@@ -34,7 +34,7 @@
 
 .group-info {
   padding: 10px;
-  border-radius: 10px;
+  margin: 20px 0;
 }
 
 .group-info h2 {
@@ -58,12 +58,14 @@
 
 .GroupDetails h3 {
   font-size: 22px;
-  padding-top: 20px;
+  padding-top: 10px;
   padding-bottom: 10px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.375);
+  /* border-bottom: 1px solid rgba(255, 255, 255, 0.375); */
   text-align: center;
   color: white;
   font-weight: 600;
+  background-color: rgba(0, 0, 0, 0.668);
+  margin-bottom: 10px;
 }
 
 .gc-member {

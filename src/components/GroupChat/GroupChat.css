@@ -152,3 +152,9 @@
     font-weight: 600;
     font-size: 15px;
 }
+
+.gc-dateSeparator {
+    padding: 10px;
+    text-align: center;
+    font-size: 12px
+}
