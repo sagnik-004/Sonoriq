@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { collection, query, where, getDocs, updateDoc, arrayRemove } from "firebase/firestore";
 import { db } from "../LoginRegister/firebase";
 import "./GroupDetails.css";
+import { useUserStore } from "../LoginRegister/userStore";
 
 const GroupDetails = ({ group }) => {
   const [members, setMembers] = useState([]);
+  const { currentUser } = useUserStore();
 
   useEffect(() => {
     const fetchMembers = async () => {
@@ -30,6 +32,58 @@ const GroupDetails = ({ group }) => {
     fetchMembers();
   }, [group]);
 
+  const handleLeaveGroup = async () => {
+    if (!currentUser || !group) {
+      console.error("Current user or group information is missing");
+      return;
+    }
+
+    const userIdToRemove = currentUser.userid;
+    const groupIdToRemove = group.groupId;
+
+    try {
+      // 1. Fetch the group document
+      const groupQuery = query(collection(db, "groups"), where("groupId", "==", groupIdToRemove));
+      const groupSnapshot = await getDocs(groupQuery);
+
+      if (groupSnapshot.empty) {
+        console.error("Group not found");
+        return;
+      }
+
+      const groupDoc = groupSnapshot.docs[0];
+      const groupRef = groupDoc.ref;
+
+      // 2. Remove the user from the group's members array
+      await updateDoc(groupRef, {
+        members: arrayRemove(userIdToRemove)
+      });
+
+
+      // 3. Fetch the user document
+      const userQuery = query(collection(db, "users"), where("userid", "==", userIdToRemove));
+      const userSnapshot = await getDocs(userQuery);
+
+      if (userSnapshot.empty) {
+        return;
+      }
+
+      const userDoc = userSnapshot.docs[0];
+      const userRef = userDoc.ref;
+
+      // 4. Remove the group from the user's groups array
+      await updateDoc(userRef, {
+        groups: arrayRemove(groupIdToRemove)
+      });
+
+      // 5. Update the local state
+      setMembers(members.filter(member => member.userid !== userIdToRemove));
+
+    } catch (error) {
+      console.error("Error leaving group:", error);
+    }
+  };
+
   return (
     <div className="GroupDetails">
       <h2>Group Members</h2>
@@ -45,6 +99,7 @@ const GroupDetails = ({ group }) => {
           </div>
         ))
       )}
+      <button onClick={handleLeaveGroup} className="leave-group-btn">Leave Group</button>
     </div>
   );
 };
