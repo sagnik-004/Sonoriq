@@ -4,7 +4,7 @@ import Detail from "../detail/detail";
 import Chatlist from "../list/chatlist/chatlist";
 import EmojiPicker from "emoji-picker-react";
 import { useChatStore } from "../../components/lib/chatStore";
-import { auth, db } from "../../components/LoginRegister/firebase";
+import { auth, db, storage } from "../../components/LoginRegister/firebase";
 import {
   doc,
   updateDoc,
@@ -12,6 +12,7 @@ import {
   getDoc,
   onSnapshot,
 } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const Chat = () => {
   const [open, setOpen] = useState(false);
@@ -31,6 +32,8 @@ const Chat = () => {
   const centerRef = useRef(null);
   const [isRecording, setIsRecording] = useState(false);
   const recognitionRef = useRef(null);
+  const [attachment, setAttachment] = useState(null);
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     if (selectedChat) {
@@ -94,7 +97,7 @@ const Chat = () => {
 
       recognition.onend = () => {
         if (isRecording) {
-          recognition.start(); // Restarting the recognition if it stops unexpectedly
+          recognition.start();
         } else {
           handleSend();
         }
@@ -147,15 +150,35 @@ const Chat = () => {
     setIsSidebarOpen((prev) => !prev);
   };
 
+  const handleAttachment = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setAttachment(file);
+    }
+  };
+
+  const handlePaperclipClick = () => {
+    fileInputRef.current.click();
+  };
+
   const handleSend = async () => {
     const trimmedText = text.trim();
-    if (trimmedText === "") return;
+    if (trimmedText === "" && !attachment) return;
 
     try {
+      let attachmentUrl = null;
+      if (attachment) {
+        const storageRef = ref(storage, `attachments/${Date.now()}_${attachment.name}`);
+        await uploadBytes(storageRef, attachment);
+        attachmentUrl = await getDownloadURL(storageRef);
+      }
+
       await updateDoc(doc(db, "chats", selectedChat.chatId), {
         messages: arrayUnion({
           senderId: currentUser.uid,
           text: trimmedText,
+          attachmentUrl,
+          attachmentName: attachment ? attachment.name : null,
           createdAt: new Date(),
           isRead: false,
         }),
@@ -175,7 +198,9 @@ const Chat = () => {
           );
 
           if (chatIndex !== -1) {
-            userChatsData.chats[chatIndex].lastMessage = text;
+            userChatsData.chats[chatIndex].lastMessage = attachment 
+              ? `Attachment: ${attachment.name}`
+              : text;
             userChatsData.chats[chatIndex].isSeen =
               id === currentUser.uid ? true : false;
             userChatsData.chats[chatIndex].updatedAt = Date.now();
@@ -186,7 +211,7 @@ const Chat = () => {
           } else {
             userChatsData.chats.push({
               chatId: selectedChat.chatId,
-              lastMessage: text,
+              lastMessage: attachment ? `Attachment: ${attachment.name}` : text,
               isSeen: id === currentUser.uid,
               updatedAt: Date.now(),
             });
@@ -200,6 +225,7 @@ const Chat = () => {
       console.log(err);
     } finally {
       setText("");
+      setAttachment(null);
       scrollToBottom();
     }
   };
@@ -247,7 +273,6 @@ const Chat = () => {
   };
 
   const handleForward = (message) => {
-    // Implement the forward functionality here
     console.log("Forward message: ", message.text);
   };
 
@@ -324,7 +349,12 @@ const Chat = () => {
             >
               <div className="texts">
                 <p>
-                  {message.text}{" "}
+                  {message.text}
+                  {message.attachmentUrl && (
+                    <a href={message.attachmentUrl} target="_blank" rel="noopener noreferrer">
+                      {message.attachmentName}
+                    </a>
+                  )}
                   <span>
                     {new Date(message.createdAt.toDate()).toLocaleTimeString(
                       [],
@@ -361,6 +391,13 @@ const Chat = () => {
               className={`fa ${isRecording ? "fa-stop" : "fa-microphone"}`}
               onClick={toggleRecording}
             ></i>
+            <i className="fa-regular fa-paperclip" onClick={handlePaperclipClick}></i>
+            <input
+              type="file"
+              ref={fileInputRef}
+              style={{ display: 'none' }}
+              onChange={handleAttachment}
+            />
           </div>
           <div className="emoji" ref={emojiPickerRef}>
             <i
@@ -378,6 +415,8 @@ const Chat = () => {
             placeholder={
               isCurrentUserBlocked || isReceiverBlocked
                 ? "You cannot send a message"
+                : attachment
+                ? `File attached: ${attachment.name}`
                 : "Type a message..."
             }
             value={text}
