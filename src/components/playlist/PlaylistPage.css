@@ -1,29 +1,25 @@
-/* PlaylistPage.css */
-/* body{
-    margin: 0;
-    font-family: Arial, sans-serif;
-} */
-
 .pl-playlist-page {
+    background: linear-gradient(to left, #12637a, #08001b);
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
     margin-left: 40px;
+    height: 100%;
+}
 
-    button {
-        padding: 10px 20px;
-        background-color: #1DB954;
-        border: none;
-        border-radius: 20px;
-        font-size: 16px;
-        font-weight: 600;
-    }
+button {
+    padding: 10px 20px;
+    background-color: #1DB954;
+    border: none;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: 600;
+}
 
-    button:hover{
-        background-color: #1ed760;
-        transition: 0.2s;
-    }
+button:hover {
+    background-color: #1ed760;
+    transition: 0.2s;
 }
 
 .pl-form-container {
@@ -31,7 +27,7 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    max-width: 900px;
+    justify-content: center;
 }
 
 .pl-param-container {
@@ -53,30 +49,61 @@
     font-size: 16px;
 }
 
-.pl-param-container input {
+.pl-param-container input[type="text"] {
     margin: 10px;
     border-radius: 20px;
     padding: 5px 15px;
     font-size: 16px;
 }
 
+.pl-param-container input[type="range"] {
+    width: 35%;
+    margin: 10px 0;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 10px;
+    background-color: #ffffff;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    border-radius: 10px;
+}
+
+.pl-param-container input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #1DB954;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.pl-param-container input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #1DB954;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
 .pl-generate-button {
     margin-bottom: 20px;
     padding: 10px 20px;
-    background-color: #007529;
+    background-color: #00b640;
     color: rgb(0, 0, 0);
     border: none;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 20px;
 }
 
 .pl-generate-button:hover {
-    background-color: #00b640;
+    background-color: #00e04f;
 }
 
 .pl-playlist-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     width: 100%;
 }
@@ -89,10 +116,10 @@
 
 .pl-playlist-name-input {
     width: 80%;
-    padding: 10px;
+    padding: 10px 15px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 20px;
 }
 
 .pl-track-list {
@@ -101,7 +128,7 @@
     gap: 30px;
     justify-content: center;
 }
-  
+
 .pl-track-card {
     background-color: #0000007f;
     border-radius: 30px;
@@ -111,7 +138,7 @@
     width: 200px;
     text-align: center;
     height: 340px;
-  
+
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -132,7 +159,7 @@
 
 .pl-track-card:hover {
     transform: translateY(-10px);
-  }
+}
 
 .pl-add-to-spotify-button {
     background-color: #1DB954;
@@ -140,7 +167,7 @@
     border: none;
     padding: 10px 20px;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 20px;
 }
 
 .pl-add-to-spotify-button:hover {

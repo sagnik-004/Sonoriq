@@ -194,7 +194,7 @@ const GroupChat = ({ selectedGroup }) => {
                 </div>
             ) : (
                 <div className="gc-chatInputSection">
-                    <button className="gc-joinButton" onClick={handleJoinGroup}>Join</button>
+                    <button className="gc-joinButton" onClick={handleJoinGroup}>Join Group</button>
                 </div>
             )}
         </div>

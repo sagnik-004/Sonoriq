@@ -123,6 +123,17 @@
     padding: 10px;
     background-color: rgba(0, 0, 0, 0.6);
     border-top: 1px solid #ddd;
+    justify-content: center;
+
+    .gc-joinButton {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 20px;
+        background-color: #1DB954;
+        color: black;
+        font-size: 16px;
+        font-weight: 600;
+    }
 }
 
 .gc-emojiIcon {
