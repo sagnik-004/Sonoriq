@@ -9,7 +9,7 @@ import Header from "../src/components/LandingPage/Header";
 import Hero from "../src/components/LandingPage/Hero";
 import Features from "../src/components/LandingPage/Features";
 import About from "../src/components/LandingPage/About";
-// import Footer from "../src/components/LandingPage/Footer";
+import Footer from "../src/components/LandingPage/Footer";
 import LoginRegister from "../src/components/LoginRegister/LoginRegister";
 // import "../src/index.css"; // Global styles, including landing page styles
 import Sidebar from "../src/components/sidebar/Sidebar";
@@ -87,7 +87,7 @@ const AppContent = () => {
               <Hero />
               <Features />
               <About />
-              {/* <Footer /> */}
+              <Footer />
             </>
           }
         />
