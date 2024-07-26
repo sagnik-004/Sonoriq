@@ -42,7 +42,6 @@ const GroupDetails = ({ group }) => {
     const groupIdToRemove = group.groupId;
 
     try {
-      // 1. Fetch the group document
       const groupQuery = query(collection(db, "groups"), where("groupId", "==", groupIdToRemove));
       const groupSnapshot = await getDocs(groupQuery);
 
@@ -54,12 +53,10 @@ const GroupDetails = ({ group }) => {
       const groupDoc = groupSnapshot.docs[0];
       const groupRef = groupDoc.ref;
 
-      // 2. Remove the user from the group's members array
       await updateDoc(groupRef, {
         members: arrayRemove(userIdToRemove)
       });
 
-      // 3. Fetch the user document
       const userQuery = query(collection(db, "users"), where("userid", "==", userIdToRemove));
       const userSnapshot = await getDocs(userQuery);
 
@@ -70,15 +67,11 @@ const GroupDetails = ({ group }) => {
       const userDoc = userSnapshot.docs[0];
       const userRef = userDoc.ref;
 
-      // 4. Remove the group from the user's groups array
       await updateDoc(userRef, {
         groups: arrayRemove(groupIdToRemove)
       });
 
-      // 5. Update the local state
       setMembers(members.filter(member => member.userid !== userIdToRemove));
-
-      // 6. Dispatch custom event to notify other components
       window.dispatchEvent(new CustomEvent('groupLeft', { detail: { groupId: groupIdToRemove, userId: userIdToRemove } }));
 
     } catch (error) {
@@ -88,7 +81,16 @@ const GroupDetails = ({ group }) => {
 
   return (
     <div className="GroupDetails">
-      <h2>Group Members</h2>
+      <div className="group-banner-container">
+        <img src={group.bannerUrl} alt="Group Banner" className="group-banner" />
+        <img src={group.avatarUrl} alt="Group Avatar" className="group-avatar" />
+      </div>
+      <div className="group-info">
+        <h2>{group.groupName}</h2>
+        <p>{group.groupBio}</p>
+        <span className="group-id">Group ID: {group.groupId}</span>
+      </div>
+      <h3>Group Members</h3>
       {members.length === 0 ? (
         <p>No members in this group.</p>
       ) : (
