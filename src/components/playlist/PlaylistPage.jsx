@@ -38,10 +38,10 @@ function PlaylistPage() {
 
   const handleLogin = () => {
     const clientId = '716c5b12ede9446396806d5c38108034';
-    const redirectUri = 'https://sonoriq.vercel.app/callback';
+    const redirectUrl = 'http://localhost:5173/callback';
     const scope = 'playlist-modify-public playlist-modify-private user-read-private';
 
-    const url = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${scope}&response_type=token&show_dialog=true`;
+    const url = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUrl)}&scope=${scope}&response_type=token&show_dialog=true`;
     window.location.href = url;
   };
 

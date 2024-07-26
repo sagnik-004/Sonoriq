@@ -31,7 +31,7 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    max-width: 600px;
+    max-width: 900px;
 }
 
 .pl-param-container {
@@ -49,28 +49,36 @@
     align-items: center;
     flex: 1 1 45%;
     min-width: 140px;
+    color: white;
+    font-size: 16px;
+}
+
+.pl-param-container input {
+    margin: 10px;
+    border-radius: 20px;
+    padding: 5px 15px;
+    font-size: 16px;
 }
 
 .pl-generate-button {
     margin-bottom: 20px;
     padding: 10px 20px;
-    background-color: #1DB954;
-    color: white;
+    background-color: #007529;
+    color: rgb(0, 0, 0);
     border: none;
     cursor: pointer;
     border-radius: 5px;
 }
 
 .pl-generate-button:hover {
-    background-color: #1ed760;
+    background-color: #00b640;
 }
 
 .pl-playlist-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     width: 100%;
-    max-width: 600px;
 }
 
 .pl-playlist-cover {
@@ -128,7 +136,7 @@
 
 .pl-add-to-spotify-button {
     background-color: #1DB954;
-    color: white;
+    color: rgb(0, 0, 0);
     border: none;
     padding: 10px 20px;
     cursor: pointer;
