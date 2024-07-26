@@ -3,46 +3,36 @@ import React from "react";
 function Footer() {
   return (
     <footer className="footer">
-      <div className="container">
+      {/* <div className="container"> */}
         <div className="row">
           <div class="footer-col">
-            <h4>company</h4>
+            <h4>Sonoriq</h4>
             <ul>
               <li>
-                <a href="#">about us</a>
+                <a href="#about">About</a>
               </li>
               <li>
-                <a href="#">our services</a>
+                <a href="#features">Why sonoriq</a>
               </li>
               <li>
-                <a href="#">privacy policy</a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSd5mEGwG2kWANQJaX87tCRXrsRafa91FIUvq6xS6K-CfsyEnw/viewform">Feedback</a>
               </li>
-              <li>
-                <a href="#">affiliate program</a>
-              </li>
+              
             </ul>
           </div>
           <div class="footer-col">
-            <h4>get help</h4>
+            <h4>quick links</h4>
             <ul>
               <li>
-                <a href="#">FAQ</a>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sonoriq@gmail.com" target="_blank">Mail us</a>
               </li>
               <li>
-                <a href="#">shipping</a>
+                <a href="/login">Login</a>
               </li>
-              <li>
-                <a href="#">returns</a>
-              </li>
-              <li>
-                <a href="#">order status</a>
-              </li>
-              <li>
-                <a href="#">payment options</a>
-              </li>
+              
             </ul>
           </div>
-          <div class="footer-col">
+          {/* <div class="footer-col">
             <h4>online shop</h4>
             <ul>
               <li>
@@ -58,26 +48,27 @@ function Footer() {
                 <a href="#">dress</a>
               </li>
             </ul>
-          </div>
+          </div> */}
           <div class="footer-col">
             <h4>follow us</h4>
             <div class="social-links">
-              <a href="#">
+              {/* <a href="#">
                 <i class="fab fa-facebook-f"></i>
-              </a>
-              <a href="#">
+              </a> */}
+              <a href="https://x.com/sonoriq" target="_blank">
                 <i class="fab fa-twitter"></i>
               </a>
-              <a href="#">
+              <a href="https://www.instagram.com/sonoriq/" target="_blank">
                 <i class="fab fa-instagram"></i>
               </a>
-              <a href="#">
-                <i class="fab fa-linkedin-in"></i>
+              <a href="https://www.youtube.com/@Sonoriq" target="_blank">
+                <i class="fab fa-youtube"></i>
               </a>
             </div>
           </div>
         </div>
-      </div>
+        <p class='creds'>Made with ❤️ by team Sonoriq.</p>
+      {/* </div> */}
     </footer>
   );
 }
