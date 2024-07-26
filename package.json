@@ -19,7 +19,6 @@
     "react-modal": "^3.16.1",
     "react-router-dom": "^6.25.1",
     "spotify-web-api-js": "^1.5.2",
-    "react-router-dom": "^6.24.1",
     "styled-components": "^6.1.11",
     "swiper": "^11.1.4",
     "zustand": "^4.5.4"
