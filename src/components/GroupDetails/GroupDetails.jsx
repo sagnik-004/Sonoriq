@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { collection, query, where, getDocs, updateDoc, arrayRemove } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  updateDoc,
+  arrayRemove,
+} from "firebase/firestore";
 import { db } from "../LoginRegister/firebase";
 import "./GroupDetails.css";
 import { useUserStore } from "../LoginRegister/userStore";
@@ -12,7 +19,10 @@ const GroupDetails = ({ group }) => {
     const fetchMembers = async () => {
       if (group && group.members) {
         try {
-          const q = query(collection(db, "users"), where("userid", "in", group.members));
+          const q = query(
+            collection(db, "users"),
+            where("userid", "in", group.members)
+          );
           const querySnapshot = await getDocs(q);
 
           const fetchedMembers = querySnapshot.docs.map((doc) => ({
@@ -42,7 +52,10 @@ const GroupDetails = ({ group }) => {
     const groupIdToRemove = group.groupId;
 
     try {
-      const groupQuery = query(collection(db, "groups"), where("groupId", "==", groupIdToRemove));
+      const groupQuery = query(
+        collection(db, "groups"),
+        where("groupId", "==", groupIdToRemove)
+      );
       const groupSnapshot = await getDocs(groupQuery);
 
       if (groupSnapshot.empty) {
@@ -54,10 +67,13 @@ const GroupDetails = ({ group }) => {
       const groupRef = groupDoc.ref;
 
       await updateDoc(groupRef, {
-        members: arrayRemove(userIdToRemove)
+        members: arrayRemove(userIdToRemove),
       });
 
-      const userQuery = query(collection(db, "users"), where("userid", "==", userIdToRemove));
+      const userQuery = query(
+        collection(db, "users"),
+        where("userid", "==", userIdToRemove)
+      );
       const userSnapshot = await getDocs(userQuery);
 
       if (userSnapshot.empty) {
@@ -68,12 +84,15 @@ const GroupDetails = ({ group }) => {
       const userRef = userDoc.ref;
 
       await updateDoc(userRef, {
-        groups: arrayRemove(groupIdToRemove)
+        groups: arrayRemove(groupIdToRemove),
       });
 
-      setMembers(members.filter(member => member.userid !== userIdToRemove));
-      window.dispatchEvent(new CustomEvent('groupLeft', { detail: { groupId: groupIdToRemove, userId: userIdToRemove } }));
-
+      setMembers(members.filter((member) => member.userid !== userIdToRemove));
+      window.dispatchEvent(
+        new CustomEvent("groupLeft", {
+          detail: { groupId: groupIdToRemove, userId: userIdToRemove },
+        })
+      );
     } catch (error) {
       console.error("Error leaving group:", error);
     }
@@ -82,13 +101,21 @@ const GroupDetails = ({ group }) => {
   return (
     <div className="GroupDetails">
       <div className="group-banner-container">
-        <img src={group.bannerUrl} alt="Group Banner" className="group-banner" />
-        <img src={group.avatarUrl} alt="Group Avatar" className="group-avatar" />
+        <img
+          src={group.bannerUrl}
+          alt="Group Banner"
+          className="group-banner"
+        />
+        <img
+          src={group.avatarUrl}
+          alt="Group Avatar"
+          className="group-avatar"
+        />
       </div>
       <div className="group-info">
         <h2>{group.groupName}</h2>
         <p>{group.groupBio}</p>
-        <span className="group-id">Group ID: {group.groupId}</span>
+        <span className="group-id">@{group.groupId}</span>
       </div>
       <h3>Group Members</h3>
       {members.length === 0 ? (
@@ -103,7 +130,11 @@ const GroupDetails = ({ group }) => {
           </div>
         ))
       )}
-      <button onClick={handleLeaveGroup} className="leave-group-btn">Leave Group</button>
+      <div className="leave-group-container">
+        <button onClick={handleLeaveGroup} className="leave-group-btn">
+          Leave Group
+        </button>
+      </div>{" "}
     </div>
   );
 };
