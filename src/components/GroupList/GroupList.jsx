@@ -51,6 +51,19 @@ const GroupList = ({ onGroupSelect }) => {
     }
   }, [userId]);
 
+  useEffect(() => {
+    const handleGroupLeft = (event) => {
+      const { groupId } = event.detail;
+      setJoinedGroups(prev => prev.filter(id => id !== groupId));
+    };
+
+    window.addEventListener('groupLeft', handleGroupLeft);
+
+    return () => {
+      window.removeEventListener('groupLeft', handleGroupLeft);
+    };
+  }, []);
+
   const sortedGroups = useMemo(() => {
     return [...groups].sort((a, b) => {
       const aTimestamp = a.latestMessage?.timestamp || 0;
@@ -74,6 +87,7 @@ const GroupList = ({ onGroupSelect }) => {
         await joinGroup(userId, groupId);
         const updatedJoinedGroups = await getUserGroups(userId);
         setJoinedGroups(updatedJoinedGroups);
+        window.dispatchEvent(new CustomEvent('groupJoined', { detail: groupId }));
       } catch (error) {
         console.error("Error joining group:", error);
       }
