@@ -121,11 +121,35 @@ const GroupChat = ({ selectedGroup }) => {
         return `${formattedHours}:${formattedMinutes} ${ampm}`;
     };
 
+    const formatDate = (timestamp) => {
+        const date = new Date(timestamp);
+        const day = date.getDate();
+        const month = date.toLocaleString('default', { month: 'long' });
+        const year = date.getFullYear();
+        return `${day} ${month}, ${year}`;
+    };
+
+    const groupMessagesByDate = (messages) => {
+        const groupedMessages = messages.reduce((acc, message) => {
+            const date = formatDate(message.timestamp);
+            if (!acc[date]) {
+                acc[date] = [];
+            }
+            acc[date].push(message);
+            return acc;
+        }, {});
+        return groupedMessages;
+    };
+
     if (!selectedGroup) {
-        return <div className="gc-GroupChat" id="not-joined">Please select a group to start chatting.</div>;
+        return <div className="gc-GroupChat">Please select a group to start chatting.</div>;
     }
+    
 
     const isGroupJoined = joinedGroups.includes(selectedGroup.groupId);
+    const groupedMessages = groupMessagesByDate(messages);
+
+    
 
     return (
         <div className="gc-GroupChat">
@@ -134,18 +158,23 @@ const GroupChat = ({ selectedGroup }) => {
                 <span className="gc-groupName">{selectedGroup.groupName}</span>
             </div>
             <div className="gc-chatMessages">
-                {messages.map((msg) => (
-                    <div key={msg.id} className={`gc-chatMessage ${msg.userId === currentUser?.userid ? 'user' : 'other'}`}>
-                        {msg.userId !== currentUser?.userid && (
-                            <div className="gc-otherUserInfo">
-                                <img src={msg.avatarUrl || './avatar.jpg'} alt="Other Avatar" className="gc-chatAvatar" />
-                                <span className="gc-otherUsername">{msg.username}</span>
+                {Object.keys(groupedMessages).map((date) => (
+                    <div key={date}>
+                        <div className="gc-dateSeparator">{date}</div>
+                        {groupedMessages[date].map((msg) => (
+                            <div key={msg.id} className={`gc-chatMessage ${msg.userId === currentUser?.userid ? 'user' : 'other'}`}>
+                                {msg.userId !== currentUser?.userid && (
+                                    <div className="gc-otherUserInfo">
+                                        <img src={msg.avatarUrl || './avatar.jpg'} alt="Other Avatar" className="gc-chatAvatar" />
+                                        <span className="gc-otherUsername">{msg.username}</span>
+                                    </div>
+                                )}
+                                <div className="gc-message">
+                                    <div className="gc-messageContent">{msg.message}</div>
+                                    <div className="gc-timestamp">{formatTimestamp(msg.timestamp)}</div>
+                                </div>
                             </div>
-                        )}
-                        <div className="gc-message">
-                            <div className="gc-messageContent">{msg.message}</div>
-                            <div className="gc-timestamp">{formatTimestamp(msg.timestamp)}</div>
-                        </div>
+                        ))}
                     </div>
                 ))}
                 <div ref={chatEndRef} />
