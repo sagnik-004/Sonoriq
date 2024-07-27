@@ -565,11 +565,11 @@ code {
   display: flex;
 }
 
-@media (max-width: 1400px) {
+/* @media (max-width: 1400px) {
   .container {
     flex-direction: column;
   }
-}
+} */
 
 /* .list {
   flex: 1;
