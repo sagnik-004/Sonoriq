@@ -24,13 +24,13 @@ import { getStorage } from "firebase/storage";
 
 // Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCsbyDmM5DcQBMhV2Lh7_CpUbIFcuDC2IE",
-  authDomain: "sonoriq.firebaseapp.com",
-  projectId: "sonoriq",
-  storageBucket: "sonoriq.appspot.com",
-  messagingSenderId: "964785571210",
-  appId: "1:964785571210:web:4d2c6d80057a8941c77473",
-  measurementId: "G-2ZPHNXJL08"
+  apiKey: "AIzaSyAz9PJ0R0sekvK9dh_hPP5sFZYPmXUxyNs",
+  authDomain: "sonoriq-f4dcc.firebaseapp.com",
+  projectId: "sonoriq-f4dcc",
+  storageBucket: "sonoriq-f4dcc.appspot.com",
+  messagingSenderId: "613507041397",
+  appId: "1:613507041397:web:2b856303628a07e1ac103c",
+  measurementId: "G-6FH1GMETZT"
 };
 
 // Initialize Firebase
