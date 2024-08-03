@@ -42,7 +42,7 @@ const MusicCharts = () => {
 
     const fetchLastFmAndSpotifyData = async () => {
       const lastFmApiKey =import.meta.env.VITE_TOPTRACKS_LASTFMAPIKEY;
-      const spotifyClientId =import.meta.env.VITE_TOPTRACKS_CLIENT_ID
+      const spotifyClientId =import.meta.env.VITE_TOPTRACKS_CLIENT_ID;
       const spotifyClientSecret =import.meta.env.VITE_TOPTRACKS_CLIENT_SECRET;
 
       try {
