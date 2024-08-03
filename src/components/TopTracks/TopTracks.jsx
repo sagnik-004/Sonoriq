@@ -9,9 +9,9 @@ const MusicCharts = () => {
 
   useEffect(() => {
     const fetchSpotifyData = async () => {
-      const clientId =import.meta.env.VITE_TOPTRACKS_CLIENT_ID;
-      const clientSecret = import.meta.env.VITE_TOPTRACKS_CLIENT_SECRET;
-      const playlistId =import.meta.env.VITE_TOPTRACKS_PLAYLIST_ID;
+      const clientId ='d91a526fac8d4ce59f314782764bca69';
+      const clientSecret ='8c16b55a114047e98523196eb625fc71';
+      const playlistId ='37i9dQZF1DXcBWIGoYBM5M';
 
       try {
         const tokenResponse = await axios.post(
@@ -42,8 +42,8 @@ const MusicCharts = () => {
 
     const fetchLastFmAndSpotifyData = async () => {
       const lastFmApiKey =import.meta.env.VITE_TOPTRACKS_LASTFMAPIKEY;
-      const spotifyClientId =import.meta.env.VITE_TOPTRACKS_CLIENT_ID;
-      const spotifyClientSecret =import.meta.env.VITE_TOPTRACKS_CLIENT_SECRET;
+      const spotifyClientId ='d91a526fac8d4ce59f314782764bca69';
+      const spotifyClientSecret ='8c16b55a114047e98523196eb625fc71';
 
       try {
         const lastFmResponse = await axios.get(
