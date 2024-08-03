@@ -1,0 +1,49 @@
+/* RecentUpdates.css */
+
+.recent-updates {
+  padding: 0;
+  user-select: text; /* Enable text selection for the entire component */
+}
+
+.recent-updates h2 {
+  padding: 8px 0;
+}
+
+.recent-updates ul {
+  list-style: none;
+}
+
+.recent-updates li {
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: #0000005b; /* Slightly lighter background for contrast */
+  text-align: justify;
+  user-select: text; /* Enable text selection for each list item */
+}
+
+.recent-updates h3 {
+  margin: 0;
+  font-size: 1.2em;
+  font-weight:600;
+  color: rgb(255, 185, 116);
+  user-select: text; /* Enable text selection for headers */
+}
+
+.recent-updates p {
+  margin: 10px 0 0;
+  color: #ccc; /* Lighter text color for descriptions */
+  user-select: text; /* Enable text selection for paragraphs */
+  font-weight: 400;
+}
+
+a {
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  user-select: text; /* Enable text selection for links */
+  font-weight: 700;
+}
+
+a:hover {
+  text-decoration: underline;
+}

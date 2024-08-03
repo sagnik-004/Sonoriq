@@ -1,0 +1,125 @@
+.GroupDetails {
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 20%;
+  border-left: 1px solid rgba(255, 255, 255, 0.364);
+  padding: 0px;
+}
+
+.group-banner-container {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  margin-bottom: 20px;
+}
+
+.group-banner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.group-avatar {
+  position: absolute;
+  bottom: -25px;
+  left:110px;
+  width: 80px;
+  height: 80px;
+  border: 2px solid white;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.group-info {
+  padding: 10px;
+  margin: 20px 0;
+}
+
+.group-info h2 {
+  font-size: 24px;
+  margin: 0;
+}
+
+.group-info p {
+  font-size: 16px;
+  margin: 10px 0;
+  text-align: center;
+  color: white;
+}
+
+.group-id {
+  display: block;
+  font-size: 16px;
+  text-align: center;
+  color: rgb(255, 246, 147);
+}
+
+.GroupDetails h3 {
+  font-size: 22px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  /* border-bottom: 1px solid rgba(255, 255, 255, 0.375); */
+  text-align: center;
+  color: white;
+  font-weight: 600;
+  background-color: rgba(0, 0, 0, 0.668);
+  margin-bottom: 10px;
+}
+
+.gc-member {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.gc-member img {
+  width: 40px;
+  height: 40px;
+  border: 2px solid white;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.gc-member .texts {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-left: 2px;
+}
+
+.gc-member .texts span {
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.gc-member .texts p {
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.leave-group-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.leave-group-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  
+}
+
+.leave-group-btn:hover {
+  background-color: #b70000;
+  transition: 0.2s;
+}
