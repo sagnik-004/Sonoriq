@@ -3,6 +3,8 @@
 import express from 'express';
 import cors from 'cors';
 import { getAccessToken, getRecommendations } from './spotify.mjs';
+import('dotenv').then(dotenv => dotenv.config());
+import process from 'process';
 
 const app = express();
 const port = process.env.PORT || 5000;

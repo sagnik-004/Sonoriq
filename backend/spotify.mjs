@@ -1,9 +1,12 @@
 // spotify.mjs
 
 import fetch from 'node-fetch';
+import { Buffer } from 'buffer';
+import process from 'process';
 
-const clientId =import.meta.env.VITE_BACKEND_CLIENT_ID;
-const clientSecret =import.meta.env.VITE_BACKEND_CLIENT_SECRET;
+
+const clientId = process.env.SPOTIFY_CLIENT_ID;
+const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
 
 async function getAccessToken() {
   const response = await fetch('https://accounts.spotify.com/api/token', {
