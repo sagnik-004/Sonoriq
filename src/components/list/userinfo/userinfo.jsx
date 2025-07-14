@@ -14,7 +14,7 @@ function Userinfo() {
                 const userDoc = await getDoc(doc(db, "users", currentUser.id));
                 if (userDoc.exists()) {
                     const userData = userDoc.data();
-                    setImageUrl(userData.avatar || './avatar.png');
+                    setImageUrl(userData.imageUrl || './avatar.png');
                 }
             }
         };

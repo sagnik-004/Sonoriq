@@ -10,65 +10,125 @@ const ProfileSettings = () => {
   const { user, setUser } = useUserStore(state => ({ user: state.currentUser, setUser: state.setUser }));
   const [editingField, setEditingField] = useState(null);
   const [formData, setFormData] = useState({
-    username: user?.username || '',
-    email: user?.email || '',
-    bio: user?.bio || '',
-    genres: user?.genres?.join(', ') || '',
-    avatar: user?.avatar || '',
+    username: '',
+    email: '',
+    bio: '',
+    genres: '',
+    avatar: '',
   });
-  const [loadingSave, setLoadingSave] = useState(false); // Loading state for saving changes
+  const [loadingSave, setLoadingSave] = useState(false);
   const [loadingDelete, setLoadingDelete] = useState(false);
-  const [file, setFile] = useState(null);
+  const [uploadingAvatar, setUploadingAvatar] = useState(false);
 
+  // Initialize form data when user changes
   useEffect(() => {
-    setFormData({
-      username: user?.username || '',
-      email: user?.email || '',
-      bio: user?.bio || '',
-      genres: user?.genres?.join(', ') || '',
-      avatar: user?.avatar || '',
-    });
+    if (user) {
+      setFormData({
+        username: user.username || '',
+        email: user.email || '',
+        bio: user.bio || '',
+        genres: user.genres?.join(', ') || '',
+        avatar: user.imageUrl || user.avatar || '', // Use imageUrl as primary, avatar as fallback
+      });
+    }
   }, [user]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleEdit = (field) => {
-    setEditingField(field);
     if (field === 'avatar') {
       document.getElementById('fileInput').click();
+    } else {
+      setEditingField(field);
+    }
+  };
+
+  const validateFile = (file) => {
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+    const maxSize = 5 * 1024 * 1024; // 5MB
+    
+    if (!allowedTypes.includes(file.type)) {
+      throw new Error('Please select a valid image file (JPEG, PNG, GIF, or WebP)');
+    }
+    
+    if (file.size > maxSize) {
+      throw new Error('File size must be less than 5MB');
     }
   };
 
   const handleFileChange = async (e) => {
     const selectedFile = e.target.files[0];
-    if (selectedFile) {
-      try {
-        setFile(selectedFile);
-        const downloadURL = await upload(selectedFile, user.id);
-        setFormData({ ...formData, avatar: downloadURL });
-      } catch (error) {
-        console.error("Error uploading file: ", error);
-        alert("Failed to upload new avatar.");
-      }
+    if (!selectedFile) return;
+
+    try {
+      // Validate file
+      validateFile(selectedFile);
+      
+      setUploadingAvatar(true);
+      
+      // Show immediate preview
+      const previewUrl = URL.createObjectURL(selectedFile);
+      setFormData(prev => ({ ...prev, avatar: previewUrl }));
+      
+      // Upload to Firebase
+      const downloadURL = await upload(selectedFile, user.id);
+      
+      // Update with permanent URL
+      setFormData(prev => ({ ...prev, avatar: downloadURL }));
+      
+      // Auto-save the avatar to Firebase with imageUrl field
+      const userDocRef = doc(db, "users", user.id);
+      await setDoc(userDocRef, { imageUrl: downloadURL }, { merge: true });
+      
+      // Update user store
+      const updatedUserDoc = await getDoc(userDocRef);
+      setUser(updatedUserDoc.data());
+      
+      alert('Avatar updated successfully!');
+      
+      // Clean up preview URL
+      URL.revokeObjectURL(previewUrl);
+      
+    } catch (error) {
+      console.error("Error uploading file: ", error);
+      alert(`Failed to upload avatar: ${error.message}`);
+      
+      // Revert to original avatar on error
+      setFormData(prev => ({ 
+        ...prev, 
+        avatar: user?.imageUrl || user?.avatar || '' 
+      }));
+    } finally {
+      setUploadingAvatar(false);
+      // Reset file input
+      e.target.value = '';
     }
   };
 
   const handleSave = async () => {
+    if (!user) return;
+    
     setLoadingSave(true);
     try {
       const userDocRef = doc(db, "users", user.id);
-      await setDoc(userDocRef, {
-        ...formData,
-        genres: formData.genres.split(',').map(genre => genre.trim())
-      }, { merge: true });
+      const updateData = {
+        username: formData.username.trim(),
+        email: formData.email.trim(),
+        bio: formData.bio.trim(),
+        genres: formData.genres.split(',').map(genre => genre.trim()).filter(genre => genre),
+        imageUrl: formData.avatar // Save as imageUrl for consistency
+      };
+      
+      await setDoc(userDocRef, updateData, { merge: true });
       const updatedUserDoc = await getDoc(userDocRef);
       setUser(updatedUserDoc.data());
       setEditingField(null);
       alert('Changes saved successfully!');
     } catch (error) {
+      console.error("Error saving changes:", error);
       alert(`Error saving changes: ${error.message}`);
     } finally {
       setLoadingSave(false);
@@ -76,88 +136,224 @@ const ProfileSettings = () => {
   };
 
   const handleDeleteAccount = async () => {
-    const confirmed = window.confirm("Are you sure you want to delete your account? This action cannot be undone.");
-    if (confirmed) {
-      setLoadingDelete(true);
-      try {
-        await deleteDoc(doc(db, "users", user.id));
-        await deleteUser(auth.currentUser);
-        setUser(null);
-        alert('Account deleted successfully!');
-      } catch (error) {
-        alert(`Error deleting account: ${error.message}`);
-      } finally {
-        setLoadingDelete(false);
-      }
+    const confirmed = window.confirm(
+      "Are you sure you want to delete your account? This action cannot be undone."
+    );
+    
+    if (!confirmed) return;
+    
+    setLoadingDelete(true);
+    try {
+      // Delete user data from Firestore
+      await deleteDoc(doc(db, "users", user.id));
+      
+      // Delete user authentication
+      await deleteUser(auth.currentUser);
+      
+      // Clear user store
+      setUser(null);
+      
+      alert('Account deleted successfully!');
+    } catch (error) {
+      console.error("Error deleting account:", error);
+      alert(`Error deleting account: ${error.message}`);
+    } finally {
+      setLoadingDelete(false);
     }
   };
 
   const handleCopyUserId = () => {
-    navigator.clipboard.writeText(user.userid);
-    alert('UserID copied to clipboard!');
+    if (user?.userid) {
+      navigator.clipboard.writeText(user.userid)
+        .then(() => alert('UserID copied to clipboard!'))
+        .catch(() => alert('Failed to copy UserID'));
+    }
   };
+
+  const handleCancel = () => {
+    // Reset form data to original values
+    setFormData({
+      username: user?.username || '',
+      email: user?.email || '',
+      bio: user?.bio || '',
+      genres: user?.genres?.join(', ') || '',
+      avatar: user?.imageUrl || user?.avatar || '',
+    });
+    setEditingField(null);
+  };
+
+  if (!user) {
+    return (
+      <div className="profile-page">
+        <div className="loading">Loading user profile...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="profile-page">
       <h1 className='user-profile'>User Profile</h1>
       <div className="profile-content">
+        
+        {/* Avatar Section */}
         <div className="profile-field">
-          <img src={formData.avatar} alt="Avatar" className="avatar" />
-          <input type="file" id="fileInput" style={{ display: 'none' }} onChange={handleFileChange} />
-          {editingField === 'avatar' ? (
-            <input type="file" onChange={handleFileChange} />
-          ) : (
-            <button title="Edit Avatar" onClick={() => handleEdit('avatar')}><i class="fa-solid fa-pen-to-square"></i></button>
-            
-          )}
+          <div className="avatar-container">
+            <img 
+              src={formData.avatar || './avatar.png'} 
+              alt="Avatar" 
+              className="avatar" 
+            />
+            {uploadingAvatar && (
+              <div className="upload-overlay">
+                <div className="spinner"></div>
+                <span>Uploading...</span>
+              </div>
+            )}
+          </div>
+          <input 
+            type="file" 
+            id="fileInput" 
+            style={{ display: 'none' }} 
+            onChange={handleFileChange}
+            accept="image/*"
+            disabled={uploadingAvatar}
+          />
+          <button 
+            title="Edit Avatar" 
+            onClick={() => handleEdit('avatar')}
+            disabled={uploadingAvatar}
+          >
+            <i className="fa-solid fa-pen-to-square"></i>
+          </button>
         </div>
+
+        {/* Username Field */}
         <div className="profile-field">
           <label>Username: </label>
           {editingField === 'username' ? (
-            <input name="username" value={formData.username} onChange={handleChange} />
+            <input 
+              name="username" 
+              value={formData.username} 
+              onChange={handleChange}
+              placeholder="Enter username"
+              maxLength={50}
+            />
           ) : (
-            <span>{formData.username}</span>
+            <span>{formData.username || 'Not set'}</span>
           )}
-          <button title="Edit Username" onClick={() => handleEdit('username')}><i class="fa-solid fa-pen-to-square"></i></button>
+          <button 
+            title="Edit Username" 
+            onClick={() => handleEdit('username')}
+          >
+            <i className="fa-solid fa-pen-to-square"></i>
+          </button>
         </div>
+
+        {/* Email Field */}
         <div className="profile-field">
           <label>Email: </label>
           {editingField === 'email' ? (
-            <input name="email" value={formData.email} onChange={handleChange} />
+            <input 
+              name="email" 
+              type="email"
+              value={formData.email} 
+              onChange={handleChange}
+              placeholder="Enter email address"
+            />
           ) : (
-            <span>{formData.email}</span>
+            <span>{formData.email || 'Not set'}</span>
           )}
-          <button title="Edit Email ID" onClick={() => handleEdit('email')}><i class="fa-solid fa-pen-to-square"></i></button>
+          <button 
+            title="Edit Email ID" 
+            onClick={() => handleEdit('email')}
+          >
+            <i className="fa-solid fa-pen-to-square"></i>
+          </button>
         </div>
+
+        {/* UserID Field (Read-only) */}
         <div className="profile-field">
           <label>UserID: </label>
-          <span>{user.userid}</span>
-          <button title="Copy User ID to Clipboard" onClick={handleCopyUserId}><i class="fa-solid fa-copy"></i></button>
+          <span>{user.userid || 'Not set'}</span>
+          <button 
+            title="Copy User ID to Clipboard" 
+            onClick={handleCopyUserId}
+            disabled={!user.userid}
+          >
+            <i className="fa-solid fa-copy"></i>
+          </button>
         </div>
+
+        {/* Bio Field */}
         <div className="profile-field">
           <label>Bio: </label>
           {editingField === 'bio' ? (
-            <input name="bio" value={formData.bio} onChange={handleChange} />
+            <textarea 
+              name="bio" 
+              value={formData.bio} 
+              onChange={handleChange}
+              placeholder="Tell us about yourself"
+              maxLength={200}
+              rows={3}
+            />
           ) : (
-            <span>{formData.bio}</span>
+            <span>{formData.bio || 'Not set'}</span>
           )}
-          <button title="Edit Bio" onClick={() => handleEdit('bio')}><i class="fa-solid fa-pen-to-square"></i></button>
+          <button 
+            title="Edit Bio" 
+            onClick={() => handleEdit('bio')}
+          >
+            <i className="fa-solid fa-pen-to-square"></i>
+          </button>
         </div>
+
+        {/* Genres Field */}
         <div className="profile-field">
           <label>Favourite Genres: </label>
           {editingField === 'genres' ? (
-            <input name="genres" value={formData.genres} onChange={handleChange} />
+            <input 
+              name="genres" 
+              value={formData.genres} 
+              onChange={handleChange}
+              placeholder="Rock, Pop, Jazz (comma-separated)"
+            />
           ) : (
-            <span>{formData.genres}</span>
+            <span>{formData.genres || 'Not set'}</span>
           )}
-          <button title="Edit your favourite genres" onClick={() => handleEdit('genres')}><i class="fa-solid fa-pen-to-square"></i></button>
-        </div>
-        {editingField && (
-          <button className="edit-save-btn" onClick={handleSave} disabled={loadingSave}>
-            {loadingSave ? 'Saving...' : 'Save Changes'}
+          <button 
+            title="Edit your favourite genres" 
+            onClick={() => handleEdit('genres')}
+          >
+            <i className="fa-solid fa-pen-to-square"></i>
           </button>
+        </div>
+
+        {/* Action Buttons */}
+        {editingField && (
+          <div className="action-buttons">
+            <button 
+              className="edit-save-btn" 
+              onClick={handleSave} 
+              disabled={loadingSave}
+            >
+              {loadingSave ? 'Saving...' : 'Save Changes'}
+            </button>
+            <button 
+              className="cancel-btn" 
+              onClick={handleCancel}
+              disabled={loadingSave}
+            >
+              Cancel
+            </button>
+          </div>
         )}
-        <button className="delete-account" onClick={handleDeleteAccount} disabled={loadingDelete}>
+
+        {/* Delete Account Button */}
+        <button 
+          className="delete-account" 
+          onClick={handleDeleteAccount} 
+          disabled={loadingDelete}
+        >
           {loadingDelete ? 'Deleting...' : 'Delete Account'}
         </button>
       </div>
