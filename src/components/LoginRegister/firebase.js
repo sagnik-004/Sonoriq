@@ -23,13 +23,13 @@ import {
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDIwzDaGQJpxs2FVc0ndYAgqQ05HqjwPjE",
-  authDomain: "sonoriq-01.firebaseapp.com",
-  projectId: "sonoriq-01",
-  storageBucket: "sonoriq-01.firebasestorage.app",
-  messagingSenderId: "761092786022",
-  appId: "1:761092786022:web:b8655da414c5bb99546aa7",
-  measurementId: "G-XPNB04JJ2F"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
 const app = initializeApp(firebaseConfig);
